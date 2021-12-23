@@ -1,7 +1,7 @@
 import numpy as np
 import random
 import colorama
-from colorama import Fore, Style
+from colorama import Fore, back, Style
 colorama.init(autoreset = True)
 
 
