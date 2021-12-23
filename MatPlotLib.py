@@ -2,6 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+print("Or")
+
+
 ####################################MATPLOTLIB PART 1#########################################
 x = np.linspace(0, 5 ,11)
 y = x ** 2

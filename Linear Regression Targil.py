@@ -4,6 +4,7 @@ import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset = True)
 
+print("Or")
 
 Integer10NumbersRand = list(np.random.randint(0, 100, 10))
 print(Fore.RED + '\nsection a. 10 random integer numbers: \n', Integer10NumbersRand)

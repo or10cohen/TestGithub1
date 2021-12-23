@@ -24,6 +24,10 @@ import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset = True)
 
+
+print("Or")
+
+
 print(Fore.RED + 'red text \n' )
 
 # * T1- Check the numpy version 
