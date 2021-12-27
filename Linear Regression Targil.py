@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import colorama
+import matplotlib.pyplot as plt
 from colorama import Fore, Back, Style
 colorama.init(autoreset = True)
 
@@ -32,7 +33,9 @@ Constant1 = random.choice(VectorFibonacci)
 y_line_1 = Constant1 * x                         ###### oren
 print(Fore.RED + f'\nsection f. create y_line_1 = {Constant1}(Constant) * x[i]:\n', y_line_1)
 
-GaussianNoise1 = np.random.normal(size=(10))
+mu, sigma = 0, 1
+
+GaussianNoise1 = np.random.normal(mu, sigma, size=(10))
 print(Fore.RED + '\nsection g1. GaussianNoise1:\n', GaussianNoise1)
 
 y_line_1PlusGaussian = y_line_1 + GaussianNoise1
@@ -44,7 +47,7 @@ Constant3 = random.choice(VectorFibonacci)
 y_line_2 = Constant2 * x + Constant3
 print(Fore.RED + f'\nsection h1. create y_line_2 = {Constant2}(Constant) * x[i] + {Constant3}(Constant):\n', y_line_2)
 
-GaussianNoise2 = np.random.normal(size=(10))
+GaussianNoise2 = np.random.normal(mu, sigma, size=(10))
 print(Fore.RED + '\nsection h2. GaussianNoise2:\n', list(GaussianNoise2))
 
 y_line_2PlusGaussian = y_line_2 + GaussianNoise2
@@ -57,7 +60,7 @@ Constant6 = random.choice(VectorFibonacci)
 y_line_3 = Constant4 * x ** 2 + Constant5 * x + Constant6
 print(Fore.RED + f'\nsection i1. create y_line_3 = {Constant4}(Constant) * x[i] ** 2 + {Constant5}(Constant) * x[i] + {Constant6}(Constant):\n', y_line_3)
 
-GaussianNoise3 = np.random.normal(size=(10))
+GaussianNoise3 = np.random.normal(mu, sigma, size=(10))
 print(Fore.RED + '\nsection i2. GaussianNoise3:\n', list(GaussianNoise3))
 
 y_line_3PlusGaussian = y_line_3 + GaussianNoise3
@@ -123,6 +126,27 @@ h = np.linalg.inv(X.T.dot(X)).dot(X.T).dot(y_line_3) # normal equation
 # h[1] = Theta2
 # h[2] = Theta3
 print(Fore.RED + f'\nThe result of Normal equation for y_line_3PlusGaussian = {Constant4}(Constant) * x[i] ** 2 + {Constant5}(Constant) * x[i] + {Constant6}(Constant) + GaussianNoise3[i] are describe by the formula: h = (x^t * x)^(-1) * x^t * y\n', h)
+
+
+
+print(Fore.RED + '\nplot test in loop\n')
+
+
+x1 = np.linspace(min(x), max(x), 200)
+y_plot = [Constant1 * x1, Constant2 * x1 + Constant3, Constant4 * x1 ** 2 + Constant5 * x1 + Constant6]
+y_plot1 = [y_line_1PlusGaussian, y_line_2PlusGaussian, y_line_3PlusGaussian]
+for idx, i in enumerate(y_plot):
+    fig = plt.figure()  # create new figure from zero(empty canbas)
+    # axes1 = fig.add_subplot(idx + 131)
+    axes1 = fig.add_axes([0.1, 0.1, 0.8, 0.8])  # ([left axis, bottom axis, width, high])  0 < argument < 1
+    axes1.grid(color='black', linestyle='--', linewidth=1)
+    axes1.set_xlabel('X-Axis Label')
+    axes1.set_ylabel('Y-Axis Label')
+    axes1.set_title('Title: fig')
+    axes1.plot(x1, i, 'b')
+    axes1.plot(x, y_plot1[idx], 'o', color='r')
+
+plt.show()
 
 
 
