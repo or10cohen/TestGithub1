@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 x = np.array([0, 1, 2])
-x = np.array([0, 1, 2])
 y = np.array([1, 3, 7])
 
 iter = 200
