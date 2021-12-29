@@ -19,12 +19,12 @@ for LearningRate in LearningRates:
     aMomentum, bMomentum, cMomentum = a, b, c
     u_a, u_b, u_c = 0, 0, 0
     for _ in range(iter):
-        LossFunction = np.float64( (1 / len(x)) * sum((y - (a + b * x + c * (x ** 2))) ** 2) )
+        LossFunction = np.float64((1 / (2 * len(x))) * sum(((a + b * x + c * (x ** 2)) - y) ** 2))
         AllLossFunction.append(LossFunction)
 
-        D_LossFunction_D_a = 2 * (y - (a + b * x + c * (x ** 2))) * (-1)
-        D_LossFunction_D_b = 2 * (y - (a + b * x + c * (x ** 2))) * (-x)
-        D_LossFunction_D_c = 2 * (y - (a + b * x + c * (x ** 2))) * -(x ** 2)
+        D_LossFunction_D_a = (1 / len(x)) * sum(((a + b * x + c * (x ** 2)) - y) * (1))
+        D_LossFunction_D_b = (1 / len(x)) * sum(((a + b * x + c * (x ** 2)) - y) * (x))
+        D_LossFunction_D_c = (1 / len(x)) * sum(((a + b * x + c * (x ** 2)) - y) * (x ** 2))
 
         a = a - LearningRate * D_LossFunction_D_a
         b = b - LearningRate * D_LossFunction_D_b
@@ -32,12 +32,12 @@ for LearningRate in LearningRates:
 
         ##-------------Momentum--------------------------------
 
-        LossFunctionMomentum = np.float64((1 / len(x)) * sum((y - (aMomentum + bMomentum * x + cMomentum * (x ** 2))) ** 2))
+        LossFunctionMomentum = np.float64((1 / (2 *len(x))) * sum((y - (aMomentum + bMomentum * x + cMomentum * (x ** 2))) ** 2))
         AllLossFunctionMomentum.append(LossFunctionMomentum)
 
-        D_LossFunction_D_a_Momentum = 2 * (y - (aMomentum + bMomentum * x + cMomentum * (x ** 2))) * (-1)
-        D_LossFunction_D_b_Momentum = 2 * (y - (aMomentum + bMomentum * x + cMomentum * (x ** 2))) * (-x)
-        D_LossFunction_D_c_Momentum = 2 * (y - (aMomentum + bMomentum * x + cMomentum * (x ** 2))) * -(x ** 2)
+        D_LossFunction_D_a_Momentum = (1 / len(x)) * sum(((aMomentum + bMomentum * x + cMomentum * (x ** 2)) - y) * (1))
+        D_LossFunction_D_b_Momentum = (1 / len(x)) * sum(((aMomentum + bMomentum * x + cMomentum * (x ** 2)) - y) * (x))
+        D_LossFunction_D_c_Momentum = (1 / len(x)) * sum(((aMomentum + bMomentum * x + cMomentum * (x ** 2)) - y) * (x ** 2))
 
         u_a = Momentum * u_a + LearningRate * D_LossFunction_D_a_Momentum
         u_b = Momentum * u_b + LearningRate * D_LossFunction_D_b_Momentum
@@ -54,13 +54,13 @@ for LearningRate in LearningRates:
     AllLossFunctionMomentum.clear()
 
 print('\nAllLossFunctionPerLearningRate for Learning rate = 1:\n', AllLossFunctionPerLearningRate[0])
-print('\nAllLossFunctionPerLearningRate for Learning rate = 0.1:\n', AllLossFunctionPerLearningRate[1])
-print('\nAllLossFunctionPerLearningRate for Learning rate = 0.01:\n', AllLossFunctionPerLearningRate[2])
-
 print('\nAllLossFunctionPerLearningRateMomentum for Learning rate = 1:\n', AllLossFunctionPerLearningRateMomentum[0])
-print('\nAllLossFunctionPerLearningRateMomentum for Learning rate = 0.1:\n', AllLossFunctionPerLearningRateMomentum[1])
-print('\nAllLossFunctionPerLearningRateMomentum for Learning rate = 0.01:\n', AllLossFunctionPerLearningRateMomentum[2])
 
+print('\nAllLossFunctionPerLearningRate for Learning rate = 0.1:\n', AllLossFunctionPerLearningRate[1])
+print('\nAllLossFunctionPerLearningRateMomentum for Learning rate = 0.1:\n', AllLossFunctionPerLearningRateMomentum[1])
+
+print('\nAllLossFunctionPerLearningRateMomentum for Learning rate = 0.01:\n', AllLossFunctionPerLearningRateMomentum[2])
+print('\nAllLossFunctionPerLearningRate for Learning rate = 0.01:\n', AllLossFunctionPerLearningRate[2])
 
 LossFunctionForIter_1 = AllLossFunctionPerLearningRate[0]
 LossFunctionForIter_0point1 = AllLossFunctionPerLearningRate[1]
@@ -82,10 +82,12 @@ yLineMomentum_0point01 = np.array(LossFunctionForIterMomentum_0point01)
 
 plt.figure()
 # plt.plot(xLine, yLine_1)
-# plt.plot(xLine, yLine_0point1)
-plt.plot(xLine, yLine_0point01, 'r')
+plt.plot(xLine, yLine_0point1, 'r')
+plt.plot(xLine, yLine_0point01, 'g')
 
-# plt.plot(xLine, yLine_1)
-# plt.plot(xLine, yLine_0point1)
-plt.plot(xLine, yLineMomentum_0point01, 'b')
+# plt.plot(xLine, yLineMomentum_1)
+plt.plot(xLine, yLineMomentum_0point1, '--')
+plt.plot(xLine, yLineMomentum_0point01, '--')
+
+plt.legend(['LearningRates = 0.1', 'LearningRates = 0.01', 'LearningRates with Momentum = 0.1', 'LearningRates with Momentum = 0.01'])
 plt.show()
