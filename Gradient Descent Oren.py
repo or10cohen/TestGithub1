@@ -22,9 +22,9 @@ for i in lr:
         loss_function = sum((y - (a + b * x + c * (x ** 2))) ** 2)
         sum_loss_function.append(loss_function)
 
-        dl_da = -2 * (y - (a + b * x + c * (x ** 2)))
-        dl_db = 2 * (y - (a + b * x + c * (x ** 2))) * (-x)
-        dl_dc = 2 * (y - (a + b * x + c * (x ** 2))) * (-2 * x * c)
+        dl_da = 2 * (y - (a + b * x + c * (x ** 2))) * -(1)
+        dl_db = 2 * (y - (a + b * x + c * (x ** 2))) * -(x)
+        dl_dc = 2 * (y - (a + b * x + c * (x ** 2))) * -(x ** 2)
 
         step_size_a = i * dl_da
         step_size_b = i * dl_db
@@ -44,7 +44,7 @@ for i in lr:
 print(total_sum_loss_function.shape)
 plt.figure()
 plt.plot(np.linspace(0, 100, 100), total_sum_loss_function[0, :100])
-plt.plot(np.linspace(0, 100, 100), total_sum_loss_function[1, :100], 'r')
+# plt.plot(np.linspace(0, 100, 100), total_sum_loss_function[1, :100], 'r')
 plt.legend(['lr=0.01', 'lr=0.1'])
 plt.show()
 
