@@ -6,34 +6,40 @@ import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset = True)
 
-iris = load_iris()     # iris have 3 list. data, target, target name.
+DataBase = load_iris()     # iris have 3 list. data, target, target name.
 
-# print('the iris type is:', type(iris))
-# print('iris data', iris)
+# print(Fore.RED + '\nthe first array in the iris dictionary is the data. iris.data[1:10]  (note: show less) : \n', DataBase.data[1:10])
+# print(Fore.RED + '\nthe second array in the iris dictionary is the target. iris.target:\n', DataBase.target)
+# print(Fore.RED + '\nthe third array in the iris dictionary is the names. iris.target_names:\n', DataBase.target_names)
 
-print(Fore.RED + '\nthe first array in the iris dictionary is the data. iris.data[1:10]  (note: show less) : \n', iris.data[1:10])
-print(Fore.RED + '\nthe second array in the iris dictionary is the target. iris.target:\n', iris.target)
-print(Fore.RED + '\nthe third array in the iris dictionary is the names. iris.target_names:\n', iris.target_names)
+def SplitData():
+    DataPoints = DataBase.data
+    TargetPoints = DataBase.target
+    RandNumober = np.random.randint(10)
+    np.random.seed(RandNumober)
+    np.random.shuffle(DataPoints)
+    np.random.seed(RandNumober)
+    np.random.shuffle(TargetPoints)
+    TrainDataPoints = DataPoints[:int(0.7 * len(DataPoints)), :]
+    TestDataPoints = DataPoints[int(0.7 * len(DataPoints)):, :]
+    TrainTargetPoints = TargetPoints[:int(0.7 * len(TargetPoints))]
+    TestTargetPoints = TargetPoints[int(0.7 * len(TargetPoints)):]
+    return TrainDataPoints, TestDataPoints, TrainTargetPoints, TestTargetPoints
 
-def DistanceFunction(PointData, PointTest):
-    print('print PointData: \n',PointData[:10])
-    print('print PointTest: \n',PointTest[:10])
-    Distance = PointData - PointTest                                     ## matrix - vector = every line in matrix - vector
-    print('print PointData - PointTest: \n', Distance[:10])
+TrainDataPoints, TestDataPoints, TrainTargetPoints, TestTargetPoints = SplitData()
+
+def DistanceFunction(DataPoints, TestPoint):
+    Distance = DataPoints - TestPoint                                  ## matrix - vector = every line in matrix - vector
     Distance = Distance ** 2
-    print('print Distance ** 2: \n',Distance[:10])
     Distance = np.sum(Distance, axis=1).tolist()
-    print('print np.sum(Distance, axis=1).tolist(): \n', Distance[:10])
-    Distance = np.power(Distance, 0.5)
-    print('print Distance ** 0.5: \n', Distance[:10])
+    Distance = np.power(Distance, 0.5)                                   ## we can use np.sqrt(nDistance)
     return Distance
 
-# PointData = np.array([[3, 3, 3], [2, 2, 2], [1, 1, 1]])
 PointTest = np.array([1, 1, 1, 1])
-print(Fore.RED + '\nreturn Distance:\n', DistanceFunction(np.array(iris.data), PointTest))
+print(Fore.RED + '\nreturn Distance:\n', DistanceFunction(TrainDataPoints, PointTest))
 
 
-# def KNearestNeighbours(K, Point):
+# def NearestNeighbours(K, Point):
 #     ListKNearestNeighbours = []
 #     for i in iris.data:
 #         xData, yData, zData, wData = i[0], i[1], i[2], i[3]
