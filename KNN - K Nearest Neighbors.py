@@ -1,4 +1,3 @@
-import numpy
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
@@ -20,52 +19,49 @@ def SplitData():
     np.random.shuffle(DataPoints)
     np.random.seed(RandNumober)
     np.random.shuffle(TargetPoints)
-    TrainDataPoints = DataPoints[:int(0.7 * len(DataPoints)), :]
-    TestDataPoints = DataPoints[int(0.7 * len(DataPoints)):, :]
-    TrainTargetPoints = TargetPoints[:int(0.7 * len(TargetPoints))]
-    TestTargetPoints = TargetPoints[int(0.7 * len(TargetPoints)):]
+    TrainDataPoints = DataPoints[:int(0.7 * len(DataPoints)), :]                        #DataPoints is aMatrix[:, :]
+    TestDataPoints = DataPoints[int(0.7 * len(DataPoints)):, :]                         #DataPoints is aMatrix[:, :]
+    TrainTargetPoints = TargetPoints[:int(0.7 * len(TargetPoints))]                     #TargetPoints is a Vector[:]
+    TestTargetPoints = TargetPoints[int(0.7 * len(TargetPoints)):]                      #TargetPoints is a Vector[:]
     return TrainDataPoints, TestDataPoints, TrainTargetPoints, TestTargetPoints
 
-TrainDataPoints, TestDataPoints, TrainTargetPoints, TestTargetPoints = SplitData()
+# TrainDataPoints, TestDataPoints, TrainTargetPoints, TestTargetPoints = SplitData()
 
-def DistanceFunction(DataPoints, TestPoint):
-    Distance = DataPoints - TestPoint                                  ## matrix - vector = every line in matrix - vector
+def DistanceFunction(DataPoints, CheckPoint):
+    Distance = DataPoints - CheckPoint                                  ## matrix - vector = every line in matrix - vector
     Distance = Distance ** 2
     Distance = np.sum(Distance, axis=1).tolist()
     Distance = np.power(Distance, 0.5)                                   ## we can use np.sqrt(nDistance)
     return Distance
 
-PointTest = np.array([1, 1, 1, 1])
-print(Fore.RED + '\nreturn Distance:\n', DistanceFunction(TrainDataPoints, PointTest))
+# CheckPoint = np.array([2, 1, 3, 3])
+# DistanceVector = DistanceFunction(TrainDataPoints, CheckPoint)
+
+def LabelsNearestNeighbours(DistanceVector, TrainTargetPoints, K):
+    NearestNeighboursLabel = np.argsort(DistanceVector) #  example! x = np.array([2,1,3,4,4,0]) ; y = np.array([0,1,2,3,4,5]) ; print(y[np.argsort(x)[:2]]) ==== [5 1]
+    return TrainTargetPoints[NearestNeighboursLabel[:K]]
+
+# MyLabelFromNearestNeighbours = LabelsNearestNeighbours(DistanceVector, TrainTargetPoints, 12)
+
+def Vote(MyLabelFromNearestNeighbours):
+    values, count = np.unique(MyLabelFromNearestNeighbours, return_counts=True) # print array of unique *values* and array *count* from any unique values
+    return values[np.argmax(count)] # example values, count = np.unique(np.array([0,0,1,1,1,2]), return_counts=True) ; values = [0 1 2] count = [2 3 1]
+
+# MaxVoteLabel = Vote(MyLabelFromNearestNeighbours)
+
+def Accuracy(Y_predict, Y_test):
+    count = Y_predict == Y_test
+    accurec = np.count_nonzero(count)
+    return (accurec / len(Y_test)) * 100
+
+TrainDataPoints, TestDataPoints, TrainTargetPoints, TestTargetPoints = SplitData()
+All_targets = np.empty((0, len(TestTargetPoints)))
+for i in range(len(TestDataPoints)):
+    distance = DistanceFunction(TrainDataPoints, TestDataPoints[i, :])
+    labels = LabelsNearestNeighbours(distance, TrainTargetPoints, 7)
+    target = Vote(labels)
+    All_targets = np.append(All_targets, target)
+
+print('The accuracy is: {}%'.format(Accuracy(All_targets, TestTargetPoints)))
 
 
-# def NearestNeighbours(K, Point):
-#     ListKNearestNeighbours = []
-#     for i in iris.data:
-#         xData, yData, zData, wData = i[0], i[1], i[2], i[3]
-#         ListKNearestNeighbours.append(DistanceFunction(xData, xTest, yData, yTest, zData, zTest, wData, wTest))
-#     ListKNearestNeighboursSort = ListKNearestNeighbours.copy()
-#     ListKNearestNeighboursSort.sort()
-#     ListKNearestNeighboursSort = ListKNearestNeighboursSort[:K]
-#     return ListKNearestNeighboursSort, ListKNearestNeighbours, K
-#
-# ListKNearestNeighboursSort, ListKNearestNeighbours, K = KNearestNeighbours(6, 1, 2, 3, 4)
-# print('We have list in size K: {} are describe the closet distance points between the Data points and Test point: \n{}'
-# .format(K, ListKNearestNeighboursSort))
-#
-# # print(ListKNearestNeighbours.index(ListKNearestNeighboursSort[0]))
-#
-# labels = len(np.unique(iris.target))
-# def VoteLabelFunction():
-#     ListVote = []
-#     NumListVote = []
-#     for i in range(K):
-#         ListVote.append(ListKNearestNeighbours.index(ListKNearestNeighboursSort[i]))
-#         ListVote[i] = iris.target[ListVote[i]]
-#     for label in range(labels):
-#         NumListVote.append(ListVote.count(label))
-#     return ListVote ,NumListVote
-#
-#
-# ListVote ,NumListVote = VoteLabelFunction()
-# print('\nthe count of label {}: {} \nthe count of label {}: {} \nthe count of label {}: {}' .format(labels - 3, NumListVote[0], labels - 2, NumListVote[1], labels - 1, NumListVote[2]))
