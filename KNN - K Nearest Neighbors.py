@@ -5,7 +5,7 @@ import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset = True)
 
-DataBase = load_iris()     # iris have 3 list. data, target, target name.
+DataBase = load_iris()     # iris OR have 3 list. data, target, target name.
 
 # print(Fore.RED + '\nthe first array in the iris dictionary is the data. iris.data[1:10]  (note: show less) : \n', DataBase.data[1:10])
 # print(Fore.RED + '\nthe second array in the iris dictionary is the target. iris.target:\n', DataBase.target)
