@@ -11,27 +11,27 @@ DataBase = load_iris()     # iris have 3 list. data, target, target name.
 # print(Fore.RED + '\nthe second array in the iris dictionary is the target. iris.target:\n', DataBase.target)
 # print(Fore.RED + '\nthe third array in the iris dictionary is the names. iris.target_names:\n', DataBase.target_names)
 
-def SplitData():
+def SplitAndShuffleData():
     DataPoints = DataBase.data
     TargetPoints = DataBase.target
     RandNumober = np.random.randint(10)
-    np.random.seed(RandNumober)
+    np.random.seed(RandNumober) #seed function "save" the random act! if we use the same seed we use the same random.
     np.random.shuffle(DataPoints)
-    np.random.seed(RandNumober)
+    np.random.seed(RandNumober) #here we use the same seed, so we random.shuffle like before. we shuffle the data&target same.
     np.random.shuffle(TargetPoints)
-    TrainDataPoints = DataPoints[:int(0.7 * len(DataPoints)), :]                        #DataPoints is aMatrix[:, :]
-    TestDataPoints = DataPoints[int(0.7 * len(DataPoints)):, :]                         #DataPoints is aMatrix[:, :]
+    TrainDataPoints = DataPoints[:int(0.7 * len(DataPoints)), :]                        #DataPoints is a matrix[:, :]
+    TestDataPoints = DataPoints[int(0.7 * len(DataPoints)):, :]                         #DataPoints is a matrix[:, :]
     TrainTargetPoints = TargetPoints[:int(0.7 * len(TargetPoints))]                     #TargetPoints is a Vector[:]
     TestTargetPoints = TargetPoints[int(0.7 * len(TargetPoints)):]                      #TargetPoints is a Vector[:]
     return TrainDataPoints, TestDataPoints, TrainTargetPoints, TestTargetPoints
 
-# TrainDataPoints, TestDataPoints, TrainTargetPoints, TestTargetPoints = SplitData()
+# TrainDataPoints, TestDataPoints, TrainTargetPoints, TestTargetPoints = SplitAndShuffleData()
 
 def DistanceFunction(DataPoints, CheckPoint):
-    Distance = DataPoints - CheckPoint                                  ## matrix - vector = every line in matrix - vector
-    Distance = Distance ** 2
-    Distance = np.sum(Distance, axis=1).tolist()
-    Distance = np.power(Distance, 0.5)                                   ## we can use np.sqrt(nDistance)
+    Distance = DataPoints - CheckPoint                         ## matrix - vector = every line in matrix - vector
+    Distance = Distance ** 2                                   ## every singal element power by 2
+    Distance = np.sum(Distance, axis=1).tolist()               ## sum every row sparate
+    Distance = np.power(Distance, 0.5)                         ## we can use np.sqrt(nDistance)
     return Distance
 
 # CheckPoint = np.array([2, 1, 3, 3])
@@ -49,18 +49,18 @@ def Vote(MyLabelFromNearestNeighbours):
 
 # MaxVoteLabel = Vote(MyLabelFromNearestNeighbours)
 
-def Accuracy(Y_predict, Y_test):
-    count = Y_predict == Y_test
+def Accuracy(TargetPredict, TestTargetPoints):
+    count = TargetPredict == TestTargetPoints
     accurec = np.count_nonzero(count)
-    return (accurec / len(Y_test)) * 100
+    return (accurec / len(TestTargetPoints)) * 100
 
-TrainDataPoints, TestDataPoints, TrainTargetPoints, TestTargetPoints = SplitData()
+TrainDataPoints, TestDataPoints, TrainTargetPoints, TestTargetPoints = SplitAndShuffleData()
 All_targets = np.empty((0, len(TestTargetPoints)))
 for i in range(len(TestDataPoints)):
-    distance = DistanceFunction(TrainDataPoints, TestDataPoints[i, :])
-    labels = LabelsNearestNeighbours(distance, TrainTargetPoints, 7)
-    target = Vote(labels)
-    All_targets = np.append(All_targets, target)
+    Distance = DistanceFunction(TrainDataPoints, TestDataPoints[i, :])
+    Labels = LabelsNearestNeighbours(Distance, TrainTargetPoints, 10)
+    Target = Vote(Labels)
+    All_targets = np.append(All_targets, Target)
     AreAccuracy = Accuracy(All_targets, TestTargetPoints)
 
 print('The accuracy is: {}%'.format(AreAccuracy))
