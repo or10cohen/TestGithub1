@@ -61,7 +61,8 @@ for i in range(len(TestDataPoints)):
     labels = LabelsNearestNeighbours(distance, TrainTargetPoints, 7)
     target = Vote(labels)
     All_targets = np.append(All_targets, target)
+    AreAccuracy = Accuracy(All_targets, TestTargetPoints)
 
-print('The accuracy is: {}%'.format(Accuracy(All_targets, TestTargetPoints)))
+print('The accuracy is: {}%'.format(AreAccuracy))
 
 
