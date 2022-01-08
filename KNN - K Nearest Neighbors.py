@@ -32,7 +32,7 @@ def DistanceFunction(DataPoints, CheckPoint):
     Distance = Distance ** 2                                   ## every singal element power by 2
     Distance = np.sum(Distance, axis=1).tolist()               ## sum every row sparate
     Distance = np.power(Distance, 0.5)                         ## we can use np.sqrt(nDistance)
-    return Distance
+    return Distance                                             # we can use &&&np.linalg.norm(x - y)&&&&&
 
 # CheckPoint = np.array([2, 1, 3, 3])
 # DistanceVector = DistanceFunction(TrainDataPoints, CheckPoint)
