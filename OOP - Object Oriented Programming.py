@@ -52,7 +52,7 @@ class Line(Point):
             return print('The point {} is not on the line'.format(other))
 
 
-# t = Point()
+t = Point()
 # t.set_Y = 1
 # t.set_X = 1
 # g = Point()
