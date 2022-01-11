@@ -1,8 +1,6 @@
 import numpy as np
 
-
-
-
+#---------------------------------------------section 2-----------------------------------------------------
 class Point:
     def __init__(self):
         self._X = 0
@@ -91,7 +89,7 @@ class shape:
 
 class Triangle(shape):
     def __init__(self, point_list):
-        super()._init_(point_list)
+        super().__init__(point_list)
         self.point_list = point_list
 
     def __str__(self):
@@ -113,7 +111,7 @@ class Triangle(shape):
 
 class Rectangle (shape):
     def __init__(self, point_list):
-        super()._init_(point_list)
+        super().__init__(point_list)
         # self.list_of_points = list_of_points
 
     def __str__(self):
@@ -123,10 +121,10 @@ class Rectangle (shape):
 
 
 
-d = shape([1, 4, 1, 4])
-d.area()
-d.perimeter()
-print(d)
+# d = shape([1, 4, 1, 4])
+# d.area()
+# d.perimeter()
+# print(d)
 #
 # f = Rectangle([4, 4, 3, 3])
 # f.area()

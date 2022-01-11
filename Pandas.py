@@ -82,35 +82,37 @@ colorama.init(autoreset = True)
 #                  '\ninterplace=True for drop from the original df and not save the row we drop Data.\n', df)
 ##------------------------------------------lecture 3 DataFrames - Part 2-----------------------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------------------
-np.random.seed(101)             # to use same random as the video
-df = pd.DataFrame(randn(5,4), ['A','B','C','D','E'],['W','X','Y','Z'])             # to see hint ues ctrl + p
-print(Fore.RED + '\nwe build a new DataFrame use the command pd.DataFrame(Data argument, index, columns).')
-print('for the Data argument we use randn(5, 4).'
-      '\nfor the index(rows) we use list: [\'A\',\'B\',\'C\',\'D\',\'E\']\nfor the columns we use" [\'W\',\'X\',\'Y\',\'Z\']\n\n')
-print(Fore.RED + 'and are Data frame looks:\n', df)
+# np.random.seed(101)             # to use same random as the video
+# df = pd.DataFrame(randn(5,4), ['A','B','C','D','E'],['W','X','Y','Z'])             # to see hint ues ctrl + p
+# print(Fore.RED + '\nwe build a new DataFrame use the command pd.DataFrame(Data argument, index, columns).')
+# print('for the Data argument we use randn(5, 4).'
+#       '\nfor the index(rows) we use list: [\'A\',\'B\',\'C\',\'D\',\'E\']\nfor the columns we use" [\'W\',\'X\',\'Y\',\'Z\']\n\n')
+# print(Fore.RED + 'and are Data frame looks:\n', df)
+#
+# print(Fore.RED + '\ncheck True/False or any conditional selection you want when use the command: df > 0\n', df > 0)
+# print(Fore.RED + '\nan other way to show just the positive value: df[df > 0]\n', df[df > 0])
+# print(Fore.RED + '\nuse True/False in chosen column: df[\'W\'] > 0\n', df['W'] > 0)
+# print(Fore.RED + '\nlike before, we want to see just the positive value, just now because we chose the W column,\n'
+#                  'we dont gonna see NaN and the all(!) row when negative value in rows W was deleted: df[df[\'W\'] > 0] \n', df[df['W']>0])
+#
+# resultdf = df[df['W'] > 0]
+# print(Fore.RED + '\nto see just on column, like X, but delete the row when in W(!) the value bigger then 0, we save he command first:\nresultdf =  df[df[\'W\']>0]'
+#       'and after to see just the the column X, we use the command: resultdf[\'X\']\n', resultdf['X'])
+# print(Fore.RED + 'in an other way but some: df[df[\'W\'] > 0][\'X\']\n', df[df['W'] > 0]['X'])
+# print(Fore.RED + 'or from multiply columns(see the double[[]]): df[df[\'W\'] > 0][[\'X\', \'Y\']]\n', df[df['W'] > 0][['X', 'Y']])
+# print(Fore.RED + 'we can use multiply conditions with the command(pay attenation use & and not \'and\', for \'or\' use \'|\' ): df[(df[\'W\'] > 0) & (df[\'W\'] < 1))]\n', df[(df['W'] > 0) & (df['W'] < 1)])
+#
+# print(Fore.RED + '\nif we want use the index, and move it to the first row in data(now the index is a numbers extand and the title row of index is \'index\'). use the command: df.reset_index():\n'
+#                  'note: same like before the change dont save in the original df, from saving use:df.reset_index(inplace=True)\n', df.reset_index())
+# newindex = ['Haifa', 'Jeruslem', 'TLV', 'Aco', 'Kryot']    # you can use: newindex = 'Haifa Jeruslem TLV Aco Kryot'.split
+# df['Cities'] = newindex
+#
+# print(Fore.RED + '\nif we want set other index from are row in the data, we can use the command: df.set_index(\'are row we want to use as index\')\n'
+#                  'first we add column in the commands: newindex = [\'Haifa\', \'Jeruslem\', \'TLV\', \'Aco\', \'Kryot\']   and    df[Cities] = newindex\n'
+#                  'and after we use the command: df.set_index(\'Cities\')\n'
+#                  'note: same like before the change dont save in the original df, from saving use:df.reset_index(inplace=True)\n', df.set_index('Cities'))
 
-print(Fore.RED + '\ncheck True/False or any conditional selection you want when use the command: df > 0\n', df > 0)
-print(Fore.RED + '\nan other way to show just the positive value: df[df > 0]\n', df[df > 0])
-print(Fore.RED + '\nuse True/False in chosen column: df[\'W\'] > 0\n', df['W'] > 0)
-print(Fore.RED + '\nlike before, we want to see just the positive value, just now because we chose the W column,\n'
-                 'we dont gonna see NaN and the all(!) row when negative value in rows W was deleted: df[df[\'W\'] > 0] \n', df[df['W']>0])
-
-resultdf = df[df['W'] > 0]
-print(Fore.RED + '\nto see just on column, like X, but delete the row when in W(!) the value bigger then 0, we save he command first:\nresultdf =  df[df[\'W\']>0]'
-      'and after to see just the the column X, we use the command: resultdf[\'X\']\n', resultdf['X'])
-print(Fore.RED + 'in an other way but some: df[df[\'W\'] > 0][\'X\']\n', df[df['W'] > 0]['X'])
-print(Fore.RED + 'or from multiply columns(see the double[[]]): df[df[\'W\'] > 0][[\'X\', \'Y\']]\n', df[df['W'] > 0][['X', 'Y']])
-print(Fore.RED + 'we can use multiply conditions with the command(pay attenation use & and not \'and\', for \'or\' use \'|\' ): df[(df[\'W\'] > 0) & (df[\'W\'] < 1))]\n', df[(df['W'] > 0) & (df['W'] < 1)])
-
-print(Fore.RED + '\nif we want use the index, and move it to the first row in data(now the index is a numbers extand and the title row of index is \'index\'). use the command: df.reset_index():\n'
-                 'note: same like before the change dont save in the original df, from saving use:df.reset_index(inplace=True)\n', df.reset_index())
-newindex = ['Haifa', 'Jeruslem', 'TLV', 'Aco', 'Kryot']    # you can use: newindex = 'Haifa Jeruslem TLV Aco Kryot'.split
-df['Cities'] = newindex
-
-print(Fore.RED + '\nif we want set other index from are row in the data, we can use the command: df.set_index(\'are row we want to use as index\')\n'
-                 'first we add column in the commands: newindex = [\'Haifa\', \'Jeruslem\', \'TLV\', \'Aco\', \'Kryot\']   and    df[Cities] = newindex\n'
-                 'and after we use the command: df.set_index(\'Cities\')\n'
-                 'note: same like before the change dont save in the original df, from saving use:df.reset_index(inplace=True)\n', df.set_index('Cities'))
-
+##------------------------------------------lecture 4 DataFrames - Part 3-----------------------------------------------------------
+##----------------------------------------------------------------------------------------------------------------------------------
 
 
