@@ -12,8 +12,6 @@ def decorate(Yosef):
 def NotMatterWhatIsTheName():
     print('Yosef')
 
-
-
 #--------------------------------------------section 2-----------------------------------------------------
 # class Point:
 #     def __init__(self):
