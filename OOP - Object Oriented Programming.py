@@ -3,7 +3,7 @@ import numpy as np
 
 
 #----------------------------------------decorate sample---------------------------------------------------
-def decorate(Yosef, ):
+def decorate(Yosef):
     print('Or')
     Yosef()
     print('Cohen')
