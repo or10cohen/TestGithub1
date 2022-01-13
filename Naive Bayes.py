@@ -7,7 +7,7 @@ from colorama import Fore, Back, Style
 colorama.init(autoreset = True)
 
 
-DataBase = pd.read_csv('C:\\Users\\or_cohen\\Desktop\\pyt\\diabetes.csv')
+DataBase = pd.read_csv('diabetes.csv')
 print(Fore.RED + '\nThe shape of DataBase are: ', DataBase.shape)
 
 print(Fore.RED + '\nsample of 3 first rows data\n', DataBase.head(3))
