@@ -1,7 +1,7 @@
 import numpy
 import numpy as np
 import pandas as np
-# import streamlit as st
+import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
@@ -16,7 +16,7 @@ colorama.init(autoreset = True)
 class DecisionTrees():
 
     def __init__(self):
-        self.df, self.dfShape= self.ImportData()
+        self.df, self.dfShape = self.ImportData()
         self.X_train, self.X_test, self.y_train, self.y_test = self.SplittDataSet()
         self.Gini = self.GiniIndex()
         self.dtree = self.TrainingData()
@@ -65,63 +65,36 @@ class DecisionTrees():
         # print(self.X_train['Age'][38])
         # print(self.y_train[38])
 
-        len1 = []
-        # for i in range(len(data)):
-        PYesEdge1SmallerThen = self.X_train[str(data[0])] <= SplitValue[0]
-        # print(PYesEdge1SmallerThen)
-        # print(len(PYesEdge1SmallerThen))
-        PYesEdge1SmallerThenAndEqual = self.y_train[PYesEdge1SmallerThen] == 'absent'
-        # print(PYesEdge1SmallerThenAndEqual)
-        # print(len(PYesEdge1SmallerThenAndEqual))
-        PYesEdge1SmallerThenAndEqualAndTrue = PYesEdge1SmallerThenAndEqual[PYesEdge1SmallerThenAndEqual] == True
-        # print(PYesEdge1SmallerThenAndEqualAndTrue)
-        # print(len(PYesEdge1SmallerThenAndEqualAndTrue))
-        PYesEdge1SmallerThenAndEqualAndFalse = len(PYesEdge1SmallerThenAndEqual) - len(PYesEdge1SmallerThenAndEqualAndTrue)
-        # print(PYesEdge1SmallerThenAndEqualAndFalse)
-        LenPYesEdge1SmallerThenAndEqualAndTrue = len(PYesEdge1SmallerThenAndEqualAndTrue)
-        LenPYesEdge1SmallerThenAndEqualAndFalse = PYesEdge1SmallerThenAndEqualAndFalse
-        # print(LenPYesEdge1SmallerThenAndEqualAndTrue)
-        # print(LenPYesEdge1SmallerThenAndEqualAndFalse)
+        GiniValuesForEveryEdge = [[], [], []]
 
-        len1.append(LenPYesEdge1SmallerThenAndEqualAndTrue)
-        len1.append(LenPYesEdge1SmallerThenAndEqualAndFalse)
+        for i in range(len(data)):
+            PYesEdge1SmallerThen = self.X_train[str(data[i])] <= SplitValue[i]
+            st.dataframe(PYesEdge1SmallerThen)
+            PYesEdge1SmallerThenAndEqual = self.y_train[PYesEdge1SmallerThen] == 'absent'
+            PYesEdge1SmallerThenAndEqualAndTrue = PYesEdge1SmallerThenAndEqual[PYesEdge1SmallerThenAndEqual] == True
+            PYesEdge1SmallerThenAndEqualAndFalse = len(PYesEdge1SmallerThenAndEqual) - len(PYesEdge1SmallerThenAndEqualAndTrue)
+            LenPYesEdge1SmallerThenAndEqualAndTrue = len(PYesEdge1SmallerThenAndEqualAndTrue)
+            LenPYesEdge1SmallerThenAndEqualAndFalse = PYesEdge1SmallerThenAndEqualAndFalse
+            GiniValuesForEveryEdge[i].append(LenPYesEdge1SmallerThenAndEqualAndTrue)
+            GiniValuesForEveryEdge[i].append(LenPYesEdge1SmallerThenAndEqualAndFalse)
 
-        PNoEdge1SmallerThen = self.X_train[str(data[0])] <= SplitValue[0]
-        PNoEdge1SmallerThenAndEqual = self.y_train[PNoEdge1SmallerThen] == 'present'
-        PNoEdge1SmallerThenAndEqualAndTrue = PNoEdge1SmallerThenAndEqual[PNoEdge1SmallerThenAndEqual] == True
-        PNoEdge1SmallerThenAndEqualAndFalse = len(PNoEdge1SmallerThenAndEqual) - len(PNoEdge1SmallerThenAndEqualAndTrue)
-        LenPNoEdge1SmallerThenAndEqualAndTrue = len(PNoEdge1SmallerThenAndEqualAndTrue)
-        LenPNoEdge1SmallerThenAndEqualAndFalse = PNoEdge1SmallerThenAndEqualAndFalse
-        print(LenPNoEdge1SmallerThenAndEqualAndTrue)
-        print(LenPNoEdge1SmallerThenAndEqualAndFalse)
+            PYesEdge1BiggerThen = self.X_train[str(data[i])] > SplitValue[i]
+            PYesEdge1BiggerThenAndEqual = self.y_train[PYesEdge1BiggerThen] == 'absent'
+            PYesEdge1BiggerThenAndEqualAndTrue = PYesEdge1BiggerThenAndEqual[PYesEdge1BiggerThenAndEqual] == True
+            PYesEdge1BiggerThenAndEqualAndFalse = len(PYesEdge1BiggerThenAndEqual) - len(PYesEdge1BiggerThenAndEqualAndTrue)
+            LenPYesEdge1BiggerThenAndEqualAndTrue = len(PYesEdge1BiggerThenAndEqualAndTrue)
+            LenPYesEdge1BiggerThenAndEqualAndFalse = PYesEdge1BiggerThenAndEqualAndFalse
+            GiniValuesForEveryEdge[i].append(LenPYesEdge1BiggerThenAndEqualAndTrue)
+            GiniValuesForEveryEdge[i].append(LenPYesEdge1BiggerThenAndEqualAndFalse)
 
-        len1.append(LenPNoEdge1SmallerThenAndEqualAndTrue)
-        len1.append(LenPNoEdge1SmallerThenAndEqualAndFalse)
 
-        PYesEdge1BiggerThen = self.X_train[str(data[0])] > SplitValue[0]
-        PYesEdge1BiggerThenAndEqual = self.y_train[PYesEdge1BiggerThen] == 'absent'
-        PYesEdge1BiggerThenAndEqualAndTrue = PYesEdge1BiggerThenAndEqual[PYesEdge1BiggerThenAndEqual] == True
-        PYesEdge1BiggerThenAndEqualAndFalse = len(PYesEdge1BiggerThenAndEqual) - len(PYesEdge1BiggerThenAndEqualAndTrue)
-        LenPYesEdge1BiggerThenAndEqualAndTrue = len(PYesEdge1BiggerThenAndEqualAndTrue)
-        LenPYesEdge1BiggerThenAndEqualAndFalse = PYesEdge1BiggerThenAndEqualAndFalse
-        print(LenPYesEdge1BiggerThenAndEqualAndTrue)
-        print(LenPYesEdge1BiggerThenAndEqualAndFalse)
+            if sum(GiniValuesForEveryEdge[i]) != 56 len(PYesEdge1SmallerThen):
+                raise ValueError('you need to use all options in edges to calculate the Gini index!!! ')
 
-        len1.append(LenPYesEdge1BiggerThenAndEqualAndTrue)
-        len1.append(LenPYesEdge1BiggerThenAndEqualAndFalse)
-
-        PNoEdge1BiggerThen = self.X_train[str(data[0])] > SplitValue[0]
-        PNoEdge1BiggerThenAndEqual = self.y_train[PNoEdge1BiggerThen] == 'present'
-        PNoEdge1BiggerThenAndEqualAndTrue = PNoEdge1BiggerThenAndEqual[PNoEdge1BiggerThenAndEqual] == True
-        PNoEdge1BiggerThenAndEqualAndFalse = len(PNoEdge1BiggerThenAndEqual) - len(PNoEdge1BiggerThenAndEqualAndTrue)
-        LenPNoEdge1BiggerThenAndEqualAndTrue = len(PNoEdge1BiggerThenAndEqualAndTrue)
-        LenPNoEdge1BiggerThenAndEqualAndFalse = PNoEdge1BiggerThenAndEqualAndFalse
-        print(LenPNoEdge1BiggerThenAndEqualAndTrue)
-        print(LenPNoEdge1BiggerThenAndEqualAndFalse)
-
-        len1.append(LenPNoEdge1BiggerThenAndEqualAndTrue)
-        len1.append(LenPNoEdge1BiggerThenAndEqualAndFalse)
-        print(sum(len1))
+        print(GiniValuesForEveryEdge)
+        print(sum(GiniValuesForEveryEdge[0]))
+        print(sum(GiniValuesForEveryEdge[1]))
+        print(sum(GiniValuesForEveryEdge[2]))
             # EntropyEdge1 = - (PYesEdge1 * numpy.log2(PYesEdge1) + PNoEdge1 * numpy.log2(PNoEdge1))
             # EntropyEdge2 = - (PYesEdge2 * numpy.log2(PYesEdge2) + PNoEdge2 * numpy.log2(PNoEdge2))
             #
