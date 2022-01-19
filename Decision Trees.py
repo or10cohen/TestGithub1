@@ -1,9 +1,8 @@
 import numpy
 import numpy as np
-import pandas as np
+import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
-import pandas as pd
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
@@ -55,21 +54,19 @@ class DecisionTrees():
 ##--------------------------------------------Gini index manually-------------------------------------------------------
 
     def GiniIndex(self, SplitValueAge = 36, SplitValueNumber = 5, SplitValueStart = 10):
-        print(Fore.LIGHTYELLOW_EX + '--------------------------Gini index manually------------------------------------')
-        data = ['Age', 'Number', 'Start']
+        print(Fore.LIGHTYELLOW_EX + '--------------------------Gini & Entropy index manually------------------------------------')
+        ListColumnNames = list(self.df.columns)
+        ListColumnNames.pop(0)
         SplitValue = [SplitValueAge, SplitValueNumber, SplitValueStart]
-        GiniDict = {str(data[0]) + 'Gini':[], str(data[1]) + 'Gini':[], str(data[2]) + 'Gini':[]}
-        TotalEdges = self.dfShape[0]
-        AverageEntropyDict = {str(data[0]) + 'Entropy':[], str(data[1]) + 'Entropy':[], str(data[2]) + 'Entropy':[]}
-
-        # print(self.X_train['Age'][38])
-        # print(self.y_train[38])
+        GiniDictForAnyNodes = {str(ListColumnNames[0]) + 'Gini':[], str(ListColumnNames[1])
+                                + 'Gini':[], str(ListColumnNames[2]) + 'Gini':[]}
+        EntropyDictForAnyNodes = {str(ListColumnNames[0]) + 'Entropy':[], str(ListColumnNames[1])
+                                + 'Entropy':[], str(ListColumnNames[2]) + 'Entropy':[]}
 
         GiniValuesForEveryEdge = [[], [], []]
-
-        for i in range(len(data)):
-            PYesEdge1SmallerThen = self.X_train[str(data[i])] <= SplitValue[i]
-            st.dataframe(PYesEdge1SmallerThen)
+        for i in range(len(ListColumnNames)):
+            PYesEdge1SmallerThen = self.X_train[ListColumnNames[i]] <= SplitValue[i]
+            # st.dataframe(PYesEdge1SmallerThen)
             PYesEdge1SmallerThenAndEqual = self.y_train[PYesEdge1SmallerThen] == 'absent'
             PYesEdge1SmallerThenAndEqualAndTrue = PYesEdge1SmallerThenAndEqual[PYesEdge1SmallerThenAndEqual] == True
             PYesEdge1SmallerThenAndEqualAndFalse = len(PYesEdge1SmallerThenAndEqual) - len(PYesEdge1SmallerThenAndEqualAndTrue)
@@ -78,7 +75,7 @@ class DecisionTrees():
             GiniValuesForEveryEdge[i].append(LenPYesEdge1SmallerThenAndEqualAndTrue)
             GiniValuesForEveryEdge[i].append(LenPYesEdge1SmallerThenAndEqualAndFalse)
 
-            PYesEdge1BiggerThen = self.X_train[str(data[i])] > SplitValue[i]
+            PYesEdge1BiggerThen = self.X_train[str(ListColumnNames[i])] > SplitValue[i]
             PYesEdge1BiggerThenAndEqual = self.y_train[PYesEdge1BiggerThen] == 'absent'
             PYesEdge1BiggerThenAndEqualAndTrue = PYesEdge1BiggerThenAndEqual[PYesEdge1BiggerThenAndEqual] == True
             PYesEdge1BiggerThenAndEqualAndFalse = len(PYesEdge1BiggerThenAndEqual) - len(PYesEdge1BiggerThenAndEqualAndTrue)
@@ -88,21 +85,36 @@ class DecisionTrees():
             GiniValuesForEveryEdge[i].append(LenPYesEdge1BiggerThenAndEqualAndFalse)
 
 
-            if sum(GiniValuesForEveryEdge[i]) != 56 len(PYesEdge1SmallerThen):
+            if sum(GiniValuesForEveryEdge[i]) != len(self.X_train[str(ListColumnNames[i])]):
                 raise ValueError('you need to use all options in edges to calculate the Gini index!!! ')
+                print(GiniValuesForEveryEdge[i])
+                print(sum(GiniValuesForEveryEdge[i]))
 
-        print(GiniValuesForEveryEdge)
-        print(sum(GiniValuesForEveryEdge[0]))
-        print(sum(GiniValuesForEveryEdge[1]))
-        print(sum(GiniValuesForEveryEdge[2]))
-            # EntropyEdge1 = - (PYesEdge1 * numpy.log2(PYesEdge1) + PNoEdge1 * numpy.log2(PNoEdge1))
-            # EntropyEdge2 = - (PYesEdge2 * numpy.log2(PYesEdge2) + PNoEdge2 * numpy.log2(PNoEdge2))
-            #
-            # I_EntropySuB = (PYesEdge1 + PNoEdge1) / len(self.X_train <= SplitValue[i]) * EntropyEdge1 \
-            #                + (PYesEdge2 + PNoEdge2) / len(self.X_train > SplitValue[i]) * EntropyEdge2
-            # AverageEntropyDict[str(data[i]) + 'Entropy'].append(I_EntropySuB)
+        EntropyEdges = []
+        EntropyNodes = []
+        IG = []
+        for i in GiniValuesForEveryEdge:
+            p0, p1, p2, p3= i[0], i[1], i[2], i[3]
+            if p0 == 0 or p1 == 0:
+                EEdge0 = 0
+                raise ValueError('some of P are equal to zero!!')
+            else:
+                EEdge0 = - ((p0 / (p0 + p1)) * np.log2(p0 / (p0 + p1)) + (p1 / (p0 + p1)) * np.log2(p1 / (p0 + p1)))
 
-        # print(AverageEntropyDict)
+            if p2 == 0 or p3 == 0:
+                EEdge1 = 0
+                raise ValueError('some of P are equal to zero!!')
+            else:
+                EEdge1 = - ((p2 / (p2 + p3)) * np.log2(p2 / (p2 + p3)) + (p2 / (p2 + p3)) * np.log2(p2 / (p2 + p3)))
+            EntropyEdges.append(EEdge0)
+            EntropyEdges.append(EEdge1)
+
+            EntropyNode = (p0 + p1) / sum(i) * EEdge0 + (p2 + p3) / sum(i) * EEdge1
+            print(EntropyNode)
+            EntropyNodes.append(EntropyNode)
+
+        print('EntropyEdges:', EntropyEdges)
+        print('EntropyNode', EntropyNodes)
 
 
 
