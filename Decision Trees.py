@@ -105,27 +105,19 @@ class DecisionTrees():
                 EEdge1 = 0
                 raise ValueError('some of P are equal to zero!!')
             else:
-                EEdge1 = - ((p2 / (p2 + p3)) * np.log2(p2 / (p2 + p3)) + (p2 / (p2 + p3)) * np.log2(p2 / (p2 + p3)))
+                EEdge1 = - ((p2 / (p2 + p3)) * np.log2(p2 / (p2 + p3)) + (p3 / (p2 + p3)) * np.log2(p3 / (p2 + p3)))
             EntropyEdges.append(EEdge0)
             EntropyEdges.append(EEdge1)
 
             EntropyNode = (p0 + p1) / sum(i) * EEdge0 + (p2 + p3) / sum(i) * EEdge1
-            print(EntropyNode)
+            # print(EntropyNode)
             EntropyNodes.append(EntropyNode)
 
+        EntropyEdges = [[EntropyEdges[0], EntropyEdges[1]], [EntropyEdges[2], EntropyEdges[3]],
+                        [EntropyEdges[4], EntropyEdges[5]]]
         print('EntropyEdges:', EntropyEdges)
         print('EntropyNode', EntropyNodes)
 
-
-
-        # for i in range(len(data)):
-        #     Edge1, Edge2 = sum(self.X_train[str(data[i])] < SplitValue[i]) ,\
-        #                    TotalEdges - sum(self.X_train[str(data[i])] < SplitValue[i])
-        #     print(Edge1, Edge2)
-        #     Gini = 1 - ( (Edge1 / TotalEdges) ** 2 + (Edge2 / TotalEdges) ** 2)
-        #     GiniDict[str(data[i]) + 'Gini'].append(Gini)
-        # print(GiniDict)
-        # return GiniDict
 ##---------------------------Training the Decision Tree Classifier------------------------------------------------------
     def TrainingData(self):
         print(Fore.LIGHTYELLOW_EX + '\n-----------------Training the Decision Tree Classifier-----------------------\n')
