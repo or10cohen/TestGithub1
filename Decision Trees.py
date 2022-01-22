@@ -60,8 +60,8 @@ class DecisionTrees():
         SplitValue = [SplitValueAge, SplitValueNumber, SplitValueStart]
         GiniDictForAnyNodes = {str(ListColumnNames[0]) + 'Gini':[], str(ListColumnNames[1])
                                 + 'Gini':[], str(ListColumnNames[2]) + 'Gini':[]}
-        EntropyDictForAnyNodes = {str(ListColumnNames[0]) + 'Entropy':[], str(ListColumnNames[1])
-                                + 'Entropy':[], str(ListColumnNames[2]) + 'Entropy':[]}
+        EntropyDictForAnyNodes = {str(ListColumnNames[0]) + 'Entropy': 0, str(ListColumnNames[1])
+                                + 'Entropy': 0, str(ListColumnNames[2]) + 'Entropy': 0}
 
         GiniValuesForEveryEdge = [[], [], []]
         for i in range(len(ListColumnNames)):
@@ -97,13 +97,13 @@ class DecisionTrees():
             p0, p1, p2, p3= i[0], i[1], i[2], i[3]
             if p0 == 0 or p1 == 0:
                 EEdge0 = 0
-                raise ValueError('some of P are equal to zero!!')
+                # raise ValueError('some of P are equal to zero!!')
             else:
                 EEdge0 = - ((p0 / (p0 + p1)) * np.log2(p0 / (p0 + p1)) + (p1 / (p0 + p1)) * np.log2(p1 / (p0 + p1)))
 
             if p2 == 0 or p3 == 0:
                 EEdge1 = 0
-                raise ValueError('some of P are equal to zero!!')
+                # raise ValueError('some of P are equal to zero!!')
             else:
                 EEdge1 = - ((p2 / (p2 + p3)) * np.log2(p2 / (p2 + p3)) + (p3 / (p2 + p3)) * np.log2(p3 / (p2 + p3)))
             EntropyEdges.append(EEdge0)
@@ -116,7 +116,11 @@ class DecisionTrees():
         EntropyEdges = [[EntropyEdges[0], EntropyEdges[1]], [EntropyEdges[2], EntropyEdges[3]],
                         [EntropyEdges[4], EntropyEdges[5]]]
         print('EntropyEdges:', EntropyEdges)
+        EntropyDictForAnyNodes['AgeEntropy'] = EntropyNodes[0]
+        EntropyDictForAnyNodes['NumberEntropy'] = EntropyNodes[1]
+        EntropyDictForAnyNodes['StartEntropy'] = EntropyNodes[2]
         print('EntropyNode', EntropyNodes)
+        print(EntropyDictForAnyNodes)
 
 ##---------------------------Training the Decision Tree Classifier------------------------------------------------------
     def TrainingData(self):
