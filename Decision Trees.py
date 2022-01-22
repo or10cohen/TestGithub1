@@ -58,12 +58,9 @@ class DecisionTrees():
         ListColumnNames = list(self.df.columns)
         ListColumnNames.pop(0)
         SplitValue = [SplitValueAge, SplitValueNumber, SplitValueStart]
-        GiniDictForAnyNodes = {str(ListColumnNames[0]) + 'Gini':[], str(ListColumnNames[1])
-                                + 'Gini':[], str(ListColumnNames[2]) + 'Gini':[]}
         EntropyDictForAnyNodes = {str(ListColumnNames[0]) + 'Entropy': 0, str(ListColumnNames[1])
                                 + 'Entropy': 0, str(ListColumnNames[2]) + 'Entropy': 0}
-
-        GiniValuesForEveryEdge = [[], [], []]
+        EntropyValuesForEveryEdge = [[], [], []]
         for i in range(len(ListColumnNames)):
             PYesEdge1SmallerThen = self.X_train[ListColumnNames[i]] <= SplitValue[i]
             # st.dataframe(PYesEdge1SmallerThen)
@@ -72,8 +69,8 @@ class DecisionTrees():
             PYesEdge1SmallerThenAndEqualAndFalse = len(PYesEdge1SmallerThenAndEqual) - len(PYesEdge1SmallerThenAndEqualAndTrue)
             LenPYesEdge1SmallerThenAndEqualAndTrue = len(PYesEdge1SmallerThenAndEqualAndTrue)
             LenPYesEdge1SmallerThenAndEqualAndFalse = PYesEdge1SmallerThenAndEqualAndFalse
-            GiniValuesForEveryEdge[i].append(LenPYesEdge1SmallerThenAndEqualAndTrue)
-            GiniValuesForEveryEdge[i].append(LenPYesEdge1SmallerThenAndEqualAndFalse)
+            EntropyValuesForEveryEdge[i].append(LenPYesEdge1SmallerThenAndEqualAndTrue)
+            EntropyValuesForEveryEdge[i].append(LenPYesEdge1SmallerThenAndEqualAndFalse)
 
             PYesEdge1BiggerThen = self.X_train[str(ListColumnNames[i])] > SplitValue[i]
             PYesEdge1BiggerThenAndEqual = self.y_train[PYesEdge1BiggerThen] == 'absent'
@@ -81,19 +78,19 @@ class DecisionTrees():
             PYesEdge1BiggerThenAndEqualAndFalse = len(PYesEdge1BiggerThenAndEqual) - len(PYesEdge1BiggerThenAndEqualAndTrue)
             LenPYesEdge1BiggerThenAndEqualAndTrue = len(PYesEdge1BiggerThenAndEqualAndTrue)
             LenPYesEdge1BiggerThenAndEqualAndFalse = PYesEdge1BiggerThenAndEqualAndFalse
-            GiniValuesForEveryEdge[i].append(LenPYesEdge1BiggerThenAndEqualAndTrue)
-            GiniValuesForEveryEdge[i].append(LenPYesEdge1BiggerThenAndEqualAndFalse)
+            EntropyValuesForEveryEdge[i].append(LenPYesEdge1BiggerThenAndEqualAndTrue)
+            EntropyValuesForEveryEdge[i].append(LenPYesEdge1BiggerThenAndEqualAndFalse)
 
 
-            if sum(GiniValuesForEveryEdge[i]) != len(self.X_train[str(ListColumnNames[i])]):
+            if sum(EntropyValuesForEveryEdge[i]) != len(self.X_train[str(ListColumnNames[i])]):
                 raise ValueError('you need to use all options in edges to calculate the Gini index!!! ')
-                print(GiniValuesForEveryEdge[i])
-                print(sum(GiniValuesForEveryEdge[i]))
+                print(EntropyValuesForEveryEdge[i])
+                print(sum(EntropyValuesForEveryEdge[i]))
 
         EntropyEdges = []
         EntropyNodes = []
         IG = []
-        for i in GiniValuesForEveryEdge:
+        for i in EntropyValuesForEveryEdge:
             p0, p1, p2, p3= i[0], i[1], i[2], i[3]
             if p0 == 0 or p1 == 0:
                 EEdge0 = 0
