@@ -90,9 +90,10 @@ class DecisionTrees():
 
 
             if sum(EntropyValuesForEveryEdge[i]) != len(self.X_train[str(ListColumnNames[i])]):
-                raise ValueError('you need to use all options in edges to calculate the Gini index!!! ')
                 print(EntropyValuesForEveryEdge[i])
                 print(sum(EntropyValuesForEveryEdge[i]))
+                raise ValueError('you need to use all options in edges to calculate the Gini index!!! ')
+
 
         EntropyEdges = []
         EntropyNodes = []
