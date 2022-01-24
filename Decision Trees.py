@@ -1,4 +1,5 @@
-import numpy
+# from PIL import Image
+from IPython.display import Image
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -7,6 +8,11 @@ import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn import tree
+from sklearn.tree import export_graphviz
+from six import StringIO
+import pydotplus
+import graphviz
 import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset = True)
@@ -16,10 +22,11 @@ class DecisionTrees():
 
     def __init__(self):
         self.df, self.dfShape = self.ImportData()
-        self.X_train, self.X_test, self.y_train, self.y_test = self.SplittDataSet()
+        self.X_train, self.X_test, self.y_train, self.y_test, self.X, self.y = self.SplittDataSet()
         self.Gini = self.GiniIndex()
         self.dtree = self.TrainingData()
         self.predictions = self.TestAccuracy()
+        self.ploting = self.Ploting()
 
     def __str__(self):
         pass
@@ -50,7 +57,7 @@ class DecisionTrees():
         print(Fore.RED + '\nSplit the data to Train/Test: in the first time we use sklearn library.\n'
                  'To split the data we use the library: from sklearn.model_selection import train_test_split'
                  , Fore.BLUE + '\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)')
-        return X_train, X_test, y_train, y_test
+        return X_train, X_test, y_train, y_test, X, y
 ##--------------------------------------------Gini index manually-------------------------------------------------------
 
     def GiniIndex(self, SplitValueAge = 36, SplitValueNumber = 5, SplitValueStart = 10):
@@ -123,13 +130,14 @@ class DecisionTrees():
     def TrainingData(self):
         print(Fore.LIGHTYELLOW_EX + '\n-----------------Training the Decision Tree Classifier-----------------------\n')
         # from sklearn.tree import DecisionTreeClassifier
-        dtree = DecisionTreeClassifier(criterion="gini")
+        dtree = DecisionTreeClassifier(criterion="entropy")
         dtree.fit(self.X_train, self.y_train)
         print(Fore.RED + '\nWe have used the Gini index as our attribute selection method for the'
                  'training of decision tree classifier with Sklearn function:'
                  ,Fore.BLUE + 'DecisionTreeClassifier().')
         print(Fore.RED + '\nFinally, we do the training process by using the method: '
                  ,Fore.BLUE + 'model.fit()')
+
         return dtree
 ##--------------------------------------------Test Accuracy-------------------------------------------------------------
     def TestAccuracy(self):
@@ -139,9 +147,27 @@ class DecisionTrees():
                 ,Fore.BLUE + 'predictions = dtree.predict(X_test)')
         predictions = self.dtree.predict(self.X_test)
         #from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-        print(Fore.RED + '\n accuracy_score(y_test,predictions)\n', accuracy_score(self.y_test, predictions))
+        accuracy = accuracy_score(self.y_test, predictions)
+        print(Fore.RED + '\n accuracy_score(y_test,predictions)\n', accuracy)
         # print(Fore.RED + '\n confusion_matrix(y_test, predictions)\n', confusion_matrix(self.y_test, predictions))
         # print(Fore.RED + '\nclassification_report(y_test, predictions)\n', classification_report(self.y_test, predictions))
         return predictions
+
+    def Ploting(self):
+        print(Fore.LIGHTYELLOW_EX + '\n----------------------------Ploting------------------------------------\n')
+        clf_model = DecisionTreeClassifier(criterion="entropy", random_state=42, max_depth=3, min_samples_leaf=5)
+        clf_model.fit(self.X_train, self.y_train)
+
+        target = list(self.df['Kyphosis'].unique())
+        feature_names = list(self.X.columns)
+        # from sklearn import tree
+        # import graphviz
+        dot_data = tree.export_graphviz(clf_model,
+                                        out_file=None,
+                                        feature_names=feature_names,
+                                        class_names=target,
+                                        filled=True, rounded=True,
+                                        special_characters=True)
+
 
 TestAreTree = DecisionTrees()
