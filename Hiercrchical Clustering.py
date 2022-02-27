@@ -1,3 +1,7 @@
+import colorama
+import matplotlib.pyplot as plt
+from colorama import Fore, Back, Style
+colorama.init(autoreset = True)
 import numpy as np
 import scipy
 import sklearn
@@ -9,6 +13,8 @@ import seaborn as sns
 
 iris = datasets.load_iris()
 X = iris.data[:, :]
+print(Fore.LIGHTGREEN_EX + '\nshape train data:', X.shape)
+
 
 class HierarchicalClustering:
 
@@ -26,10 +32,14 @@ class HierarchicalClustering:
                                           , self.Normalize_training_data, p=2)
         return self.distance_matrix
 
-    def
+    # def
 
 
 HC = HierarchicalClustering(X)
 
+print(Fore.LIGHTBLUE_EX + '\nNormalize training data sample:\n', HC.Normalize_training_data[:5, :])
+print(Fore.LIGHTBLUE_EX + '\ntype distance Matrix:', type(HC.distance_matrix))
+print(Fore.LIGHTBLUE_EX + '\nshape distance Matrix:', HC.distance_matrix.shape)
+print(Fore.LIGHTBLUE_EX + '\ndistance Matrix sample:\n', HC.distance_matrix[:5, :5])
 # sns.heatmap(HC.distance_matrix[:10, :10], cmap=plt.cm.Reds)
 # plt.show()
