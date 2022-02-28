@@ -42,9 +42,11 @@ class HierarchicalClustering:
 
 
 
-
-
-
+print(Fore.LIGHTGREEN_EX + '\nshape train data:', X.shape)
+print(Fore.LIGHTBLUE_EX + '\nNormalize training data sample:\n', HC.Normalize_training_data[:5, :])
+print(Fore.LIGHTBLUE_EX + '\ntype distance Matrix:', type(HC.distance_matrix))
+print(Fore.LIGHTBLUE_EX + '\nshape distance Matrix:', HC.distance_matrix.shape)
+print(Fore.LIGHTBLUE_EX + '\ndistance Matrix sample:\n', HC.distance_matrix[:5, :5])
 
 
 
@@ -53,3 +55,5 @@ HC = HierarchicalClustering(X)
 # plt.show()
 i, j = np.where(HC.distance_matrix == np.min(HC.distance_matrix[np.nonzero(HC.distance_matrix)]))
 print(i[0], j[0])
+
+
