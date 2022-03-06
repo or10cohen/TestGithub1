@@ -2,6 +2,8 @@ import numpy as np
 import scipy
 from sklearn import datasets
 from scipy.spatial.distance import squareform, pdist
+from sklearn.cluster import AgglomerativeClustering
+import matplotlib.pyplot as plt
 
 iris = datasets.load_iris()
 X = iris.data[:, :]
@@ -54,16 +56,30 @@ class HierarchicalClustering:
 
 HC = HierarchicalClustering(X)
 HC.fit()
-print(len(HC.clusters))
-print(HC.clusters[0])
-print(len(HC.clusters[0]))
-print(HC.clusters[1])
-print(len(HC.clusters[1]))
+plt.figure()
+plt.subplot(121)
+plt.title('My_linkage')
+x_label1 = np.zeros(150)
+y_label1 = np.zeros(150)
+for i in HC.clusters[0]:
+    x_label1[i] = X[i ,0]
+    y_label1[i] = X[i ,1]
+x_label2 = np.zeros(150)
+y_label2 = np.zeros(150)
+for i in HC.clusters[1]:
+    x_label2[i] = X[i ,0]
+    y_label2[i] = X[i ,1]
+plt.scatter(x_label1[x_label1!=0], y_label1[y_label1!=0])
+plt.scatter(x_label2[x_label2!=0], y_label2[y_label2!=0])
 
 
 
 
-# sns.heatmap(HC.distance_matrix[:10, :10], cmap=plt.cm.Reds)
-# plt.show()
-# i = np.where(HC.distance_matrix == np.min(HC.distance_matrix))
-# print(i[0][0])
+sklearn_linkage = AgglomerativeClustering(2, linkage='complete')
+sklearn_linkage.fit(X)
+plt.subplot(122)
+plt.title('sklearn_linkage AgglomerativeClustering')
+plt.scatter(X[:,0], X[:,1], c = sklearn_linkage.labels_)
+plt.show()
+
+
