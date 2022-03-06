@@ -1,42 +1,29 @@
-import matplotlib.pyplot
 import numpy as np
 import scipy
-import sklearn
-from matplotlib import pyplot as plt
 from sklearn import datasets
-import pandas as pd
 from scipy.spatial.distance import squareform, pdist
-from scipy.spatial import distance_matrix
-import seaborn as sns
-import scipy.cluster.hierarchy as sch
-
-# from skbio.stats.distance import DissimilarityMatrix
-
 
 iris = datasets.load_iris()
 X = iris.data[:, :]
-
-# normalize_data = sklearn.preprocessing.normalize(X, norm='l2', axis=0, copy=True)
-# new_data = pd.DataFrame(X)
-# new_data.index += 1
-# dis_matrix = pd.DataFrame(squareform(pdist(new_data.loc[:, :])), columns=new_data.index, index=new_data.index)
-
 
 class HierarchicalClustering:
 
     def __init__(self, Data):
         self.train_data = Data
-        # self.Normalize_training_data = self.Normalize_data()
+        self.Normalize_training_data = self.Normalize_data()
         self.distance_matrix = self.Calc_distance_matrix()
         self.clusters = [[i] for i in range(len(self.train_data))]
 
-    # def Normalize_data(self):
-    #     self.Normalize_training_data = np.linalg.norm(self.train_data)
-    #     return self.Normalize_training_data
+    def Normalize_data(self):
+        self.Normalize_training_data = np.copy(self.train_data)
+        for i in range(self.Normalize_training_data.shape[1]):
+            for j in range(self.Normalize_training_data.shape[0]):
+                self.Normalize_training_data[j,i] = (self.Normalize_training_data[j,i] - np.ndarray.min(self.Normalize_training_data[:,i])) / \
+                    (np.ndarray.max(self.Normalize_training_data[:,i]) - np.ndarray.min(self.Normalize_training_data[:,i]))
+        return self.Normalize_training_data
 
     def Calc_distance_matrix(self):
-        self.distance_matrix = scipy.spatial.distance_matrix(self.train_data \
-                                                             , self.train_data, p=2)
+        self.distance_matrix = scipy.spatial.distance_matrix(self.Normalize_training_data, self.Normalize_training_data, p=2)
         self.distance_matrix += np.diag([np.inf] * len(self.train_data))
         return self.distance_matrix
 
@@ -68,6 +55,13 @@ class HierarchicalClustering:
 HC = HierarchicalClustering(X)
 HC.fit()
 print(len(HC.clusters))
+print(HC.clusters[0])
+print(len(HC.clusters[0]))
+print(HC.clusters[1])
+print(len(HC.clusters[1]))
+
+
+
 
 # sns.heatmap(HC.distance_matrix[:10, :10], cmap=plt.cm.Reds)
 # plt.show()
