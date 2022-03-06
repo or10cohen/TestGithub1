@@ -72,9 +72,6 @@ for i in HC.clusters[1]:
 plt.scatter(x_label1[x_label1!=0], y_label1[y_label1!=0])
 plt.scatter(x_label2[x_label2!=0], y_label2[y_label2!=0])
 
-
-
-
 sklearn_linkage = AgglomerativeClustering(2, linkage='complete')
 sklearn_linkage.fit(X)
 plt.subplot(122)
