@@ -106,6 +106,6 @@ class HierarchicalClustering:
 
 
 HC = HierarchicalClustering(X)
-HC.Print_2d()
-HC.Print_3d()
+# HC.Print_2d()
+# HC.Print_3d()
 
