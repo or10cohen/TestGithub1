@@ -51,21 +51,20 @@ class HierarchicalClustering:
             self.UpdateCluster(index1)
             self.UpdateDistanceMatrix(index1)
 
-number_clusters=3
+
 HC = HierarchicalClustering(X)
+number_clusters=3
 HC.fit(number_clusters)
 plt.figure()
 plt.subplot(121)
 plt.title('My_linkage')
-x_label1, y_label1, x_label2, y_label2 = np.zeros(150)
-for i in HC.clusters[0]:
-    x_label1[i] = X[i ,0]
-    y_label1[i] = X[i ,1]
-for i in HC.clusters[1]:
-    x_label2[i] = X[i ,0]
-    y_label2[i] = X[i ,1]
-plt.scatter(x_label1[x_label1!=0], y_label1[y_label1!=0])
-plt.scatter(x_label2[x_label2!=0], y_label2[y_label2!=0])
+x_label = [np.zeros(150) for i in range(number_clusters)]
+y_label = [np.zeros(150) for i in range(number_clusters)]
+for i in range(number_clusters):
+    for j in HC.clusters[i]:
+        x_label[i][j] = X[j ,0]
+        y_label[i][j] = X[j ,1]
+    plt.scatter(x_label[i][x_label[i]!=0], y_label[i][y_label[i]!=0])
 
 sklearn_linkage = AgglomerativeClustering(2, linkage='complete')
 sklearn_linkage.fit(X)
