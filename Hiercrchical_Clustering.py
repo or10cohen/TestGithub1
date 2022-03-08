@@ -108,6 +108,6 @@ class HierarchicalClustering:
 
 HC = HierarchicalClustering(X)
 HC.fit()
-# HC.Print_2d()
+HC.Print_2d()
 # HC.Print_3d()
 
