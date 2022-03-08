@@ -10,13 +10,14 @@ import matplotlib.pyplot as plt
 
 class HierarchicalClustering:
 
-    def __init__(self, Data, number_clusters=2):
+    def __init__(self, Data, number_clusters=2, linkage_method='complete'):
         self.train_data = Data
         self.number_clusters = number_clusters
         self.len_train_data = len(Data)
         self.Normalize_training_data = self.Normalize_data()
         self.distance_matrix = self.Calc_distance_matrix()
         self.clusters = [[i] for i in range(len(self.train_data))]
+        self.linkage_method = linkage_method
 
     def Normalize_data(self):
         Normalize_training_data = np.copy(self.train_data)
@@ -35,12 +36,14 @@ class HierarchicalClustering:
         self.distance_matrix = np.delete(self.distance_matrix, index1[1], axis=0)
         first_column = self.distance_matrix[:, index1[1]]
         second_column = self.distance_matrix[:, index1[0]]
-        # if 'minimun':
-        #     # new_column = np.minimum(first_column, second_column)
-        # if 'maximum':
-        #     new_column = np.maximum(first_column, second_column)
-        # if 'avarage':
-        #     new_column = (np.maximum(first_column, second_column) + np.minimum(first_column, second_column)) / 2
+        if self.linkage_method == 'single':
+             new_column = np.minimum(first_column, second_column)
+        elif self.linkage_method == 'complete':
+             new_column = np.maximum(first_column, second_column)
+        elif self.linkage_method == 'average':
+             new_column = (np.maximum(first_column, second_column) + np.minimum(first_column, second_column)) / 2
+        else:
+            pass
         new_column = np.maximum(first_column, second_column)
         # new_row = np.reshape(new_column, (1, len(new_column)))
         self.distance_matrix = np.delete(self.distance_matrix, index1[1], axis=1)
@@ -63,7 +66,7 @@ class HierarchicalClustering:
         self.x_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
         self.y_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
         self.z_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
-        fig = plt.figure()
+        fig = plt.figure(figsize=(7, 5))
         ax = fig.add_subplot(1, 2, 1, projection='3d')
         for i in range(self.number_clusters):
             for j in self.clusters[i]:
@@ -73,18 +76,18 @@ class HierarchicalClustering:
             ax.scatter(self.x_label[i][self.x_label[i] != 0], self.y_label[i][self.y_label[i] != 0], self.z_label[i][self.z_label[i] != 0])
         ax.set_title('My_linkage')
 
-        sklearn_linkage = AgglomerativeClustering(n_clusters=self.number_clusters, linkage='complete')
+        sklearn_linkage = AgglomerativeClustering(n_clusters=self.number_clusters, linkage=self.linkage_method)
         sklearn_linkage.fit(self.train_data)
         ax = fig.add_subplot(1, 2, 2, projection='3d')
         ax.scatter(self.train_data[:, 0], self.train_data[:, 1], self.train_data[:, 2], c=sklearn_linkage.labels_)
         ax.set_title('sklearn_linkage AgglomerativeClustering')
-        plt.show()
+        # plt.show()
         plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_3d.png')
 
     def Print_2d(self):
         self.x_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
         self.y_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
-        plt.figure()
+        plt.figure(figsize=(8, 4))
         plt.subplot(121)
         plt.title('My_linkage')
         for i in range(self.number_clusters):
@@ -93,12 +96,12 @@ class HierarchicalClustering:
                 self.y_label[i][j] = self.train_data[j, 1]
             plt.scatter(self.x_label[i][self.x_label[i]!=0], self.y_label[i][self.y_label[i]!=0])
 
-        sklearn_linkage = AgglomerativeClustering(2, linkage='complete')
+        sklearn_linkage = AgglomerativeClustering(2, linkage=self.linkage_method)
         sklearn_linkage.fit(self.train_data)
         plt.subplot(122)
         plt.title('sklearn_linkage AgglomerativeClustering')
         plt.scatter(self.train_data[:, 0], self.train_data[:, 1], c=sklearn_linkage.labels_)
-        plt.show()
+        # plt.show()
         plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_2d.png')
 
 

@@ -3,8 +3,6 @@ import Hiercrchical_Clustering
 from sklearn import datasets
 from PIL import Image
 
-
-
 st.title('Hiercrchical Clustering')
 
 
@@ -12,8 +10,14 @@ st.title('Hiercrchical Clustering')
 add_selectbox = st.radio(
     'Which DataSet you want to use?',
     ('iris', 'wine', 'brest cancer', 'diabetes'))
+add_linkage = st.radio(
+    'Which Linkage you want to use?',
+    ('complete', 'average', 'single'))
+
 add_cluster = st.slider('How many cluster you want?(Hyperparameter)', 2, 3, 4)
-add_dimensions = st.slider('Plot with how many dimensions?', 2, 3)
+add_dimensions = st.radio(
+    'Plot with how many dimensions?',
+    (2, 3))
 
 
 if add_selectbox == 'iris' :
@@ -30,7 +34,7 @@ X = dataset.data[:, :]
 
 
 
-HC = Hiercrchical_Clustering.HierarchicalClustering(X,add_cluster)
+HC = Hiercrchical_Clustering.HierarchicalClustering(X,add_cluster,add_linkage)
 HC.fit()
 if add_dimensions == 2 :
     HC.Print_2d()
