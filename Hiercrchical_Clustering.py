@@ -10,13 +10,13 @@ import matplotlib.pyplot as plt
 
 class HierarchicalClustering:
 
-    def __init__(self, Data):
+    def __init__(self, Data, number_clusters=2):
         self.train_data = Data
+        self.number_clusters = number_clusters
         self.len_train_data = len(Data)
         self.Normalize_training_data = self.Normalize_data()
         self.distance_matrix = self.Calc_distance_matrix()
         self.clusters = [[i] for i in range(len(self.train_data))]
-        self.number_clusters = self.fit()
 
     def Normalize_data(self):
         Normalize_training_data = np.copy(self.train_data)
@@ -53,12 +53,11 @@ class HierarchicalClustering:
         self.clusters[index1[0]].extend(self.clusters[index1[1]])
         self.clusters.pop(index1[1])
 
-    def fit(self, number_clusters=2):
-        while len(self.clusters) > number_clusters:
+    def fit(self):
+        while len(self.clusters) > self.number_clusters:
             index1, index2 = np.where(self.distance_matrix == np.min(self.distance_matrix))
             self.UpdateCluster(index1)
             self.UpdateDistanceMatrix(index1)
-        return number_clusters
 
     def Print_3d(self):
         self.x_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
@@ -67,17 +66,17 @@ class HierarchicalClustering:
         fig = plt.figure()
         ax = fig.add_subplot(1, 2, 1, projection='3d')
         for i in range(self.number_clusters):
-            for j in HC.clusters[i]:
-                self.x_label[i][j] = X[j, 0]
-                self.y_label[i][j] = X[j, 1]
-                self.z_label[i][j] = X[j, 2]
+            for j in self.clusters[i]:
+                self.x_label[i][j] = self.train_data[j, 0]
+                self.y_label[i][j] = self.train_data[j, 1]
+                self.z_label[i][j] = self.train_data[j, 2]
             ax.scatter(self.x_label[i][self.x_label[i] != 0], self.y_label[i][self.y_label[i] != 0], self.z_label[i][self.z_label[i] != 0])
         ax.set_title('My_linkage')
 
         sklearn_linkage = AgglomerativeClustering(n_clusters=self.number_clusters, linkage='complete')
-        sklearn_linkage.fit(X)
+        sklearn_linkage.fit(self.train_data)
         ax = fig.add_subplot(1, 2, 2, projection='3d')
-        ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=sklearn_linkage.labels_)
+        ax.scatter(self.train_data[:, 0], self.train_data[:, 1], self.train_data[:, 2], c=sklearn_linkage.labels_)
         ax.set_title('sklearn_linkage AgglomerativeClustering')
         plt.show()
         plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_3d.png')
@@ -89,23 +88,23 @@ class HierarchicalClustering:
         plt.subplot(121)
         plt.title('My_linkage')
         for i in range(self.number_clusters):
-            for j in HC.clusters[i]:
-                self.x_label[i][j] = X[j, 0]
-                self.y_label[i][j] = X[j, 1]
+            for j in self.clusters[i]:
+                self.x_label[i][j] = self.train_data[j, 0]
+                self.y_label[i][j] = self.train_data[j, 1]
             plt.scatter(self.x_label[i][self.x_label[i]!=0], self.y_label[i][self.y_label[i]!=0])
 
         sklearn_linkage = AgglomerativeClustering(2, linkage='complete')
-        sklearn_linkage.fit(X)
+        sklearn_linkage.fit(self.train_data)
         plt.subplot(122)
         plt.title('sklearn_linkage AgglomerativeClustering')
-        plt.scatter(X[:, 0], X[:, 1], c=sklearn_linkage.labels_)
+        plt.scatter(self.train_data[:, 0], self.train_data[:, 1], c=sklearn_linkage.labels_)
         plt.show()
         plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_2d.png')
 
 
-
-# HC = HierarchicalClustering(X)
-# HC.fit(number_clusters=2)
+#
+# HC = HierarchicalClustering(X,3)
+# HC.fit()
 # HC.Print_2d()
 # HC.Print_3d()
 
