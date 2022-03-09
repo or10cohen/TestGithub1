@@ -15,11 +15,11 @@ class HierarchicalClustering:
         self.number_clusters = number_clusters
         self.linkage_method = linkage_method
         self.len_train_data = len(Data)
-        self.Normalize_training_data = self.Normalize_data()
-        self.distance_matrix = self.Calc_distance_matrix()
+        self.Normalize_training_data = self.normalize_data()
+        self.distance_matrix = self.calc_distance_matrix()
         self.clusters = [[i] for i in range(len(self.train_data))]
 
-    def Normalize_data(self):
+    def normalize_data(self):
         Normalize_training_data = np.copy(self.train_data)
         for i in range(Normalize_training_data.shape[1]):
             for j in range(Normalize_training_data.shape[0]):
@@ -27,12 +27,12 @@ class HierarchicalClustering:
                     (np.ndarray.max(Normalize_training_data[:,i]) - np.ndarray.min(Normalize_training_data[:,i]))
         return Normalize_training_data
 
-    def Calc_distance_matrix(self):
+    def calc_distance_matrix(self):
         distance_matrix = spatial.distance_matrix(self.Normalize_training_data, self.Normalize_training_data, p=2)
         distance_matrix += np.diag([np.inf] * len(self.train_data))
         return distance_matrix
 
-    def UpdateDistanceMatrix(self, index1):
+    def updateDistanceMatrix(self, index1):
         self.distance_matrix = np.delete(self.distance_matrix, index1[1], axis=0)
         first_column = self.distance_matrix[:, index1[1]]
         second_column = self.distance_matrix[:, index1[0]]
@@ -51,17 +51,17 @@ class HierarchicalClustering:
         self.distance_matrix += np.diag([np.inf] * len(self.distance_matrix))
 
     # update clusters
-    def UpdateCluster(self, index1):
+    def updateCluster(self, index1):
         self.clusters[index1[0]].extend(self.clusters[index1[1]])
         self.clusters.pop(index1[1])
 
     def fit(self):
-        while len(self.clusters) > self.number_clusters:
+        while len(self.clusters) > self.number_clusters: #and min_cluster < max_distance_cluster
             index1, index2 = np.where(self.distance_matrix == np.min(self.distance_matrix))
-            self.UpdateCluster(index1)
-            self.UpdateDistanceMatrix(index1)
+            self.updateCluster(index1)
+            self.updateDistanceMatrix(index1)
 
-    def Print_3d(self,rotate_fig_0 = None, rotate_fig_1 = None):
+    def print_3d(self,rotate_fig_0 = None, rotate_fig_1 = None):
         self.x_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
         self.y_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
         self.z_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
@@ -85,7 +85,7 @@ class HierarchicalClustering:
         # plt.show()
         plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_3d.png')
 
-    def Print_2d(self):
+    def print_2d(self):
         self.x_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
         self.y_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
         plt.figure(figsize=(8, 4))
@@ -106,9 +106,11 @@ class HierarchicalClustering:
         plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_2d.png')
 
 
+# if __name__ = 'main':
+
 #
 # HC = HierarchicalClustering(X,3)
 # HC.fit()
-# HC.Print_2d()
-# HC.Print_3d()
+# HC.print_2d()
+# HC.print_3d()
 

@@ -43,11 +43,11 @@ X = dataset.data[:, :]
 HC = Hiercrchical_Clustering.HierarchicalClustering(X, number_clusters=add_cluster, linkage_method=add_linkage)
 HC.fit()
 if add_dimensions == 2 :
-    HC.Print_2d()
+    HC.print_2d()
     image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_2d.png')
     st.image(image)
 elif add_dimensions == 3:
-    HC.Print_3d(rotate_fig_0=rotate_fig_0, rotate_fig_1=rotate_fig_1)
+    HC.print_3d(rotate_fig_0=rotate_fig_0, rotate_fig_1=rotate_fig_1)
     image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_3d.png')
     st.image(image)
 else:
