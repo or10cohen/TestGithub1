@@ -61,7 +61,7 @@ class HierarchicalClustering:
             self.UpdateCluster(index1)
             self.UpdateDistanceMatrix(index1)
 
-    def Print_3d(self):
+    def Print_3d(self,rotate_fig_0 = None, rotate_fig_1 = None):
         self.x_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
         self.y_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
         self.z_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
@@ -72,14 +72,16 @@ class HierarchicalClustering:
                 self.x_label[i][j] = self.train_data[j, 0]
                 self.y_label[i][j] = self.train_data[j, 1]
                 self.z_label[i][j] = self.train_data[j, 2]
-            ax.scatter(self.x_label[i][self.x_label[i] != 0], self.y_label[i][self.y_label[i] != 0], self.z_label[i][self.z_label[i] != 0])
+            ax.scatter3D(self.x_label[i][self.x_label[i] != 0], self.y_label[i][self.y_label[i] != 0], self.z_label[i][self.z_label[i] != 0])
         ax.set_title('My_linkage')
+        ax.view_init(rotate_fig_0, rotate_fig_1)
 
         sklearn_linkage = AgglomerativeClustering(n_clusters=self.number_clusters, linkage=self.linkage_method)
         sklearn_linkage.fit(self.train_data)
         ax = fig.add_subplot(1, 2, 2, projection='3d')
-        ax.scatter(self.train_data[:, 0], self.train_data[:, 1], self.train_data[:, 2], c=sklearn_linkage.labels_)
+        ax.scatter3D(self.train_data[:, 0], self.train_data[:, 1], self.train_data[:, 2], c=sklearn_linkage.labels_)
         ax.set_title('sklearn_linkage AgglomerativeClustering')
+        ax.view_init(rotate_fig_0, rotate_fig_1)
         # plt.show()
         plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_3d.png')
 
