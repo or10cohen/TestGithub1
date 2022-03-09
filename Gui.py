@@ -53,7 +53,5 @@ elif add_dimensions == 3:
 else:
     pass
 
-
-# run_my_function = Hiercrchical_Clustering.HierarchicalClustering(X)
-
+#  py -m streamlit run filename.py
 # st run C:/Users/or_cohen/PycharmProjects/TestGithub1/Gui.py [ARGUMENTS]
