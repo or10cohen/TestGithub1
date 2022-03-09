@@ -13,8 +13,7 @@ add_selectbox = st.radio(
 add_linkage = st.radio(
     'Which Linkage you want to use?',
     ('complete', 'average', 'single'))
-
-add_cluster = st.slider('How many cluster you want?(Hyperparameter)', 2, 3, 4)
+add_cluster = st.slider('How many cluster you want(Hyperparameter)?', 2, 3, 4)
 add_dimensions = st.radio(
     'Plot with how many dimensions?',
     (2, 3))
@@ -33,8 +32,7 @@ else:
 X = dataset.data[:, :]
 
 
-
-HC = Hiercrchical_Clustering.HierarchicalClustering(X,add_cluster,add_linkage)
+HC = Hiercrchical_Clustering.HierarchicalClustering(X, number_clusters=add_cluster, linkage_method=add_linkage)
 HC.fit()
 if add_dimensions == 2 :
     HC.Print_2d()

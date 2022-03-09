@@ -13,11 +13,11 @@ class HierarchicalClustering:
     def __init__(self, Data, number_clusters=2, linkage_method='complete'):
         self.train_data = Data
         self.number_clusters = number_clusters
+        self.linkage_method = linkage_method
         self.len_train_data = len(Data)
         self.Normalize_training_data = self.Normalize_data()
         self.distance_matrix = self.Calc_distance_matrix()
         self.clusters = [[i] for i in range(len(self.train_data))]
-        self.linkage_method = linkage_method
 
     def Normalize_data(self):
         Normalize_training_data = np.copy(self.train_data)
@@ -44,11 +44,10 @@ class HierarchicalClustering:
              new_column = (np.maximum(first_column, second_column) + np.minimum(first_column, second_column)) / 2
         else:
             pass
-        new_column = np.maximum(first_column, second_column)
-        # new_row = np.reshape(new_column, (1, len(new_column)))
+        new_row = new_column.T
         self.distance_matrix = np.delete(self.distance_matrix, index1[1], axis=1)
         self.distance_matrix[:, index1[0]] = new_column
-        self.distance_matrix[index1[0], :] = new_column    # its new row here, but we can input column and it automaticly did Transfor.
+        self.distance_matrix[index1[0], :] = new_row    # its new row here, but we can input column and it automaticly did Transfor.
         self.distance_matrix += np.diag([np.inf] * len(self.distance_matrix))
 
     # update clusters
@@ -96,7 +95,7 @@ class HierarchicalClustering:
                 self.y_label[i][j] = self.train_data[j, 1]
             plt.scatter(self.x_label[i][self.x_label[i]!=0], self.y_label[i][self.y_label[i]!=0])
 
-        sklearn_linkage = AgglomerativeClustering(2, linkage=self.linkage_method)
+        sklearn_linkage = AgglomerativeClustering(n_clusters=self.number_clusters, linkage=self.linkage_method)
         sklearn_linkage.fit(self.train_data)
         plt.subplot(122)
         plt.title('sklearn_linkage AgglomerativeClustering')
