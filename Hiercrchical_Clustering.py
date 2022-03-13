@@ -67,12 +67,13 @@ class HierarchicalClustering:
             len_we_need = len(self.clusters)
         else:
             len_we_need = self.number_clusters
-        self.x_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
-        self.y_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
-        self.z_label = [np.zeros(self.len_train_data) for i in range(self.number_clusters)]
+
+        self.x_label = [np.zeros(self.len_train_data) for i in range(len_we_need)]
+        self.y_label = [np.zeros(self.len_train_data) for i in range(len_we_need)]
+        self.z_label = [np.zeros(self.len_train_data) for i in range(len_we_need)]
         fig = plt.figure(figsize=(7, 5))
         ax = fig.add_subplot(1, 2, 1, projection='3d')
-        for i in len_we_need:
+        for i in range(len_we_need):
             for j in self.clusters[i]:
                 self.x_label[i][j] = self.train_data[j, 0]
                 self.y_label[i][j] = self.train_data[j, 1]
