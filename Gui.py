@@ -20,9 +20,12 @@ add_dimensions = st.radio(
     'Plot with how many dimensions?',
     (2, 3))
 
+
+
+
 if add_dimensions == 3:
-    rotate_fig_0 = st.slider('Rotate axis x', 0, 180, 45,step=45)
-    rotate_fig_1 = st.slider('Rotate axis y', 0, 180, 45,step=45)
+    rotate_fig_0 = st.slider('Rotate axis x', 0, 180, 45, step=45)
+    rotate_fig_1 = st.slider('Rotate axis y', 0, 180, 45, step=45)
 else:
     pass
 
@@ -39,9 +42,12 @@ else:
     pass
 X = dataset.data[:, :]
 
+max_distance = st.slider('Max distance / 100', 0, 200, 200, step=1)
 
-HC = Hiercrchical_Clustering.HierarchicalClustering(X, number_clusters=add_cluster, linkage_method=add_linkage)
+HC = Hiercrchical_Clustering.HierarchicalClustering(X, number_clusters=add_cluster, max_distance=max_distance / 100, linkage_method=add_linkage)
 HC.fit()
+
+
 if add_dimensions == 2 :
     HC.print_2d()
     image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_2d.png')
