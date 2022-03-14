@@ -31,7 +31,7 @@ elif add_dataset == 'brest cancer' :
 else:
     pass
 
-s = SVM.svm(dataset, test_size=add_test_size, random_state=add_random_state, kernel=add_kernel, c=add_C)
+S = SVM.svm(dataset, test_size=add_test_size, random_state=add_random_state, kernel=add_kernel, c=add_C)
 
 image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\SVM.png')
 st.image(image)
