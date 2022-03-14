@@ -6,32 +6,29 @@ from sklearn.svm import SVC
 from sklearn.preprocessing import MinMaxScaler
 
 
-DataSet = datasets.load_iris()
-
-class SVM:
-
-    def __init__(self, DataSet, test_size=0.05, random_state=42, kernel='linear', C=1.0):
-        self.DataSet = DataSet
-        self.X ,self.y = self.data()
-        self.test_size = test_size
-        self.random_state = random_state
-        self.kernel = kernel
-        self.C = C
+class svm:
+    def __init__(self, chose_dataset, test_size=0.05, random_state=42, kernel='linear', c=1.0):
+        self.data_set = chose_dataset
+        self.test_size, self.random_state, self.kernel, self.C = test_size, random_state, kernel, c
+        self.X, self.y = self.data()
         self.X_train, self.X_test, self.y_train, self.y_test = self.split_data()
         self.normalize_train_data, self.normalize_test_data = self.normalize_data()
+        self.y_predict, self.a, self.b, self.r, self.t, self.b_up_margin, self.b_down_margin = self.fit()
 
     def data(self):
-        X = self.DataSet.data[:,:2]
-        y = self.DataSet.target
+        X = self.data_set.data[:, :2]
+        y = self.data_set.target
         return X, y
 
     def split_data(self):
-        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=self.test_size, random_state=self.random_state)
+        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=self.test_size,
+                                                            random_state=self.random_state)
         y_train = np.where(y_train == 2, 1, y_train)
         return X_train, X_test, y_train, y_test
 
     def normalize_data(self):
-        normalize_train_data, normalize_test_data = MinMaxScaler().fit_transform(self.X_train), MinMaxScaler().fit_transform(self.X_test)
+        normalize_train_data, normalize_test_data = MinMaxScaler().fit_transform(
+            self.X_train), MinMaxScaler().fit_transform(self.X_test)
         return normalize_train_data, normalize_test_data
 
     def fit(self):
@@ -39,32 +36,28 @@ class SVM:
         clf.fit(self.normalize_train_data, self.y_train)
         y_predict = clf.predict(self.normalize_test_data[:, :].reshape(-1, 2))
         print()
-    # print(normalize_data[:10, :10])
+        w = clf.coef_
+        a = -w[0][0] / w[0][1]
+        support_vectors = clf.support_vectors_
+        b = -clf.intercept_ / w[0][1]
+        # print(clf.coef_)
+        # print(clf.intercept_)
+        r = np.linspace(0, 1, 1000)
+        t = a * r + b
+        b_up_margin = -(clf.intercept_ + 1) / w[0][1]
+        b_down_margin = -(clf.intercept_ - 1) / w[0][1]
+        return y_predict, a, b, r, t, b_up_margin, b_down_margin
+
+    def print_data(self):
+        up_margin = self.a * self.r + self.b_up_margin
+        down_margin = self.a * self.r + self.b_down_margin
+        plt.scatter(self.normalize_train_data[:, 0], self.normalize_train_data[:, 1])
+        plt.plot(self.r, self.t, color='k')
+        plt.plot(self.r, up_margin, color='r')
+        plt.plot(self.r, down_margin, color='r')
+        plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\SVM.png')
 
 
-
-
-w = clf.coef_
-# b = clf.intercept_
-support_vectors = clf.support_vectors_
-b = -clf.intercept_/w[0][1]
-# print(clf.coef_)
-# print(clf.intercept_)
-a = -w[0][0]/w[0][1]
-# print(a)
-# print(b)
-r = np.linspace(0, 1, 1000)
-t = a*r + b
-b_up_margin = -(clf.intercept_+1)/w[0][1]
-b_down_margin = -(clf.intercept_-1)/w[0][1]
-up_margin = a*r + b_up_margin
-down_margin = a*r + b_down_margin
-plt.scatter(normalize_data[:, 0], normalize_data[:, 1])
-plt.plot(r, t, color='k')
-plt.plot(r, up_margin, color='r')
-plt.plot(r, down_margin, color='r')
-plt.show()
-# print(y_predict)
-# print(y_test)
-
-
+# chose_dataset = datasets.load_iris()
+# SVM = SVM(chose_dataset)
+# SVM.print_data()

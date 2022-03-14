@@ -5,75 +5,33 @@ from PIL import Image
 
 st.title('SVM')
 
-
 # Add a selectbox to the sidebar:
-add_selectbox = st.radio(
-    'Which DataSet you want to use?',
+add_dataset = st.radio(
+    'Which DataSet do you want to use?',
     ('iris', 'wine', 'brest cancer', 'diabetes'))
-add_linkage = st.radio(
-    'Which Linkage you want to use?',
-    ('complete', 'average', 'single'))
+
+add_test_size = st.slider('test_size parameter in train_test_split() function', 0, 100, 5)
+add_random_state = st.slider('random_state parameter in train_test_split() function', 0, 100, 42)
+
+add_kernel = st.radio(
+    'Which kernel in SVC function do you want to use?',
+    ('linear', 'poly', 'rbf', 'sigmoid', 'precomputed'))
+
+add_C = st.slider('C parameter in SVC function', 0, 2, 1)
 
 
-
-add_Hyperparameter = st.radio(
-    'Which Hyperparameter you want?',
-    ('Cluster', 'Max distance'))
-
-
-add_cluster=2
-max_distance=9999
-
-
-if add_Hyperparameter == 'Cluster':
-    add_cluster = st.radio(
-        'How many cluster you want?',
-        (2, 3, 4))
-elif add_Hyperparameter == 'Max distance':
-    max_distance = st.slider('Max distance / 100', 0, 200, 200, step=1)
-else:
-    pass
-
-
-add_dimensions = st.radio(
-    'Plot with how many dimensions?',
-    (2, 3))
-
-if add_dimensions == 3:
-    rotate_fig_0 = st.slider('Rotate axis x', 0, 180, 45, step=45)
-    rotate_fig_1 = st.slider('Rotate axis y', 0, 180, 45, step=45)
-else:
-    pass
-
-
-if add_selectbox == 'iris' :
+if add_dataset == 'iris' :
     dataset = datasets.load_iris()
-elif add_selectbox == 'diabetes':
+elif add_dataset == 'diabetes':
     dataset = datasets.load_diabetes()
-elif add_selectbox == 'wine':
+elif add_dataset == 'wine':
     dataset = datasets.load_wine()
-elif add_selectbox == 'brest cancer' :
+elif add_dataset == 'brest cancer' :
     dataset = datasets.load_breast_cancer()
 else:
     pass
-X = dataset.data[:, :]
 
+s = SVM.svm(dataset, test_size=add_test_size, random_state=add_random_state, kernel=add_kernel, c=add_C)
 
-
-HC = Hiercrchical_Clustering.HierarchicalClustering(X, number_clusters=add_cluster, max_distance=max_distance / 100, linkage_method=add_linkage)
-HC.fit()
-
-
-if add_dimensions == 2 :
-    HC.print_2d()
-    image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_2d.png')
-    st.image(image)
-elif add_dimensions == 3:
-    HC.print_3d(rotate_fig_0=rotate_fig_0, rotate_fig_1=rotate_fig_1)
-    image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_3d.png')
-    st.image(image)
-else:
-    pass
-
-#  py -m streamlit run filename.py
-# st run C:/Users/or_cohen/PycharmProjects/TestGithub1/Gui Hiercrchical_Clustering .py [ARGUMENTS]
+image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\SVM.png')
+st.image(image)
