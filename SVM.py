@@ -5,40 +5,42 @@ from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.preprocessing import MinMaxScaler
 
-# Load iris data and labels
-iris = datasets.load_iris()
-X = iris.data[:, :2]
-y = iris.target
 
-
+DataSet = datasets.load_iris()
 
 class SVM:
 
-    def __init__(self, X, y, test_size=0.05, random_state=42, kernel='linear', C=1.0):
-        self.X = X
-        self.y = y
+    def __init__(self, DataSet, test_size=0.05, random_state=42, kernel='linear', C=1.0):
+        self.DataSet = DataSet
+        self.X ,self.y = self.data()
         self.test_size = test_size
         self.random_state = random_state
         self.kernel = kernel
         self.C = C
         self.X_train, self.X_test, self.y_train, self.y_test = self.split_data()
         self.normalize_train_data, self.normalize_test_data = self.normalize_data()
+
+    def data(self):
+        X = self.DataSet.data[:,:2]
+        y = self.DataSet.target
+        return X, y
+
     def split_data(self):
         X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=self.test_size, random_state=self.random_state)
         y_train = np.where(y_train == 2, 1, y_train)
         return X_train, X_test, y_train, y_test
 
-    def  normalize_data(self):
-        normalize_train_data = MinMaxScaler.fit_transform(self.X_train)
-        normalize_test_data = MinMaxScaler.fit_transform(self.X_test)
+    def normalize_data(self):
+        normalize_train_data, normalize_test_data = MinMaxScaler().fit_transform(self.X_train), MinMaxScaler().fit_transform(self.X_test)
         return normalize_train_data, normalize_test_data
 
-    def print_data(self):
+    def fit(self):
+        clf = SVC(C=self.C, kernel=self.kernel)
+        clf.fit(self.normalize_train_data, self.y_train)
+        y_predict = clf.predict(self.normalize_test_data[:, :].reshape(-1, 2))
+        print()
     # print(normalize_data[:10, :10])
-    clf = SVC(C=self.C, kernel=self.kernel)
-    clf.fit(self.normalize_train_data, self.y_train)
-    y_predict = clf.predict(normalize_test_data[:, :].reshape(-1, 2))
-    print()
+
 
 
 
