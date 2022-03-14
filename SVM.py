@@ -58,6 +58,6 @@ class svm:
         plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\SVM.png')
 
 
-# chose_dataset = datasets.load_iris()
+chose_dataset = datasets.load_iris()
 # SVM = SVM(chose_dataset)
 # SVM.print_data()
