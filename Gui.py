@@ -13,15 +13,31 @@ add_selectbox = st.radio(
 add_linkage = st.radio(
     'Which Linkage you want to use?',
     ('complete', 'average', 'single'))
-add_cluster = st.radio(
-    'How many cluster you want(Hyperparameter)?',
-    (2, 3, 4))
+
+
+
+add_Hyperparameter = st.radio(
+    'Which Hyperparameter you want?',
+    ('Cluster', 'Max distance'))
+
+
+add_cluster=2
+max_distance=9999
+
+
+if add_Hyperparameter == 'Cluster':
+    add_cluster = st.radio(
+        'How many cluster you want?',
+        (2, 3, 4))
+elif add_Hyperparameter == 'Max distance':
+    max_distance = st.slider('Max distance / 100', 0, 200, 200, step=1)
+else:
+    pass
+
+
 add_dimensions = st.radio(
     'Plot with how many dimensions?',
     (2, 3))
-
-
-
 
 if add_dimensions == 3:
     rotate_fig_0 = st.slider('Rotate axis x', 0, 180, 45, step=45)
@@ -42,7 +58,7 @@ else:
     pass
 X = dataset.data[:, :]
 
-max_distance = st.slider('Max distance / 100', 0, 200, 200, step=1)
+
 
 HC = Hiercrchical_Clustering.HierarchicalClustering(X, number_clusters=add_cluster, max_distance=max_distance / 100, linkage_method=add_linkage)
 HC.fit()
