@@ -72,7 +72,7 @@ class HierarchicalClustering:
         self.y_label = [np.zeros(self.len_train_data) for i in range(len_we_need)]
         self.z_label = [np.zeros(self.len_train_data) for i in range(len_we_need)]
         fig = plt.figure(figsize=(7, 5))
-        ax = fig.add_subplot(1, 2, 1, projection='3d')
+        ax = fig.add_subplot(2, 1, 1, projection='3d')
         for i in range(len_we_need):
             for j in self.clusters[i]:
                 self.x_label[i][j] = self.train_data[j, 0]
@@ -84,7 +84,7 @@ class HierarchicalClustering:
 
         sklearn_linkage = AgglomerativeClustering(n_clusters=len_we_need, linkage=self.linkage_method)
         sklearn_linkage.fit(self.train_data)
-        ax = fig.add_subplot(1, 2, 2, projection='3d')
+        ax = fig.add_subplot(2, 1, 2, projection='3d')
         ax.scatter3D(self.train_data[:, 0], self.train_data[:, 1], self.train_data[:, 2], c=sklearn_linkage.labels_)
         ax.set_title('sklearn_linkage AgglomerativeClustering')
         ax.view_init(rotate_fig_0, rotate_fig_1)
@@ -98,9 +98,11 @@ class HierarchicalClustering:
             len_we_need = self.number_clusters
         self.x_label = [np.zeros(self.len_train_data) for i in range(len_we_need)]
         self.y_label = [np.zeros(self.len_train_data) for i in range(len_we_need)]
-        plt.figure(figsize=(8, 4))
-        plt.subplot(121)
+        plt.figure(figsize=(8, 10))
+        plt.subplot(211)
         plt.title('My_linkage')
+        plt.xlabel('Fetcher 1')
+        plt.ylabel('Fetcher 2')
         for i in range(len_we_need):
             for j in self.clusters[i]:
                 self.x_label[i][j] = self.train_data[j, 0]
@@ -109,8 +111,10 @@ class HierarchicalClustering:
 
         sklearn_linkage = AgglomerativeClustering(n_clusters=len_we_need, linkage=self.linkage_method)  ##changer here!!! len(self.clusters) <<--->> self.number_clusters
         sklearn_linkage.fit(self.train_data)
-        plt.subplot(122)
+        plt.subplot(212)
         plt.title('sklearn_linkage AgglomerativeClustering')
+        plt.xlabel('Fetcher 1')
+        plt.ylabel('Fetcher 2')
         plt.scatter(self.train_data[:, 0], self.train_data[:, 1], c=sklearn_linkage.labels_)
         # plt.show()
         plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_2d.png')
