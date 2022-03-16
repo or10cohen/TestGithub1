@@ -71,7 +71,7 @@ class HierarchicalClustering:
         self.x_label = [np.zeros(self.len_train_data) for i in range(len_we_need)]
         self.y_label = [np.zeros(self.len_train_data) for i in range(len_we_need)]
         self.z_label = [np.zeros(self.len_train_data) for i in range(len_we_need)]
-        fig = plt.figure(figsize=(7, 5))
+        fig = plt.figure(figsize=(9, 14))
         ax = fig.add_subplot(2, 1, 1, projection='3d')
         for i in range(len_we_need):
             for j in self.clusters[i]:
