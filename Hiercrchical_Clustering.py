@@ -5,9 +5,6 @@ from sklearn.cluster import AgglomerativeClustering
 import matplotlib.pyplot as plt
 
 
-dataset = datasets.load_iris()
-X = dataset.data[:, :]
-
 class HierarchicalClustering:
 
     def __init__(self, Data, number_clusters=2, max_distance=200,  linkage_method='complete'):
@@ -119,10 +116,10 @@ class HierarchicalClustering:
         # plt.show()
         plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Print_2d.png')
 
-
-# if __name__ = 'main':
-
-#
-HC = HierarchicalClustering(X)
-HC.fit()
-
+if __name__ == '__main__':
+    dataset = datasets.load_iris()
+    X = dataset.data[:, :]
+    HC = HierarchicalClustering(X)
+    HC.fit()
+    HC.print_2d()
+    print("Or Yosef Cohen")
