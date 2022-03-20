@@ -15,6 +15,7 @@ class svm:
         self.test_size, self.random_state, self.kernel, self.C = test_size, random_state, kernel, c
         self.X, self.y = self.data()
         self.X_train, self.X_test, self.y_train, self.y_test = self.split_data()
+        self.fit = self.fit()
         # self.normalize_train_data, self.normalize_test_data = self.normalize_data()
         # self.y_predict, self.a, self.b, self.r, self.t, self.b_up_margin, self.b_down_margin = self.fit()
 
@@ -38,9 +39,7 @@ class svm:
 
     def fit(self):
         model = SVC()
-        model.fit(self.X_train, self.y_train)
+        return model.fit(self.X_train, self.y_train)
 
 are_dataset = datasets.load_breast_cancer()
 run_svm = svm(are_dataset)
-run_svm.fit()
-print(run_svm.fit())

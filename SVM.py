@@ -63,4 +63,5 @@ if __name__ == '__main__':
     SVM = svm(chose_dataset)
     SVM.print_data()
     plt.show()
+    print('Or Yosef Cohen')
 
