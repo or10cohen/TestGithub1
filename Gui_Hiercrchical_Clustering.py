@@ -7,6 +7,8 @@ st.title('Hiercrchical Clustering')
 
 
 col1, col2 = st.columns([1,2])
+add_cluster=2
+max_distance=9999
 
 with col1:
     add_selectbox = st.radio(
@@ -38,8 +40,6 @@ with col1:
     else:
         pass
 
-add_cluster=2
-max_distance=9999
 
 if add_selectbox == 'iris' :
     dataset = datasets.load_iris()
