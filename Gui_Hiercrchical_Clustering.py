@@ -13,7 +13,7 @@ max_distance=9999
 with col1:
     add_selectbox = st.radio(
         'Which DataSet you want to use?',
-        ('iris', 'wine', 'brest cancer', 'diabetes'))
+        ('iris', 'wine', 'breast cancer', 'diabetes'))
     add_linkage = st.radio(
         'Which Linkage you want to use?',
         ('complete', 'average', 'single'))
@@ -47,7 +47,7 @@ elif add_selectbox == 'diabetes':
     dataset = datasets.load_diabetes()
 elif add_selectbox == 'wine':
     dataset = datasets.load_wine()
-elif add_selectbox == 'brest cancer' :
+elif add_selectbox == 'breast cancer' :
     dataset = datasets.load_breast_cancer()
 else:
     pass
