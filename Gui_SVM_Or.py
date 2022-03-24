@@ -32,7 +32,7 @@ elif add_dataset == 'brest cancer' :
 else:
     print('Error to input dataset')
 
-S = SVM_or.svm(dataset, test_size=add_test_size, random_state=add_random_state, kernel=add_kernel, c=add_C)
+S = SVM_Or.svm(dataset, test_size=add_test_size, random_state=add_random_state, kernel=add_kernel, c=add_C)
 S.print_data()
 
 with col2:
