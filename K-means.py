@@ -12,9 +12,9 @@ class KMeans:
         self.X, self.y = self.data()
         self.X_train,self.X_test, self.y_train, self.y_test = self.split_data()
         self.normalize_data, self.normalize_test_data = self.normalize_data()
-        self.random_points_from_data = self.start_points()
+        self.X_train_without_start_points, self.random_points_from_data = self.start_points()
         self.distance_vector = self.points_distance()
-        self.min_distance = min_distance()
+        self.min_distance = self.min_distance()
 
     def data(self):
         # add Error if input self.dimension > No. of features
@@ -34,23 +34,31 @@ class KMeans:
 
     def start_points(self):
         # add more options at start points
-        random_points_from_data = np.random.randint(len(self.X_train), size=self.number_clusters)
-        random_points_from_data = self.X_train[random_points_from_data]
-        return random_points_from_data
+        random_index_from_data = np.random.randint(len(self.X_train), size=self.number_clusters)#duplicates start point!
+        random_points_from_data = self.X_train[random_index_from_data]
+        X_train_without_start_points = np.delete(self.X_train, random_index_from_data, 0)
+        return X_train_without_start_points, random_points_from_data
 
     def points_distance(self):
         distance_vector = [[i] for i in range(self.number_clusters)]
-        k = -1
-        for i in self.random_points_from_data:
+        k = 0
+        for random_points in self.random_points_from_data:
             k += 1
-            for j in self.X_train:
-                distance = np.linalg.norm(i - j)
-                distance_vector[k].append(distance)
+            for train_point in self.X_train_without_start_points:
+                distance = np.linalg.norm(random_points - train_point)
+                distance_vector[k-1].append(distance)
         return distance_vector
 
     def min_distance(self):
-        print(self.distance_vector[0])
+        min_distance = []
+        for i in range(len(self.distance_vector)):
+            min_distance.append(np.argmin(self.distance_vector[i]))
         return min_distance
+
+    def update_distance_vector(self):
+        min_value = np.argmin(self.min_distance)
+
+
 
 
 if __name__ == '__main__':
@@ -61,5 +69,13 @@ if __name__ == '__main__':
     # print(len(run_K_means.X_train))
     # print(len(run_K_means.X_test))
     # print(run_K_means.X_train)
-    # print(run_K_means.random_points_from_data)
-    # print(run_K_means.distance_vector)
+    print(run_K_means.random_points_from_data)
+    print(type(run_K_means.X_train))
+    print(run_K_means.distance_vector)
+    print(len(run_K_means.distance_vector))
+    print(len(run_K_means.distance_vector[0]))
+    print(len(run_K_means.distance_vector[1]))
+    print(type(run_K_means.distance_vector[0]))
+    print(min(run_K_means.distance_vector[0]))
+    print(min(run_K_means.distance_vector[1]))
+    print(run_K_means.min_distance)
