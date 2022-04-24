@@ -40,8 +40,11 @@ class KMeans:
         return X_train_without_start_points, random_points_from_data
 
     def points_distance(self):
-        distance_vector = [[i] for i in range(self.number_clusters)]
+        distance_vector = [[] for i in range(self.number_clusters)]
+        print(distance_vector)
         for index, random_points in enumerate(self.random_points_from_data):
+            print(index)
+            print('\n\n', random_points)
             for train_point in self.X_train_without_start_points:
                 distance = np.linalg.norm(random_points - train_point)
                 distance_vector[index].append(distance)
@@ -66,12 +69,16 @@ if __name__ == '__main__':
     # print(len(run_K_means.Data.data))
     # print(len(run_K_means.X_train))
     # print(len(run_K_means.X_test))
-    print(len(run_K_means.X_train))
-    print(len(run_K_means.X_train_without_start_points))
-    print(len(run_K_means.random_points_from_data))
+    # print(len(run_K_means.X_train))
+    # print(len(run_K_means.X_train_without_start_points))
+    # print(len(run_K_means.random_points_from_data))
     print(run_K_means.random_points_from_data)
+    print(run_K_means.X_train_without_start_points[0])
+    print(run_K_means.X_train_without_start_points[1])
 
-    # print(run_K_means.distance_vector)
+
+    print(run_K_means.distance_vector[0])
+    print(run_K_means.distance_vector[1])
     # print(len(run_K_means.distance_vector))
     # print(len(run_K_means.distance_vector[0]))
     # print(len(run_K_means.distance_vector[1]))
