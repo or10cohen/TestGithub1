@@ -13,8 +13,9 @@ class KMeans:
         self.X_train,self.X_test, self.y_train, self.y_test = self.split_data()
         self.normalize_data, self.normalize_test_data = self.normalize_data()
         self.X_train_without_start_points, self.random_points_from_data = self.start_points()
-        self.distance_vector = self.points_distance()
-        self.min_distance = self.min_distance()
+        self.distance_vector = self.distance_vector()
+        self.min_distance_index = self.min_distance_index()
+        self.update_distance_vector = self.update_distance_vector()
 
     def data(self):
         # add Error if input self.dimension > No. of features
@@ -39,27 +40,32 @@ class KMeans:
         X_train_without_start_points = np.delete(self.X_train, random_index_from_data, 0)
         return X_train_without_start_points, random_points_from_data
 
-    def points_distance(self):
+    def distance_vector(self):
         distance_vector = [[] for i in range(self.number_clusters)]
-        print(distance_vector)
         for index, random_points in enumerate(self.random_points_from_data):
-            print(index)
-            print('\n\n', random_points)
             for train_point in self.X_train_without_start_points:
                 distance = np.linalg.norm(random_points - train_point)
                 distance_vector[index].append(distance)
         return distance_vector
 
-    def min_distance(self):
-        min_distance = []
+    def min_distance_index(self):
+        min_distance_index = []
         for i in range(len(self.distance_vector)):
-            min_distance.append(np.argmin(self.distance_vector[i]))
-        return min_distance
+            min_distance_index.append(np.argmin(self.distance_vector[i]))
+        return min_distance_index
 
     def update_distance_vector(self):
-        min_value = np.argmin(self.min_distance)
+        for i in range(self.number_clusters):
+            for j in range(self.number_clusters):
+                self.distance_vector[i][self.min_distance_index[j]] = None
+        a = 0 #not need
+        return a #not need
 
-
+    def update_clusters(self):
+        clusters = [[] for i in range(self.number_clusters)]
+        for i in range(self.number_clusters):
+            clusters[i].append(self.X_train_without_start_points[self.min_distance_index[i]])
+        pass
 
 
 if __name__ == '__main__':
@@ -73,12 +79,17 @@ if __name__ == '__main__':
     # print(len(run_K_means.X_train_without_start_points))
     # print(len(run_K_means.random_points_from_data))
     print(run_K_means.random_points_from_data)
-    print(run_K_means.X_train_without_start_points[0])
-    print(run_K_means.X_train_without_start_points[1])
-
 
     print(run_K_means.distance_vector[0])
     print(run_K_means.distance_vector[1])
+    print(run_K_means.min_distance_index)
+    print(run_K_means.distance_vector[0][run_K_means.min_distance_index[0]])
+    print(run_K_means.distance_vector[1][run_K_means.min_distance_index[1]])
+    # print(run_K_means.distance_vector[0].sort())
+    print(run_K_means.distance_vector[0])
+    # print(run_K_means.distance_vector[1].sort())
+    print(run_K_means.distance_vector[1])
+
     # print(len(run_K_means.distance_vector))
     # print(len(run_K_means.distance_vector[0]))
     # print(len(run_K_means.distance_vector[1]))
