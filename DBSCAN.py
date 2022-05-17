@@ -71,7 +71,7 @@ class DBSCAN:
         self.list_of_index.pop(self.choose_random_index)
         index_reachable_points = self.reachablePoints(self.choose_random_index)
 
-
+        #if None cluster, if not pass
 
         self.makeClusters(index_reachable_points, cluster)
         cluster += 1
