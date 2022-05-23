@@ -92,3 +92,5 @@ class DBSCAN:
                 index_reachable_points.pop(0)
                 self.makeClusters(index_reachable_points, cluster)
             cluster += 1
+
+            print(0)
