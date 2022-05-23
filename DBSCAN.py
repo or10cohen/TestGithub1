@@ -35,9 +35,9 @@ class DBSCAN:
         return distance_matrix
 
     def randomPoint(self):
-        choose_random_index = random.choice(self.list_of_index)
-        # self.list_of_index.pop(chose_random_index)
-        return choose_random_index
+        self.choose_random_index = random.choice(self.list_of_index)
+        # # self.list_of_index.pop(chose_random_index)
+        # return choose_random_index
 
     def neighboursInEpsilon(self):
         self.distance_matrix_true_false = self.distance_matrix <= self.epsilon
@@ -48,33 +48,44 @@ class DBSCAN:
     def corePoint(self):
         self.core_point_true_false = self.count_neighbours_in_epsilon > self.minPts
 
+    def chooseCorePoint(self, index):
+        run = True
+        while run:
+            self.randomPoint()
+            if self.core_point_true_false[index]:
+                run = False
+
     def reachablePoints(self, index):
         reachable_points = self.distance_matrix_true_false[index]
         reachable_points = np.where(reachable_points)
         return reachable_points
 
-    def makeClusters(self, index_of_points, cluster):
-        for ins in index_of_points:
+    def makeClusters(self, index, cluster):
+        for ins in index:
             self.cluster[ins] = cluster
-        pass
+
+    def popFromIndex(self, index):
+        for ins in index:
+            self.list_of_index.pop(ins)
+
+    def chooseClosePoint(self, index):
+        copy_distance_matrix = self.distance_matrix
+        copy_distance_matrix += np.diag([np.inf] * len(self.distance_matrix))
+        index_close_point = copy_distance_matrix[index].argmin()
+        return index_close_point
+
 
     def run(self):
         #1.choose core point first
-        run = True
-        while run:
-            self.choose_random_index = self.randomPoint()
-            if self.core_point_true_false[self.choose_random_index]:
-                run = False
-
+        self.chooseCorePoint(self.list_of_index)
         #2.cluster core point + reachable points and pop all
         cluster = 0
-        self.list_of_index.pop(self.choose_random_index)
-        index_reachable_points = self.reachablePoints(self.choose_random_index)
-
-        #if None cluster, if not pass
-
-        self.makeClusters(index_reachable_points, cluster)
-        cluster += 1
+        while len(self.list_of_index) > 0:
+            index_reachable_points = self.reachablePoints(self.choose_random_index)
+            self.makeClusters(index_reachable_points, cluster)
+            self.popFromIndex(index_reachable_points)
+            index_close_point = self.chooseClosePoint(index_reachable_points)
+            index_close_point
 
 
 
