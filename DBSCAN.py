@@ -66,7 +66,7 @@ class DBSCAN:
 
     def popFromIndex(self, index):
         for ins in index:
-            self.list_of_index.pop(ins)
+            self.list_of_index.remove(ins)
 
     def run(self):
         cluster = 0
@@ -79,18 +79,33 @@ class DBSCAN:
             index_reachable_points = self.directReachablePoints(self.choose_random_index)
             self.makeClusters(index_reachable_points, cluster)
 
-            index_reachable_points.pop()  #pop corePts
+            self.popFromIndex(index_reachable_points)
 
-            while index_reachable_points > 0:   # add self.list_of_index.pop
+            index_reachable_points = np.delete(index_reachable_points, np.where(index_reachable_points == self.choose_random_index)) #pop corePts
+            # index_reachable_points.remove(self.choose_random_index)  #pop corePts
+
+            while len(index_reachable_points) > 0:   # add self.list_of_index.pop
                 if self.core_point_true_false[index_reachable_points[0]]:
                     index_reachable_points2 = self.directReachablePoints(index_reachable_points[0])
                     for ind in index_reachable_points2:
                         if self.cluster[ind] is not None:
-                            index_reachable_points2.pop(ind)      #maybe need list
-                            self.list_of_index.pop(ind)
-                    index_reachable_points.extend(index_reachable_points2)
-                index_reachable_points.pop(0)
+                            # index_reachable_points2.pop(ind)      #maybe need list
+                            index_reachable_points2 = np.delete(index_reachable_points2, np.where(index_reachable_points == idx))
+                        self.popFromIndex(ind)
+                    index_reachable_points = np.append(index_reachable_points, index_reachable_points2)
+                    # index_reachable_points.extend(index_reachable_points2)
+                index_reachable_points = np.delete(index_reachable_points, 0)
+                # index_reachable_points.pop(0)
                 self.makeClusters(index_reachable_points, cluster)
             cluster += 1
 
-            print(0)
+
+if __name__ == '__main__':
+    dataset = datasets.load_iris()
+    run_DBSCAN = DBSCAN(data=dataset)
+    print(run_DBSCAN.len_data)
+    print(run_DBSCAN.cluster)
+    print(run_DBSCAN.distance_matrix)
+    print(run_DBSCAN.distance_matrix_true_false)
+    print(run_DBSCAN.count_neighbours_in_epsilon)
+    print(run_DBSCAN.core_point_true_false)
