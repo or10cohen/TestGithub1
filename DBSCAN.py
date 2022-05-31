@@ -70,64 +70,123 @@ class DBSCAN:
             # for i in range(self.len_data):
             #     self.distance_matrix_true_false[ins][i] = False
 
+    def plot_3d(self, cluster_vector, rotate_fig_0 = None, rotate_fig_1 = None):
+        x = np.array(self.cluster, dtype=np.float64)
+        max_value_in_cluster = np.nanmax(x)
+        max_value_in_cluster = int(max_value_in_cluster)
+        cluster_tag_x = [[] for i in range(max_value_in_cluster + 1)]
+        cluster_tag_y = [[] for i in range(max_value_in_cluster + 1)]
+        cluster_tag_z = [[] for i in range(max_value_in_cluster + 1)]
+        cluster = 0
+        colors = np.array(["red", "green", "blue", "yellow", "pink", "black", "orange", "purple", "beige",\
+                           "brown", "cyan", "magenta"])
+        fig = plt.figure(figsize=(9, 14))
+        ax = fig.add_subplot(2, 1, 1, projection='3d')
+        ax.set_title('DBSCAN 3D')
+        ax.view_init(rotate_fig_0, rotate_fig_1)
+        ax.set_xlabel('Fetcher 1')
+        ax.set_ylabel('Fetcher 2')
+        ax.set_zlabel('Fetcher 3')
+        while cluster <= max_value_in_cluster:
+            for idx, i in enumerate(cluster_vector):
+                if i == cluster:
+                    cluster_tag_x[cluster].append(self.X[idx, 0])
+                    cluster_tag_y[cluster].append(self.X[idx, 1])
+                    cluster_tag_z[cluster].append(self.X[idx, 2])
+                elif i == None:
+                    ax.scatter(self.X[idx, 0], self.X[idx, 1], self.X[idx, 2], marker='x', c="gray")
+            ax.scatter3D(cluster_tag_x[cluster], cluster_tag_y[cluster], cluster_tag_z[cluster], c=colors[cluster])
+            cluster += 1
+        plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\DBSACN_3D.png')
+        plt.show()
 
+    def plot_2d(self, cluster_vector):
+        x = np.array(self.cluster, dtype=np.float64)
+        max_value_in_cluster = np.nanmax(x)
+        max_value_in_cluster = int(max_value_in_cluster)
+        cluster_tag_x = [[] for i in range(max_value_in_cluster + 1)]
+        cluster_tag_y = [[] for i in range(max_value_in_cluster + 1)]
+        cluster = 0
+        colors = np.array(["red", "green", "blue", "yellow", "pink", "black", "orange", "purple", "beige", \
+                            "brown", "cyan", "magenta"])
+        fig = plt.figure()
+        ax = fig.add_subplot(2, 1, 1)
+        ax.set_title('DBSCAN 2D')
+        while cluster <= max_value_in_cluster:
+            for idx, i in enumerate(cluster_vector):
+                if i == cluster:
+                    cluster_tag_x[cluster].append(self.X[idx, 0])
+                    cluster_tag_y[cluster].append(self.X[idx, 1])
+                elif i == None:
+                    ax.scatter(self.X[idx, 0], self.X[idx, 1], marker='x', c="gray")
+
+            ax.scatter(cluster_tag_x[cluster], cluster_tag_y[cluster], c=colors[cluster])
+            cluster += 1
+
+        plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\DBSACN_2D.png')
+        plt.show()
 
     def run(self):
         cluster = 0
-        #pop all noise points
-        print('list of index', self.list_of_index)
-        print('len list of index', len(self.list_of_index))
+        # #pop all noise points
+        # print('list of index', self.list_of_index)
+        # print('len list of index', len(self.list_of_index))
         noise_index = np.concatenate(np.where(self.count_neighbours_in_epsilon == 1)).tolist() #where and convert to list
         self.popFromIndex(noise_index)
-        print("noise index", noise_index)
-        print("len noise index", len(noise_index))
-        print('list of index after remove noise', self.list_of_index)
-        print('len list of index after remove noise', len(self.list_of_index))
-        #cluster all points without noise
-        print("\n\n\n-------------------------------------------------------------\n\n\n")
+        # print("noise index", noise_index)
+        # print("len noise index", len(noise_index))
+        # print('list of index after remove noise', self.list_of_index)
+        # print('len list of index after remove noise', len(self.list_of_index))
+        # #cluster all points without noise
+        # print("\n\n\n-------------------------------------------------------------\n\n\n")
         while len(self.list_of_index) > 0:
             self.chooseCorePoint()
-            print("core point", self.choose_random_index)
+            # print("core point", self.choose_random_index)
             index_reachable_points = self.directReachablePoints(self.choose_random_index)
             index_reachable_points_list = np.concatenate(index_reachable_points).tolist() #convert to list
-            print('index_reachable_points_list', index_reachable_points_list)
-            print('len index_reachable_points_list', len(index_reachable_points_list))
-            print("\n\n\n-------------------------------------------------------------\n\n\n")
-            # while len(index_reachable_points_list) > 0:   # add self.list_of_index.pop
+            # print('index_reachable_points_list', index_reachable_points_list)
+            # print('len index_reachable_points_list', len(index_reachable_points_list))
+            # print("\n\n\n-------------------------------------------------------------\n\n\n")
+            # # while len(index_reachable_points_list) > 0:   # add self.list_of_index.pop
             for point in index_reachable_points_list:
-                print("index_reachable_points_list", index_reachable_points_list)
-                print("point", point)
+                # print("index_reachable_points_list", index_reachable_points_list)
+                # print("point", point)
                 if self.core_point_true_false[point]:
-                    print("T\F", self.core_point_true_false[point])
+                    # print("T\F", self.core_point_true_false[point])
                     index_reachable_points2 = self.directReachablePoints(point)
                     index_reachable_points2_list = np.concatenate(index_reachable_points2).tolist() #convert to list\
-                    print('index_reachable_points2_list', index_reachable_points2_list)
+                    # print('index_reachable_points2_list', index_reachable_points2_list)
                     for point2 in index_reachable_points2_list:
-                        print("i", point2)
+                        # print("i", point2)
                         if point2 in index_reachable_points_list:
-                            print("not need you!")
+                            # print("not need you!")
+                            pass
                         else:
-                            print("I need you!")
+                            # print("I need you!")
                             index_reachable_points_list.append(point2)
                 else:
-                    print("T\F", self.core_point_true_false[point])
+                    # print("T\F", self.core_point_true_false[point])
+                    pass
 
             self.makeClusters(index_reachable_points_list, cluster)
             self.popFromIndex(index_reachable_points_list)
             index_reachable_points = []
             cluster += 1
-            print("cluster += 1, cluster:", cluster)
-            print("\n\n\n-------------------------------------------------------------\n\n\n")
-            #---------------------more outliers??need to check----------------------------------------------
+            # print("cluster += 1, cluster:", cluster)
+            # print("\n\n\n-------------------------------------------------------------\n\n\n")
+            # #---------------------more outliers??need to check----------------------------------------------
             if len(self.list_of_index) == 8:
                 noise_index2 = self.list_of_index
-                print("what left after all clusters? noise again? need to check!", noise_index2)
+                # print("what left after all clusters? noise again? need to check!", noise_index2)
                 self.list_of_index.clear()
-                print("self.list_of_index", self.list_of_index)
-                print(len(self.list_of_index))
+                # print("self.list_of_index", self.list_of_index)
+                # print(len(self.list_of_index))
 
 if __name__ == '__main__':
     dataset = datasets.load_iris()
     run_DBSCAN = DBSCAN(data=dataset)
     run_DBSCAN.run()
-    print(run_DBSCAN.cluster)
+    run_DBSCAN.plot_3d(run_DBSCAN.cluster)
+    run_DBSCAN.plot_2d(run_DBSCAN.cluster)
+    # print("cluster per index", run_DBSCAN.cluster)
+    # print("plot x", run_DBSCAN.plot_3d(run_DBSCAN.cluster))
