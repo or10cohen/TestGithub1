@@ -121,7 +121,7 @@ class DBSCAN:
         noise_index = np.where(self.count_neighbours_in_epsilon == 1)[0] #where and convert to list
         print("noise index", noise_index)
         #----------------------------------------------------# points with neighbours! but without corePts neighbours
-        #---------------------------ליצר ליסט של השכנים ולבדוק אם הם קורפוינטסת אם כל הליסט הוא טרו או פולס. אם הכל פולס לשייך אותם לרעשים
+        #---------------------------ליצר ליסט של השכנים ולבדוק אם הם קורפוינטסת אם כל הליסט הוא טרו או פולס. אkkם הכל פולס לשייך אותם לרעשים
         for i in self.list_of_index:
             if not self.core_point_true_false[i]:
                 neighbours = self.neighboursInEpsilon(i)
@@ -190,3 +190,4 @@ if __name__ == '__main__':
     run_DBSCAN.plot_2d(run_DBSCAN.cluster)
     # print("cluster per index", run_DBSCAN.cluster)
     # print("plot x", run_DBSCAN.plot_3d(run_DBSCAN.cluster))
+    print(print)
