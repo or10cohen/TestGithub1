@@ -5,6 +5,8 @@ from sklearn import datasets
 import random
 from scipy import spatial
 import matplotlib.pyplot as plt
+from itertools import compress
+from operator import itemgetter
 
 
 class DBSCAN:
@@ -120,18 +122,26 @@ class DBSCAN:
         print('len list of index', len(self.list_of_index))
         noise_index = np.where(self.count_neighbours_in_epsilon == 1)[0] #where and convert to list
         print("noise index", noise_index)
+        noise_index = []
+        print("noise index", noise_index)
         #----------------------------------------------------# points with neighbours! but without corePts neighbours
         #---------------------------ליצר ליסט של השכנים ולבדוק אם הם קורפוינטסת אם כל הליסט הוא טרו או פולס. אkkם הכל פולס לשייך אותם לרעשים
-        for i in self.list_of_index:
-            if not self.core_point_true_false[i]:
-                neighbours = self.neighboursInEpsilon(i)
-                for j in neighbours[0]:
-                    flag = True
-                    if self.core_point_true_false[j]:
-                        flag = False
-                        if flag:
-                            noise_index.append(i)
-        self.removeFromIndex(noise_index)
+        check_point_are_not_corePts = list(compress(self.list_of_index, [not elem for elem in self.core_point_true_false]))  # list index of all not! core point
+        for point in check_point_are_not_corePts:
+            print('point', point)
+            index = [i for i, x in enumerate(self.distance_matrix_true_false[point]) if x]  #index of *nighbares* of any point
+            print("index", index)
+            TF_list = itemgetter(*index)(self.core_point_true_false)            #check if them T\F [list of true false corePts for any point]
+            print("TF_list", TF_list)
+            if any(TF_list):
+                print(any(TF_list))
+                print("not noise")
+            else:
+                print(any(TF_list))
+                print("noise")
+                noise_index.append(point)
+
+
         #---------------------------------------------------- #
         print("len noise index", len(noise_index))
         print('list of index after remove noise', self.list_of_index)
