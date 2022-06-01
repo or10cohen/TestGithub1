@@ -43,11 +43,11 @@ def main():
 
     with col2:
         if add_dimensions == 2:
-            run_DBSCAN.print_2d()
+            run_DBSCAN.plot_2d()
             image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\DBSACN_2D.png')
             st.image(image)
         elif add_dimensions == 3:
-            run_DBSCAN.print_3d(rotate_fig_0=rotate_fig_0, rotate_fig_1=rotate_fig_1)
+            run_DBSCAN.plot_3d(rotate_fig_0=rotate_fig_0, rotate_fig_1=rotate_fig_1)
             image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\DBSACN_3D.png')
             st.image(image)
         else:

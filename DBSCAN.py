@@ -60,6 +60,39 @@ class DBSCAN:
     def removeFromIndex(self, index):
         for ins in index:
             self.list_of_index.remove(ins)
+    def noisePoints(self):
+        noise_index = []
+        print("noise index", noise_index)
+        # ----------------------------------------------------# points with neighbours! but without corePts neighbours
+        # ---------------------------ליצר ליסט של השכנים ולבדוק אם הם קורפוינטסת אם כל הליסט הוא טרו או פולס. אkkם הכל פולס לשייך אותם לרעשים
+        check_point_are_not_corePts = list(compress(self.list_of_index, [not elem for elem in
+                                                                         self.core_point_true_false]))  # list index of all not! core point
+        print("check_point_are_not_corePts", check_point_are_not_corePts)
+        for point in check_point_are_not_corePts:
+            print('point', point)
+            index = [i for i, x in enumerate(self.distance_matrix_true_false[point]) if
+                     x]  # index of *nighbares* of any point
+            print("index", index)
+            TF_list = itemgetter(*index)(
+                self.core_point_true_false)  # check if them T\F [list of true false corePts for any point]
+            print(type(TF_list))
+            print("TF_list", TF_list)
+            if TF_list == True:
+                TF_list = [True]
+            elif TF_list == False:
+                TF_list = [False]
+            else:
+                pass
+
+            if any(TF_list):
+                print(any(TF_list))
+                print("not noise")
+            else:
+                print(any(TF_list))
+                print("noise")
+                noise_index.append(point)
+            print(noise_index)
+        self.removeFromIndex(noise_index)
     def plot_3d(self, cluster_vector, rotate_fig_0 = None, rotate_fig_1 = None):
         x = np.array(self.cluster, dtype=np.float64)
         max_value_in_cluster = np.nanmax(x)
@@ -118,35 +151,9 @@ class DBSCAN:
     def run(self):
         cluster = 0
         # #pop all noise points
-        print('list of index', self.list_of_index)
-        print('len list of index', len(self.list_of_index))
-        noise_index = np.where(self.count_neighbours_in_epsilon == 1)[0] #where and convert to list
-        print("noise index", noise_index)
-        noise_index = []
-        print("noise index", noise_index)
-        #----------------------------------------------------# points with neighbours! but without corePts neighbours
-        #---------------------------ליצר ליסט של השכנים ולבדוק אם הם קורפוינטסת אם כל הליסט הוא טרו או פולס. אkkם הכל פולס לשייך אותם לרעשים
-        check_point_are_not_corePts = list(compress(self.list_of_index, [not elem for elem in self.core_point_true_false]))  # list index of all not! core point
-        for point in check_point_are_not_corePts:
-            print('point', point)
-            index = [i for i, x in enumerate(self.distance_matrix_true_false[point]) if x]  #index of *nighbares* of any point
-            print("index", index)
-            TF_list = itemgetter(*index)(self.core_point_true_false)            #check if them T\F [list of true false corePts for any point]
-            print("TF_list", TF_list)
-            if any(TF_list):
-                print(any(TF_list))
-                print("not noise")
-            else:
-                print(any(TF_list))
-                print("noise")
-                noise_index.append(point)
-
-
-        #---------------------------------------------------- #
-        print("len noise index", len(noise_index))
-        print('list of index after remove noise', self.list_of_index)
-        print('len list of index after remove noise', len(self.list_of_index))
-        #cluster all points without noise
+        # print('list of index', self.list_of_index)
+        # print('len list of index', len(self.list_of_index))
+        self.noisePoints()
         print("\n\n\n-------------------------------------------------------------\n\n\n")
         while len(self.list_of_index) > 0:
             self.chooseCorePoint()
@@ -184,19 +191,13 @@ class DBSCAN:
             cluster += 1
             print("cluster += 1, cluster:", cluster)
             print("\n\n\n-------------------------------------------------------------\n\n\n")
-            # # ---------------------more outliers??need to check----------------------------------------------
-            # if len(self.list_of_index) == 8:
-            #     noise_index2 = self.list_of_index
-            #     print("what left after all clusters? noise again? need to check!", noise_index2)
-            #     self.list_of_index.clear()
-            #     print("self.list_of_index", self.list_of_index)
-            #     print(len(self.list_of_index))
+
 
 if __name__ == '__main__':
     dataset = datasets.load_iris()
     run_DBSCAN = DBSCAN(data=dataset, number_of_features=3, epsilon=0.3, minPts=3)
     run_DBSCAN.run()
-    # run_DBSCAN.plot_3d(run_DBSCAN.cluster)
+    run_DBSCAN.plot_3d(run_DBSCAN.cluster)
     run_DBSCAN.plot_2d(run_DBSCAN.cluster)
     # print("cluster per index", run_DBSCAN.cluster)
     # print("plot x", run_DBSCAN.plot_3d(run_DBSCAN.cluster))
