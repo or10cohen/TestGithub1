@@ -62,21 +62,20 @@ class DBSCAN:
             self.list_of_index.remove(ins)
     def noisePoints(self):
         noise_index = []
-        print("noise index", noise_index)
+        # print("noise index", noise_index)
         # ----------------------------------------------------# points with neighbours! but without corePts neighbours
         # ---------------------------ליצר ליסט של השכנים ולבדוק אם הם קורפוינטסת אם כל הליסט הוא טרו או פולס. אkkם הכל פולס לשייך אותם לרעשים
         check_point_are_not_corePts = list(compress(self.list_of_index, [not elem for elem in
                                                                          self.core_point_true_false]))  # list index of all not! core point
-        print("check_point_are_not_corePts", check_point_are_not_corePts)
+        # print("check_point_are_not_corePts", check_point_are_not_corePts)
         for point in check_point_are_not_corePts:
-            print('point', point)
-            index = [i for i, x in enumerate(self.distance_matrix_true_false[point]) if
-                     x]  # index of *nighbares* of any point
-            print("index", index)
+            # print('point', point)
+            index = [i for i, x in enumerate(self.distance_matrix_true_false[point]) if x]  # index of *nighbares* of any point
+            # print("index", index)
             TF_list = itemgetter(*index)(
                 self.core_point_true_false)  # check if them T\F [list of true false corePts for any point]
-            print(type(TF_list))
-            print("TF_list", TF_list)
+            # print(type(TF_list))
+            # print("TF_list", TF_list)
             if TF_list == True:
                 TF_list = [True]
             elif TF_list == False:
@@ -85,14 +84,15 @@ class DBSCAN:
                 pass
 
             if any(TF_list):
-                print(any(TF_list))
-                print("not noise")
+                # print(any(TF_list))
+                # print("not noise")
+                pass
             else:
-                print(any(TF_list))
-                print("noise")
+                # print(any(TF_list))
+                # print("noise")
                 noise_index.append(point)
-            print(noise_index)
-        self.removeFromIndex(noise_index)
+            # print(noise_index)
+        return noise_index
     def plot_3d(self, cluster_vector, rotate_fig_0 = None, rotate_fig_1 = None):
         x = np.array(self.cluster, dtype=np.float64)
         max_value_in_cluster = np.nanmax(x)
@@ -121,7 +121,7 @@ class DBSCAN:
             ax.scatter3D(cluster_tag_x[cluster], cluster_tag_y[cluster], cluster_tag_z[cluster], c=colors[cluster])
             cluster += 1
         plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\DBSACN_3D.png')
-        plt.show()
+        # plt.show()
     def plot_2d(self, cluster_vector):
         x = np.array(self.cluster, dtype=np.float64)
         max_value_in_cluster = np.nanmax(x)
@@ -146,51 +146,49 @@ class DBSCAN:
             cluster += 1
 
         plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\DBSACN_2D.png')
-        plt.show()
-
+        # plt.show()
     def run(self):
         cluster = 0
-        # #pop all noise points
-        # print('list of index', self.list_of_index)
-        # print('len list of index', len(self.list_of_index))
-        self.noisePoints()
-        print("\n\n\n-------------------------------------------------------------\n\n\n")
+        noise_index = self.noisePoints()
+        self.removeFromIndex(noise_index)
+        # print("\n\n\n-------------------------------------------------------------\n\n\n")
         while len(self.list_of_index) > 0:
             self.chooseCorePoint()
-            print("core point", self.choose_random_index)
+            # print("core point", self.choose_random_index)
             index_reachable_points = self.directReachablePoints(self.choose_random_index)
             index_reachable_points_list = index_reachable_points[0].tolist() #convert to list
-            print('index_reachable_points_list', index_reachable_points_list)
-            print('len index_reachable_points_list', len(index_reachable_points_list))
-            print("\n\n\n-------------------------------------------------------------\n\n\n")
+            # print('index_reachable_points_list', index_reachable_points_list)
+            # print('len index_reachable_points_list', len(index_reachable_points_list))
+            # print("\n\n\n-------------------------------------------------------------\n\n\n")
             # while len(index_reachable_points_list) > 0:   # add self.list_of_index.pop
             for point in index_reachable_points_list:
-                print("index_reachable_points_list", index_reachable_points_list)
-                print("point", point)
+                # print("index_reachable_points_list", index_reachable_points_list)
+                # print("point", point)
                 if self.core_point_true_false[point]:
-                    print("T\F", self.core_point_true_false[point])
+                    # print("T\F", self.core_point_true_false[point])
                     index_reachable_points2 = self.directReachablePoints(point)
                     index_reachable_points2_list = index_reachable_points2[0].tolist() #convert to list\
-                    print('index_reachable_points2_list', index_reachable_points2_list)
+                    # print('index_reachable_points2_list', index_reachable_points2_list)
                     for point2 in index_reachable_points2_list:
-                        print("i", point2)
+                        # print("i", point2)
                         if point2 in index_reachable_points_list:
-                            print("not need you!")
+                            # print("not need you!")
                             pass
                         else:
-                            print("I need you!")
+                            # print("I need you!")
                             index_reachable_points_list.append(point2)
                 else:
-                    print("T\F", self.core_point_true_false[point])
+                    # print("T\F", self.core_point_true_false[point])
                     pass
 
             self.makeClusters(index_reachable_points_list, cluster)
             self.removeFromIndex(index_reachable_points_list)
-            print("len(self.list_of_index)", len(self.list_of_index))
+            # print("len(self.list_of_index)", len(self.list_of_index))
             index_reachable_points = []
             cluster += 1
-            print("cluster += 1, cluster:", cluster)
-            print("\n\n\n-------------------------------------------------------------\n\n\n")
+            # print("cluster += 1, cluster:", cluster)
+            # print("\n\n\n-------------------------------------------------------------\n\n\n")
+
 
 
 if __name__ == '__main__':
@@ -201,4 +199,5 @@ if __name__ == '__main__':
     run_DBSCAN.plot_2d(run_DBSCAN.cluster)
     # print("cluster per index", run_DBSCAN.cluster)
     # print("plot x", run_DBSCAN.plot_3d(run_DBSCAN.cluster))
-    print(print)
+    circle = datasets.load_iris()
+    print(type(circle))
