@@ -1,5 +1,4 @@
 import numpy as np
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from sklearn import datasets
 import random
@@ -7,7 +6,6 @@ from scipy import spatial
 import matplotlib.pyplot as plt
 from itertools import compress
 from operator import itemgetter
-import pandas as pd
 from sklearn.utils import Bunch
 
 
