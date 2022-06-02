@@ -7,6 +7,9 @@ from scipy import spatial
 import matplotlib.pyplot as plt
 from itertools import compress
 from operator import itemgetter
+import pandas as pd
+from sklearn.utils import Bunch
+
 
 
 class DBSCAN:
@@ -103,8 +106,8 @@ class DBSCAN:
         cluster = 0
         colors = np.array(["red", "green", "blue", "yellow", "pink", "black", "orange", "purple", "beige",\
                            "brown", "cyan", "magenta"])
-        fig = plt.figure(figsize=(9, 14))
-        ax = fig.add_subplot(2, 1, 1, projection='3d')
+        fig = plt.figure(figsize=(6, 6))
+        ax = fig.add_subplot(1, 1, 1, projection='3d')
         ax.set_title('DBSCAN 3D')
         ax.view_init(rotate_fig_0, rotate_fig_1)
         ax.set_xlabel('Fetcher 1')
@@ -131,8 +134,8 @@ class DBSCAN:
         cluster = 0
         colors = np.array(["red", "green", "blue", "yellow", "pink", "black", "orange", "purple", "beige", \
                             "brown", "cyan", "magenta"])
-        fig = plt.figure()
-        ax = fig.add_subplot(2, 1, 1)
+        fig = plt.figure(figsize=(6,6))
+        ax = fig.add_subplot(111)
         ax.set_title('DBSCAN 2D')
         while cluster <= max_value_in_cluster:
             for idx, i in enumerate(cluster_vector):
@@ -200,8 +203,23 @@ if __name__ == '__main__':
     # print("cluster per index", run_DBSCAN.cluster)
     # print("plot x", run_DBSCAN.plot_3d(run_DBSCAN.cluster))
     circle = datasets.make_circles(n_samples=100, shuffle=True, noise=None, random_state=None, factor=0.4)
-    blobs = datasets.make_s_curve(n_samples=100, noise=0.2, random_state=None)
+    # blobs = datasets.make_s_curve(n_samples=100, noise=0.2, random_state=None)
+    # print(type(circle[0]))
+    # print(circle[0].shape)
+    # print(blobs[0])
+    X_small, y_small = datasets.make_circles(n_samples=(100, 200), random_state=3,
+                                             noise=0.7, factor=0.1)
+    X_large, y_large = datasets.make_circles(n_samples=(100, 200), random_state=3,
+                                             noise=0.7, factor=0.6)
+
+    c = np.vstack((X_small, X_large))
+
+    # c = np.vstack(c, y_large)
+    dataset1 = Bunch(data=c)
+    dataset2 = Bunch(data=circle[0])
+    print(c)
+    print(circle[0])
+    print(type(c))
     print(type(circle[0]))
-    print(type(blobs[0]))
-    print(circle[0].shape)
-    print(blobs[0])
+    print(dataset1)
+    print(dataset2)

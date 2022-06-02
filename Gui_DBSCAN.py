@@ -1,8 +1,11 @@
 import streamlit as st
+import numpy as np
 import DBSCAN
 from sklearn import datasets
 from PIL import Image
 from sklearn.utils import Bunch
+import pandas as pd
+
 
 epsilon = 0.3
 minPts = 3
@@ -11,11 +14,11 @@ dataset = datasets.load_iris()
 
 def main():
     st.title('DBSCAN')
-    col1, col2, col3 = st.columns([2,5,2])
+    col1, col2, col3 = st.columns([3,5,2])
     with col1:
         add_dataset = st.radio(
             'Which DataSet do you want to use?',
-            ('iris', 'circle in circle 2D', 's_curve 2D', 'blobs 2D'))
+            ('iris', 'circle in circle 2D','make 3 circles 2D',  's_curve 2D', 'blobs 2D'))
 
         epsilon = st.slider('epsilon parameter/100 (default 0.3).', 0, 100, 30)
         epsilon = epsilon / 100
@@ -26,6 +29,15 @@ def main():
             dataset = Bunch(data=dataset[0])
         elif add_dataset == 'iris' :
             dataset = datasets.load_iris()
+        elif add_dataset == 'make 3 circles 2D' :
+            X_small, y_small = datasets.make_circles(n_samples=(200, 200), random_state=None,
+                                                     noise=None, factor=0.1)
+            X_large, y_large = datasets.make_circles(n_samples=(200, 200), random_state=None,
+                                                     noise=None, factor=0.6)
+            c = np.vstack((X_small,X_large))
+            # c = np.stack((c, y_large))
+            dataset = Bunch(data=c)
+
         elif add_dataset == 'blobs 2D':
             dataset = datasets.make_blobs(n_samples=400, centers=3, n_features=2, random_state=0)
             dataset = Bunch(data=dataset[0])
