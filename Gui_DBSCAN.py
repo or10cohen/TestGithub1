@@ -15,29 +15,34 @@ def main():
     with col1:
         add_dataset = st.radio(
             'Which DataSet do you want to use?',
-            ('iris', 'circle in circle 2D', 'wine', 'diabetes'))
+            ('iris', 'circle in circle 2D', 's_curve 2D', 'blobs 2D'))
 
         epsilon = st.slider('epsilon parameter/100 (default 0.3).', 0, 100, 30)
         epsilon = epsilon / 100
         minPts = st.slider('minPts for corePts (default 3)', 0, 10, 3)
-        number_of_features = st.slider('how many features so you want to use?', 0, 30, 2)
-        add_dimensions = st.radio(
-            'Plot with how many dimensions?',
-            (2, 3))
 
+        if add_dataset == 'circle in circle 2D':
+            dataset = datasets.make_circles(n_samples=200, shuffle=True, noise=None, random_state=None, factor=0.4)
+            dataset = Bunch(data=dataset[0])
+        elif add_dataset == 'iris' :
+            dataset = datasets.load_iris()
+        elif add_dataset == 'blobs 2D':
+            dataset = datasets.make_blobs(n_samples=400, centers=3, n_features=2, random_state=0)
+            dataset = Bunch(data=dataset[0])
+        elif add_dataset == 's_curve 2D':
+            dataset = datasets.make_s_curve(n_samples=400, noise=0.2, random_state=None)
+            dataset = Bunch(data=dataset[0])
+        else:
+            print('Error to input dataset')
 
-    if add_dataset == 'circle in circle 2D':
-        dataset = datasets.make_circles(n_samples=100, shuffle=True, noise=None, random_state=None, factor=0.4)
-        dataset = Bunch(data=dataset[0])
-    elif add_dataset == 'iris' :
-        dataset = datasets.load_iris()
-    elif add_dataset == 'diabetes':
-        dataset = datasets.load_diabetes()
-    elif add_dataset == 'wine':
-        dataset = datasets.load_wine()
-    else:
-        print('Error to input dataset')
-
+        if ('2D' in add_dataset):
+            number_of_features = 2
+            add_dimensions = 2
+        else:
+            number_of_features = st.slider('how many features so you want to use?', 0, 30, 2)
+            add_dimensions = st.radio(
+                'Plot with how many dimensions?',
+                (2, 3))
 
     run_DBSCAN = DBSCAN.DBSCAN(dataset, number_of_features=number_of_features, epsilon=epsilon, minPts=minPts)
     run_DBSCAN.run()
