@@ -37,5 +37,5 @@ S = SVM.svm(dataset, test_size=add_test_size, random_state=add_random_state, ker
 S.print_data()
 
 with col2:
-    image = Image.open("C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\SVM.png")
+    image = Image.open("SVM.png")
     st.image(image)

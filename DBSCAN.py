@@ -8,8 +8,9 @@ import matplotlib.pyplot as plt
 from itertools import compress
 from operator import itemgetter
 from sklearn.utils import Bunch
-
-
+import base64
+from github import Github
+from github import InputGitTreeElement
 
 class DBSCAN:
     def __init__(self, data, number_of_features=3, epsilon=0.3, minPts=3):
@@ -122,7 +123,7 @@ class DBSCAN:
                     ax.scatter(self.X[idx, 0], self.X[idx, 1], self.X[idx, 2], marker='x', c="gray")
             ax.scatter3D(cluster_tag_x[cluster], cluster_tag_y[cluster], cluster_tag_z[cluster], c=colors[cluster])
             cluster += 1
-        plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\DBSACN_3D.png')
+        plt.savefig('C:\\DBSCAN\\DBSACN_3D.png')
         # plt.show()
     def plot_2d(self, cluster_vector):
         x = np.array(self.cluster, dtype=np.float64)
@@ -147,8 +148,13 @@ class DBSCAN:
             ax.scatter(cluster_tag_x[cluster], cluster_tag_y[cluster], c=colors[cluster])
             cluster += 1
 
-        plt.savefig('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\DBSACN_2D.png')
+        plt.savefig('C:\\DBSCAN\\DBSACN_2D.png')
         # plt.show()
+        
+    def git_hub(self):
+        image2d = Image.open('C:\\DBSCAN\\DBSACN_3D.png')
+        image3d = Image.open('C:\\DBSCAN\\DBSACN_3D.png')
+
     def run(self):
         cluster = 0
         noise_index = self.noisePoints()
