@@ -18,7 +18,7 @@ def main():
     with col1:
         add_dataset = st.radio(
             'Which DataSet do you want to use?',
-            ('iris', 'circle in circle 2D','make 3 circles 2D',  's_curve 2D', 'blobs 2D'))
+            ('make 3 circles 2D', 'iris', 'circle in circle 2D', 's_curve 2D', 'blobs 2D'))
 
         epsilon = st.slider('epsilon parameter/100 (default 0.3).', 0, 100, 30)
         epsilon = epsilon / 100
@@ -69,7 +69,7 @@ def main():
     with col2:
         if add_dimensions == 2:
             run_DBSCAN.plot_2d(run_DBSCAN.cluster)
-            image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\DBSACN_2D.png')
+            image = Image.open('C:\\DBSCAN\\DBSACN_2D.png')
             st.image(image)
 
         elif add_dimensions == 3:
@@ -78,7 +78,7 @@ def main():
                             unsafe_allow_html=True)
             else:
                 run_DBSCAN.plot_3d(run_DBSCAN.cluster, rotate_fig_0=rotate_fig_0, rotate_fig_1=rotate_fig_1)
-                image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\DBSACN_3D.png')
+                image = Image.open('C:\\DBSCAN\\DBSACN_3D.png')
                 st.image(image)
         else:
             pass
