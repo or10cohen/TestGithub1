@@ -18,7 +18,7 @@ def main():
     with col1:
         add_dataset = st.radio(
             'Which DataSet do you want to use?',
-            ('make 3 circles 2D', 'iris', 'circle in circle 2D', 's_curve 2D', 'blobs 2D'))
+            ('make 3 circles 2D',  'iris', 'circle in circle 2D', 's_curve 2D', 'blobs 2D'))
 
         epsilon = st.slider('epsilon parameter/100 (default 0.3).', 0, 100, 30)
         epsilon = epsilon / 100
