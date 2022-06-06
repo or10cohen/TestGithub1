@@ -1,5 +1,4 @@
 import numpy as np
-import sklearn
 from sklearn.preprocessing import MinMaxScaler
 from sklearn import datasets
 import random
@@ -9,8 +8,8 @@ from itertools import compress
 from operator import itemgetter
 from sklearn.utils import Bunch
 import base64
-from github import Github
-from github import InputGitTreeElement
+# from github import Github
+# from github import InputGitTreeElement
 
 class DBSCAN:
     def __init__(self, data, number_of_features=3, epsilon=0.3, minPts=3):
