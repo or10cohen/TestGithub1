@@ -44,7 +44,7 @@ def main():
 
         elif add_dataset == 's_curve 2D':
             centers = [(3, 3), (0, 0), (5, 5)]
-            dataset = datasets.make_blobs(n_samples=200, centers=centers, shuffle=False, random_state=42)
+            dataset = datasets.make_blobs(n_samples=200, centers=centers, shuffle=False, random_state=None)
             dataset = Bunch(data=dataset[0])
         else:
             print('Error to input dataset')
