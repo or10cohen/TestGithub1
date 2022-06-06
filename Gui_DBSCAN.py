@@ -65,7 +65,7 @@ def main():
 
         with open("DBSCAN.py") as file:
             btn = st.download_button(
-                label="Download Python Resources File",
+                label=f'<h1 style="color:#990000;font-size:22px;">{"Download Python Resources File"}</h1>'
                 data=file,
             )
 
