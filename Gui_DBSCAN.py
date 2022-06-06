@@ -69,8 +69,10 @@ def main():
     with col2:
         if add_dimensions == 2:
             run_DBSCAN.plot_2d(run_DBSCAN.cluster)
-            htp = "https://raw.githubusercontent.com/djswoosh/Music-Recommendation-Engine-using-FMA-Dataset/main/1200px-The_Echo_Nest_logo.svg.png"
-            st.image(htp, caption='logo', width=350)
+            image = Image.open('C:\\DBSCAN\\DBSACN_2D.png')
+            st.image(image)
+            # htp = "https://raw.githubusercontent.com/djswoosh/Music-Recommendation-Engine-using-FMA-Dataset/main/1200px-The_Echo_Nest_logo.svg.png"
+            # st.image(htp, caption='logo', width=350)
 
         elif add_dimensions == 3:
             if number_of_features <= 2:
