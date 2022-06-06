@@ -39,10 +39,11 @@ def main():
             dataset = Bunch(data=c)
 
         elif add_dataset == 'blobs 2D':
-            dataset = datasets.make_blobs(n_samples=400, centers=3, n_features=2, random_state=0)
+            dataset = datasets.make_moons(n_samples=300, noise=0.05)
             dataset = Bunch(data=dataset[0])
         elif add_dataset == 's_curve 2D':
-            dataset = datasets.make_s_curve(n_samples=400, noise=0.2, random_state=None)
+            centers = [(-5, -5), (0, 0), (5, 5)]
+            dataset = datasets.make_blobs(n_samples=300, centers=centers, shuffle=False, random_state=42)
             dataset = Bunch(data=dataset[0])
         else:
             print('Error to input dataset')
