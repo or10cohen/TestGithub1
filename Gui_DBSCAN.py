@@ -63,7 +63,7 @@ def main():
 
     with col3:
 
-        with open("DBSCAN.py", "rb") as file:
+        with open("DBSCAN.py") as file:
             btn = st.download_button(
                 label="Download Python Resources File",
                 data=file,
