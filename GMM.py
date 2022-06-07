@@ -36,8 +36,8 @@ class GMM:
         return self.clusters
 
     def expectation_step(self):  # calculating responsibility matrix
-        # Gaussian_P_formula = Image.open("C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Gamma_nk.PNG")
-        # Gaussian_P_formula.show()
+        # Gamma_nk_formula = Image.open("C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Gamma_nk_formula.PNG")
+        # Gamma_nk_formula.show()
         N = self.X.shape[0]  # number of rows
         K = len(self.clusters)
         self.totals = np.zeros((N, 1), dtype=np.float64)
@@ -59,10 +59,17 @@ class GMM:
 
         for k, cluster in enumerate(self.clusters):
             gamma_k = np.expand_dims(self.gamma_nk[:, k], 1)
+            # Nk_formula = Image.open("C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\N_k_formula.PNG")
+            # Nk_formula.show()
             N_k = np.sum(gamma_k, axis=0)
-
+            # pi_k_formula = Image.open("C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\pi_k_formula.PNG")
+            # pi_k_formula.show()
             pi_k = N_k / N
+            # mu_k_formula = Image.open("C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\mu_k_formula.PNG")
+            # mu_k_formula.show()
             mu_k = np.sum(gamma_k * self.X, axis=0) / N_k
+            # cov_k_formula = Image.open("C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\mu_k_formula.PNG")
+            # cov_k_formula.show()
             cov_k = (gamma_k * (self.X - mu_k)).T @ (self.X - mu_k) / N_k
 
             cluster['pi_k'] = pi_k
@@ -70,6 +77,8 @@ class GMM:
             cluster['cov_k'] = cov_k
 
     def get_likelihood(self):
+        # likelihoods_formula = Image.open("C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\likelihoods_formula.PNG")
+        # likelihoods_formula.show()
         sample_likelihoods = np.log(self.totals)
         return np.sum(sample_likelihoods), sample_likelihoods
 
