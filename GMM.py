@@ -33,7 +33,7 @@ class GMM:
 
         for i in range(self.n_clusters):
             self.clusters.append({
-                'pi_k': 1.0 / self.n_clusters,
+                'pi_k': 1.0 / self.n_clusters,  ##1\3 1\3 1\3 at start if you have 3 clusters
                 'mu_k': mu_k[i],
                 'cov_k': cov_matrix  # need to use mu_k----Oren you use **data** for the covariance matrix----
             })
