@@ -63,6 +63,8 @@ def main():
                 data=file,
             )
 
+        st.code("GMM.py", language='python')
+
         # if add_dimensions == 3:
         #     pass
         #     # rotate_fig_0 = st.slider('Rotate axis x', 0, 180, 45, step=45)
