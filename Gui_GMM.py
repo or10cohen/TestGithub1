@@ -12,7 +12,7 @@ def main():
     with col1:
         add_dataset = st.radio(
             'Which DataSet do you want to use?',
-            ('make 3 circles 2D',  'iris', 'circle in circle 2D', 'blobs 2D', 's_curve 2D'))
+            ( 'iris', 'make 3 circles 2D', 'circle in circle 2D', 'blobs 2D', 's_curve 2D'))
 
         if add_dataset == 'circle in circle 2D':
             dataset = datasets.make_circles(n_samples=200, shuffle=True, noise=None, random_state=None, factor=0.4)
