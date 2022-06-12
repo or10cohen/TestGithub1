@@ -134,7 +134,7 @@ class GMM:
 
         kwargs_write = {'fps': 1.0, 'quantizer': 'nq'}
         imageio.mimsave('./gmm.gif', images, fps=1)
-        plt.show(Image.open('gmm.gif').convert('RGB'))
+        # plt.show(Image.open('gmm.gif').convert('RGB'))
 
     def train_gmm(self):
         epsilon_for_log = 0.000001
