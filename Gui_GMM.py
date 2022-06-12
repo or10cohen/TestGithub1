@@ -71,18 +71,10 @@ def main():
         #     pass
 
     with col2: ##
-        if add_dimensions == 2:
-            run_GMM.train_gmm()
-            image = Image.open('plot_likelihood.png')
-            st.image(image)
-            # htp = "https://raw.githubusercontent.com/djswoosh/Music-Recommendation-Engine-using-FMA-Dataset/main/1200px-The_Echo_Nest_logo.svg.png"
-            # st.image(htp, caption='logo', width=350)
-        elif add_dimensions == 3:
-            run_GMM.train_gmm()
-            image = Image.open('plot_likelihood.png')
-            st.image(image)
-        else:
-            pass
+        run_GMM.train_gmm()
+        image = Image.open('plot_likelihood.png')
+        st.image(image)
+
 
 
 
