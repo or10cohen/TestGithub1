@@ -63,7 +63,7 @@ def main():
                 data=file,
             )
 
-        st.code("GMM.py", language='python')
+        # st.code("GMM.py", language='python')
 
         # if add_dimensions == 3:
         #     pass
