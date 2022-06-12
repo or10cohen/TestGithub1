@@ -30,7 +30,7 @@ class GMM:
         # We use the KMeans centroids to initialise the GMM
         kmeans = KMeans(self.n_clusters).fit(self.X)
         mu_k = kmeans.cluster_centers_
-        cov_matrix = np.cov(X.T)
+        cov_matrix = np.cov(self.X.T)
 
         for i in range(self.n_clusters):
             self.clusters.append({
@@ -137,7 +137,7 @@ class GMM:
     def train_gmm(self):
         self.clusters = self.initialize_clusters()
         self.likelihoods = np.zeros((self.n_epochs,))
-        scores = np.zeros((X.shape[0], self.n_clusters))
+        scores = np.zeros((self.X.shape[0], self.n_clusters))
         self.history = []
         stop = 100
         for i in range(self.n_epochs):
