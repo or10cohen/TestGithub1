@@ -135,6 +135,7 @@ class GMM:
         imageio.mimsave('./gmm.gif', images, fps=1)
         plt.show(Image.open('gmm.gif').convert('RGB'))
     def train_gmm(self):
+        epsilon_for_log = 0.000001
         self.clusters = self.initialize_clusters()
         self.likelihoods = np.zeros((self.n_epochs,))
         scores = np.zeros((self.X.shape[0], self.n_clusters))
@@ -160,7 +161,7 @@ class GMM:
 
             print('Epoch: ', i + 1, 'Likelihood: ', likelihood)
 
-        self.scores = np.log(self.gamma_nk)
+        self.scores = np.log(self.gamma_nk + epsilon_for_log)
 
 
 

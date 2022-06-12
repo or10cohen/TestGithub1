@@ -8,7 +8,7 @@ import pandas as pd
 
 def main():
     st.title('GMM')
-    col1, col2, col3 = st.columns([2,5,2])
+    col1, col2 = st.columns([1,1])
     with col1:
         add_dataset = st.radio(
             'Which DataSet do you want to use?',
@@ -56,30 +56,25 @@ def main():
     run_GMM.train_gmm()
     run_GMM.plot_likelihood()
 
-    with col3:
+    with col2: ##
+        run_GMM.train_gmm()
+        image = Image.open('plot_likelihood.png')
+        st.image(image)
+
         with open("GMM.py") as file:
             btn = st.download_button(
                 label="Download Python Resources File",
                 data=file,
             )
 
-        # st.code("GMM.py", language='python')
+    # with col3:
+    # st.code("GMM.py", language='python')
 
-        # if add_dimensions == 3:
-        #     pass
-        #     # rotate_fig_0 = st.slider('Rotate axis x', 0, 180, 45, step=45)
-        #     # rotate_fig_1 = st.slider('Rotate axis y', 0, 180, 45, step=45)
-        # else:
-        #     pass
-
-    with col2: ##
-        run_GMM.train_gmm()
-        image = Image.open('plot_likelihood.png')
-        st.image(image)
-
-
-
-
-
+    # if add_dimensions == 3:
+    #     pass
+    #     # rotate_fig_0 = st.slider('Rotate axis x', 0, 180, 45, step=45)
+    #     # rotate_fig_1 = st.slider('Rotate axis y', 0, 180, 45, step=45)
+    # else:
+    #     pass
 
 main()
