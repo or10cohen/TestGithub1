@@ -68,7 +68,7 @@ def main():
         else:
             pass
 
-    with col2:
+    with col2: ##
         if add_dimensions == 2:
             run_GMM.train_gmm()
             image = Image.open('plot_likelihood.png')
