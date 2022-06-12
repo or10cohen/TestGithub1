@@ -51,7 +51,7 @@ def main():
         epsilon_likelihood = st.slider('epsilon_likelihood  (default 1)', 1, 100, 1)
         # epsilon_likelihood /= 10
 
-    run_GMM = GMM.GMM(dataset, number_of_clusters=number_of_clusters, n_epochs=n_epochs, epsilon_likelihood=epsilon_likelihood)
+    run_GMM = GMM.GMM(dataset.data, number_of_clusters=number_of_clusters, n_epochs=n_epochs, epsilon_likelihood=epsilon_likelihood)
     run_GMM.train_gmm()
     run_GMM.plot_likelihood()
 
@@ -75,15 +75,10 @@ def main():
             st.image(image)
             # htp = "https://raw.githubusercontent.com/djswoosh/Music-Recommendation-Engine-using-FMA-Dataset/main/1200px-The_Echo_Nest_logo.svg.png"
             # st.image(htp, caption='logo', width=350)
-
         elif add_dimensions == 3:
-            if number_of_features <= 2:
-                st.markdown(f'<h1 style="color:#990000;font-size:22px;">{"cant plot 3D with less then 3 feathers"}</h1>',
-                            unsafe_allow_html=True)
-            else:
-                run_DBSCAN.plot_3d(run_DBSCAN.cluster, rotate_fig_0=rotate_fig_0, rotate_fig_1=rotate_fig_1)
-                image = Image.open('C:\\DBSCAN\\DBSACN_3D.png')
-                st.image(image)
+            run_GMM.train_gmm()
+            image = Image.open('plot_likelihood.png')
+            st.image(image)
         else:
             pass
 
