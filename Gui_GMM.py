@@ -68,7 +68,7 @@ def main():
 
         run_GMM.create_cluster_animation()
         image2 = Image.open('test.gif')
-        st.image2(image1)
+        st.image(image1)
 
     # with col3:
     # st.code("GMM.py", language='python')
