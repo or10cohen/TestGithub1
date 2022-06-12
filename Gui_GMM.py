@@ -63,12 +63,12 @@ def main():
                 data=file,
             )
 
-        if add_dimensions == 3:
-            pass
-            # rotate_fig_0 = st.slider('Rotate axis x', 0, 180, 45, step=45)
-            # rotate_fig_1 = st.slider('Rotate axis y', 0, 180, 45, step=45)
-        else:
-            pass
+        # if add_dimensions == 3:
+        #     pass
+        #     # rotate_fig_0 = st.slider('Rotate axis x', 0, 180, 45, step=45)
+        #     # rotate_fig_1 = st.slider('Rotate axis y', 0, 180, 45, step=45)
+        # else:
+        #     pass
 
     with col2: ##
         if add_dimensions == 2:
