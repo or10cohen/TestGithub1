@@ -41,10 +41,11 @@ def main():
             number_of_features = 2
             add_dimensions = 2
         else:
-            number_of_features = st.slider('how many features so you want to use?', 0, 30, 2)
-            add_dimensions = st.radio(
-                'Plot with how many dimensions?',
-                (2, 3))
+            pass
+            # number_of_features = st.slider('how many features so you want to use?', 0, 30, 2)
+            # add_dimensions = st.radio(
+            #     'Plot with how many dimensions?',
+            #     (2, 3))
 
         number_of_clusters = st.slider('number_of_clusters (default 2).', 1, 10, 2)
         n_epochs = st.slider('n_epochs (default 10)', 0, 100, 10)
