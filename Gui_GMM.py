@@ -63,8 +63,12 @@ def main():
 
     with col2: ##
         run_GMM.train_gmm()
-        image = Image.open('plot_likelihood.png')
-        st.image(image)
+        image1 = Image.open('plot_likelihood.png')
+        st.image(image1)
+
+        run_GMM.create_cluster_animation()
+        image2 = Image.open('test.gif')
+        st.image2(image1)
 
     # with col3:
     # st.code("GMM.py", language='python')
