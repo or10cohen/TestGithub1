@@ -51,6 +51,11 @@ def main():
         n_epochs = st.slider('n_epochs (default 10)', 0, 100, 10)
         epsilon_likelihood = st.slider('epsilon_likelihood  (default 1)', 1, 100, 1)
         # epsilon_likelihood /= 10
+        with open("GMM.py") as file:
+            btn = st.download_button(
+                label="Download Python Resources File",
+                data=file,
+            )
 
     run_GMM = GMM.GMM(dataset.data, number_of_clusters=number_of_clusters, n_epochs=n_epochs, epsilon_likelihood=epsilon_likelihood)
     run_GMM.train_gmm()
@@ -60,12 +65,6 @@ def main():
         run_GMM.train_gmm()
         image = Image.open('plot_likelihood.png')
         st.image(image)
-
-        with open("GMM.py") as file:
-            btn = st.download_button(
-                label="Download Python Resources File",
-                data=file,
-            )
 
     # with col3:
     # st.code("GMM.py", language='python')
