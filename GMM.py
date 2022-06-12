@@ -122,8 +122,8 @@ class GMM:
                 ax.scatter(cluster['mu_k'][0], cluster['mu_k'][1], c=colorset1[idx], s=1000, marker='+')
                 idx += 1
 
-            for i in range(X.shape[0]):
-                ax.scatter(X[i, 0], X[i, 1], c=colorset1[np.argmax(self.scores[i])], marker='o')
+            for i in range(self.X.shape[0]):
+                ax.scatter(self.X[i, 0], self.X[i, 1], c=colorset1[np.argmax(self.scores[i])], marker='o')
 
             fig.canvas.draw()
 

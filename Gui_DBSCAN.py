@@ -62,13 +62,11 @@ def main():
     run_DBSCAN.run()
 
     with col3:
-
         with open("DBSCAN.py") as file:
             btn = st.download_button(
                 label="Download Python Resources File",
                 data=file,
             )
-
 
         if add_dimensions == 3:
             rotate_fig_0 = st.slider('Rotate axis x', 0, 180, 45, step=45)
