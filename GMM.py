@@ -90,7 +90,8 @@ class GMM:
         plt.savefig("plot_likelihood.png")
     def create_cluster_animation(self):
         fig, ax = plt.subplots(1, 1, figsize=(10, 10))
-        colorset1 = ['blue', 'red', 'black']
+        colorset1 = ["red", "green", "blue", "yellow", "pink", "black", "orange", "purple", "beige", \
+                            "brown", "cyan", "magenta"]
         images = []
 
         for j, clusters in enumerate(self.history):
@@ -134,6 +135,7 @@ class GMM:
         kwargs_write = {'fps': 1.0, 'quantizer': 'nq'}
         imageio.mimsave('./gmm.gif', images, fps=1)
         plt.show(Image.open('gmm.gif').convert('RGB'))
+
     def train_gmm(self):
         epsilon_for_log = 0.000001
         self.clusters = self.initialize_clusters()
@@ -173,4 +175,4 @@ if __name__ == '__main__':
     gmm = GMM(X, number_of_clusters=3)
     gmm.train_gmm()
     gmm.plot_likelihood()
-    # gmm.create_cluster_animation()
+    gmm.create_cluster_animation()
