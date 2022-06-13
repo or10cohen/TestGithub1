@@ -48,7 +48,6 @@ def main():
             #     (2, 3))
 
         number_of_clusters = st.slider('number_of_clusters (default 2).', 1, 10, 2)
-        number_of_clusters -= 1
         n_epochs = st.slider('n_epochs (default 10)', 0, 100, 10)
         epsilon_likelihood = st.slider('epsilon_likelihood  (default 1)', 1, 100, 1)
         # epsilon_likelihood /= 10
