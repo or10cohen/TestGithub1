@@ -24,7 +24,7 @@ if location == 'Kryot':
 elif location == 'Raanana':
     data = Raanana
 else:
-     pass
+    pass
 
 
 st.map(data)
