@@ -19,9 +19,9 @@ location = st.radio(
             'Which DataSet do you want to use?',
             ('Kryot', 'Raanana'))
 
-if data == 'Kryot':
+if location == 'Kryot':
     data = Kryot
-if data == 'Raanana':
+if location == 'Raanana':
     data = Raanana
  else:
      pass
