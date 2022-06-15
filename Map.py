@@ -21,7 +21,7 @@ location = st.radio(
 
 if location == 'Kryot':
     data = Kryot
-if location == 'Raanana':
+elif location == 'Raanana':
     data = Raanana
  else:
      pass
