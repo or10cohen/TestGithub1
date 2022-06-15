@@ -2,8 +2,6 @@ import pandas as pd
 import streamlit as st
 
 
-cohose_data =
-
 Raanana  = pd.DataFrame({
     'awesome cities' : ['R1', 'R2', 'R3', 'R4'],
     'lat' : [32.19257001621871, 32.19257001621871, 32.188691433645396, 32.19070709561081],
