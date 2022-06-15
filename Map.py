@@ -15,9 +15,17 @@ Kryot = pd.DataFrame({
     'lon' : [35.06681117327111, 35.06722858061457, 35.06481457481161, 35.065990272162324]
 })
 
-data = st.radio(
+location = st.radio(
             'Which DataSet do you want to use?',
             ('Kryot', 'Raanana'))
+
+if data == 'Kryot'
+    data = Kryot
+if data == 'Raanana'
+    data = Raanana
+ else:
+     pass
+
 
 st.map(data)
 
