@@ -23,7 +23,7 @@ if location == 'Kryot':
     data = Kryot
 elif location == 'Raanana':
     data = Raanana
- else:
+else:
      pass
 
 
