@@ -17,7 +17,7 @@ Kryot = pd.DataFrame({
 
 data = st.radio(
             'Which DataSet do you want to use?',
-            (Kryot, Raanana))
+            ('Kryot', 'Raanana'))
 
 st.map(data)
 
