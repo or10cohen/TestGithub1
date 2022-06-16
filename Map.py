@@ -27,6 +27,6 @@ else:
     pass
 
 
-st.map(data, zoom=None, use_container_width=True)
+st.map(data, zoom=10, use_container_width=True)
 
 
