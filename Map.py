@@ -31,32 +31,10 @@ else:
 
 st.map(data, zoom=None, use_container_width=True)
 
-
-if "radius" not in st.session_state:
-    st.session_state.radius = "0.1 mile"
-
-def miles_to_meters(miles):
-    return miles*1609
-
-data = {
-    "0.1 mile": 0.1,
-    "1 mile": 1,
-    "2 miles": 2,
-    "3 miles": 3
-}
-
-st.sidebar.selectbox(
-    label="What radius do you want to assign?",
-    options=("0.1 mile", "1 mile", "2 miles", "3 miles"),
-    key="radius"
-)
-
-radius = miles_to_meters(data["0.1 mile"])
-
 lat, lon = 51.64270, -0.20747
 m = folium.Map(location=[lat, lon], zoom_start=16)
 folium.Marker([lat, lon]).add_to(m)
-folium.Circle([lat, lon], radius=radius).add_to(m)  # radius is in meters
+folium.Circle([lat, lon], radius=0.1).add_to(m)  # radius is in meters
 
 folium_static(m)
 
