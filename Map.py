@@ -40,7 +40,7 @@ st.sidebar.selectbox(
 
 
 
-lat, lon = 51.64270, -0.20747
+lat, lon = 32.19257001621871, 34.87963762591485
 m = folium.Map(location=[lat, lon])
 folium.Marker([lat, lon]).add_to(m)
 folium.Circle([lat, lon], radius=0.1).add_to(m)  # radius is in meters
