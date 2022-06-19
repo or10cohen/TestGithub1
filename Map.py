@@ -31,7 +31,7 @@ else:
 
 st.map(data, zoom=None, use_container_width=True)
 
-lat, lon = 51.64270, -0.20747
+lat, lon = 32.83176922748003, 35.06681117327111
 m = folium.Map(location=[lat, lon], zoom_start=16)
 folium.Marker([lat, lon]).add_to(m)
 folium.Circle([lat, lon], radius=0.1).add_to(m)  # radius is in meters
