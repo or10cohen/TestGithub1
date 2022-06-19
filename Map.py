@@ -46,7 +46,6 @@ folium.Marker([lat1, lon1]).add_to(m)
 m = folium.Map(location=[lat2, lon2], zoom_start=16)
 folium.Marker([lat2, lon2]).add_to(m)
 
-folium.Circle([lat, lon], radius=0.1).add_to(m)  # radius is in meters
 
 folium_static(m)
 
