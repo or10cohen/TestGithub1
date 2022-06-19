@@ -31,6 +31,13 @@ else:
 
 st.map(data, zoom=None, use_container_width=True)
 
+
+st.sidebar.selectbox(
+    label="What radius do you want to assign?",
+    options=("0.1 mile", "1 mile", "2 miles", "3 miles"),
+    key="radius"
+)
+
 lat, lon = 32.83176922748003, 35.06681117327111
 m = folium.Map(location=[lat, lon], zoom_start=16)
 folium.Marker([lat, lon]).add_to(m)
