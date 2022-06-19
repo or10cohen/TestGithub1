@@ -39,11 +39,11 @@ st.sidebar.selectbox(
 )
 
 lat1, lon1 = 32.83176922748003, 32.83366316684312
-lat1, lon1 = 32.83176922748003, 35.06722858061457
+lat2, lon2 = 32.83176922748003, 35.06722858061457
 
-m = folium.Map(location=[lat, lon], zoom_start=16)
+m = folium.Map(location=[lat1, lon1], zoom_start=16)
 folium.Marker([lat1, lon1]).add_to(m)
-m = folium.Map(location=[lat, lon], zoom_start=16)
+m = folium.Map(location=[lat2, lon2], zoom_start=16)
 folium.Marker([lat2, lon2]).add_to(m)
 
 folium.Circle([lat, lon], radius=0.1).add_to(m)  # radius is in meters
