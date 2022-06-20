@@ -50,14 +50,14 @@ folium.Marker([lat1, lon1]).add_to(m)
 layer = folium.FeatureGroup("PP").add_to(m)
 # folium.Circle([lat, lon], radius=0.1).add_to(m)  # radius is in meters
 
-dataDF = pd.read_excel('test.xlsx')
-for itr in range(len(dataDF)):
-    latVal = dataDF.iloc[itr]['lat']
-    lonVal = dataDF.iloc[itr]['lon']
-    nameStr = dataDF.iloc[itr]['name']
-    folium.Circle(location=[latVal, lonVal]).add_to(layer)
+# dataDF = pd.read_excel('test.CSVs')
+# for itr in range(len(dataDF)):
+#     latVal = dataDF.iloc[itr]['lat']
+#     lonVal = dataDF.iloc[itr]['lon']
+#     nameStr = dataDF.iloc[itr]['name']
+#     folium.Circle(location=[latVal, lonVal]).add_to(layer)
 
-# folium_static(map2.mapObj)
+folium_static(map2.mapObj)
 
 
 
