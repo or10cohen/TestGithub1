@@ -57,7 +57,7 @@ for itr in range(len(dataDF)):
     nameStr = dataDF.iloc[itr]['name']
     folium.Circle(location=[latVal, lonVal]).add_to(layer)
 
-folium_static(map2.mapObj)
+# folium_static(map2.mapObj)
 
 
 
