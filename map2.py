@@ -11,7 +11,7 @@ powerPlantsLayer = folium.FeatureGroup("Power Plants")
 powerPlantsLayer.add_to(mapObj)
 
 # read excel data as dataframe
-dataDf = pd.read_excel('power_plants.xlsx')
+dataDf = pd.read_excel('power_plants_2.xlsx')
 # iterate through each dataframe row
 for i in range(len(dataDf)):
     areaStr = dataDf.iloc[i]['area']

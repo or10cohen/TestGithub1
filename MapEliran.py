@@ -18,7 +18,7 @@ Kryot = pd.DataFrame({
     'lon' : [35.06681117327111, 35.06722858061457, 35.06481457481161, 35.065990272162324]
 })
 #
-location = st.radio(
+location = st.sidebar.selectbox(
             'Which DataSet do you want to use?',
             ('Kryot', 'Raanana'))
 
@@ -30,32 +30,12 @@ else:
     pass
 
 
-st.map(data, zoom=None, use_container_width=True)
-
 
 st.sidebar.selectbox(
     label="What radius do you want to assign?",
     options=("0.1 mile", "1 mile", "2 miles", "3 miles"),
     key="radius"
 )
-
-
-
-
-
-lat1, lon1 = 32.19257001621871, 34.87963762591485
-
-m = folium.Map(location=[lat1, lon1])
-folium.Marker([lat1, lon1]).add_to(m)
-layer = folium.FeatureGroup("PP").add_to(m)
-# folium.Circle([lat, lon], radius=0.1).add_to(m)  # radius is in meters
-
-dataDF = pd.read_excel('test.xlsx')
-for itr in range(len(dataDF)):
-    latVal = dataDF.iloc[itr]['lat']
-    lonVal = dataDF.iloc[itr]['lon']
-    nameStr = dataDF.iloc[itr]['name']
-    folium.Circle(location=[latVal, lonVal]).add_to(layer)
 
 folium_static(map2.mapObj)
 
