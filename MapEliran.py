@@ -58,6 +58,7 @@ layer = folium.FeatureGroup("PP").add_to(m)
 #     folium.Circle(location=[latVal, lonVal]).add_to(layer)
 
 folium_static(map2.mapObj)
+print('a')
 
 
 
