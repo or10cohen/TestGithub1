@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 from streamlit_folium import folium_static
 import folium
+import map2
 
 
 Raanana  = pd.DataFrame({
@@ -56,7 +57,7 @@ for itr in range(len(dataDF)):
     nameStr = dataDF.iloc[itr]['name']
     folium.Circle(location=[latVal, lonVal]).add_to(layer)
 
-folium_static(m)
+folium_static(map2.mapObj)
 
 
 
