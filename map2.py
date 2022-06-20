@@ -1,23 +1,17 @@
 import pandas as pd
 import folium
 
-# read excel data as dataframe
-dataDf = pd.read_excel('power_plants.xlsx')
-
 # initialize a map with center and zoom
 mapObj = folium.Map(location=[32.19257001621871, 34.87963762591485],
-                     zoom_start=7, tiles='openstreetmap')
+                     zoom_start=12, tiles='openstreetmap')
 # folium.TileLayer('stamenterrain', attr="stamenterrain").add_to(mapObj)
-
-# create GeoJson layer to draw country borders
-# style options - https://leafletjs.com/reference-1.7.1.html#path
-bordersStyle = {"color": 'green', 'weight': 2, 'fillOpacity': 0}
-
 # create a layer for bubble map using FeatureGroup
 powerPlantsLayer = folium.FeatureGroup("Power Plants")
 # add the created layer to the map
 powerPlantsLayer.add_to(mapObj)
 
+# read excel data as dataframe
+dataDf = pd.read_excel('power_plants.xlsx')
 # iterate through each dataframe row
 for i in range(len(dataDf)):
     areaStr = dataDf.iloc[i]['area']
@@ -28,8 +22,8 @@ for i in range(len(dataDf)):
     # derive the circle radius
     radius = capVal*100
     # derive the circle pop up html content
-    popUpStr = 'Area - {0}<br>Fuel - {1}<br>Capacity - {2} MW'.format(
-        areaStr, fuelStr, capVal)
+    popUpStr = 'Area - {0}<br>Fuel - {1}<br>'.format(
+        areaStr, fuelStr)
     # draw a circle for the power plant on the layer
     folium.Circle(
         location=[dataDf.iloc[i]['lat'], dataDf.iloc[i]['lng']],
