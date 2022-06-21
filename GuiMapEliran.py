@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 from streamlit_folium import folium_static
 import folium
-import map2
+import map
 
 st.set_page_config(page_title="Or Yosef Cohen", layout="wide")
 st.markdown(
@@ -36,7 +36,7 @@ st.sidebar.selectbox(
     key="radius"
 )
 
-folium_static(map2.mapObj)
+folium_static(map.mapObj)
 
 
 
