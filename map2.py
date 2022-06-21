@@ -3,7 +3,7 @@ import folium
 
 # initialize a map with center and zoom
 
-folium.Figure(width=1000, height=500)
+folium.Figure(width=0, height=0)
 mapObj = folium.Map(width=800, height=600, location=[32.19257001621871, 34.87963762591485],
                      zoom_start=12, tiles='openstreetmap')
 # create a layer for bubble map using FeatureGroup
