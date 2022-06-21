@@ -3,26 +3,26 @@ import folium
 
 # initialize a map with center and zoom
 
-f = folium.Figure(width=0, height=0)
+# f = folium.Figure(width=0, height=0)
 mapObj = folium.Map(width=800, height=600, location=[32.19257001621871, 34.87963762591485],
                      zoom_start=12, tiles='openstreetmap')
 # create a layer for bubble map using FeatureGroup
 powerPlantsLayer = folium.FeatureGroup("Power Plants")
 # add the created layer to the map
 powerPlantsLayer.add_to(mapObj)
-f.add_to(mapObj)
+
 # read excel data as dataframe
-dataDf = pd.read_excel('power_plants_2.xlsx')
+dataDf = pd.read_excel('shomron.xlsx')
 # iterate through each dataframe row
 for i in range(len(dataDf)):
-    areaStr = dataDf.iloc[i]['area']
-    fuelStr = dataDf.iloc[i]['fuel']
+    areaStr = dataDf.iloc[i]['ezor']
+    fuelStr = dataDf.iloc[i]['yeshov']
     capVal = dataDf.iloc[i]['capacity']
 
 
-    if fuelStr.lower() == 'wind':
+    if fuelStr == 'wind':
         clr = 'red'
-    elif fuelStr.lower() == 'wind':
+    elif fuelStr == 'wind':
         clr = 'red'
     else:
         clr = 'red'
