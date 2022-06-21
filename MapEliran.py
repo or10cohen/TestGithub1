@@ -4,7 +4,7 @@ from streamlit_folium import folium_static
 import folium
 import map2
 
-st.set_page_config(layout="wide")
+# st.set_page_config(layout="wide")
 
 location = st.sidebar.selectbox(
             'Which DataSet do you want to use?',
