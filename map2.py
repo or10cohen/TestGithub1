@@ -17,12 +17,15 @@ for i in range(len(dataDf)):
     fuelStr = dataDf.iloc[i]['fuel']
     capVal = dataDf.iloc[i]['capacity']
 
+
     if fuelStr.lower() == 'wind':
         clr = 'red'
     elif fuelStr.lower() == 'wind':
         clr = 'red'
     else:
         clr = 'red'
+
+
     # derive the circle color
     clr = "blue" if fuelStr.lower() == 'wind' else "red"
     # derive the circle pop up html content
