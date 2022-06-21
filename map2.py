@@ -16,10 +16,15 @@ for i in range(len(dataDf)):
     areaStr = dataDf.iloc[i]['area']
     fuelStr = dataDf.iloc[i]['fuel']
     capVal = dataDf.iloc[i]['capacity']
+
+    if fuelStr.lower() == 'wind':
+        clr = 'red'
+    elif fuelStr.lower() == 'wind':
+        clr = 'red'
+    else:
+        clr = 'red'
     # derive the circle color
     clr = "blue" if fuelStr.lower() == 'wind' else "red"
-    # derive the circle radius
-    radius = capVal*100
     # derive the circle pop up html content
     popUpStr = 'Area - {0}<br>Fuel - {1}<br>'.format(
         areaStr, fuelStr)
@@ -27,7 +32,7 @@ for i in range(len(dataDf)):
     folium.Circle(
         location=[dataDf.iloc[i]['lat'], dataDf.iloc[i]['lng']],
         popup=folium.Popup(popUpStr, min_width=100, max_width=700),
-        radius=radius,
+        radius=0,
         color=clr,
         weight=2,
         fill=True,
