@@ -16,12 +16,6 @@ st.sidebar.selectbox(
     key="radius"
 )
 
-if location == 'Kryot':
-    data = Kryot
-elif location == 'Raanana':
-    data = Raanana
-else:
-    pass
 
 
 folium_static(map2.mapObj)
