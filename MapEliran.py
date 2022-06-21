@@ -9,11 +9,11 @@ st.markdown(
     """
     <style>
     [data-testid="stSidebar"][aria-expanded="true"] > div:first-child{
-        width: 400px;
+        width: 600px;
     }
     [data-testid="stSidebar"][aria-expanded="false"] > div:first-child{
-        width: 400px;
-        margin-left: -400px;
+        width: 600px;
+        margin-left: -600px;
     }
 
     """,
