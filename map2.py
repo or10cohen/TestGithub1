@@ -35,7 +35,7 @@ for i in range(len(dataDf)):
         areaStr, fuelStr)
     # draw a circle for the power plant on the layer
     folium.Circle(
-        location=[dataDf.iloc[i]['lat'], dataDf.iloc[i]['lng']],
+        location=[dataDf.iloc[i]['lat'], dataDf.iloc[i]['a']],
         popup=folium.Popup(popUpStr, min_width=100, max_width=700),
         radius=0,
         color=clr,
