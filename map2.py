@@ -12,17 +12,17 @@ powerPlantsLayer = folium.FeatureGroup("Power Plants")
 powerPlantsLayer.add_to(mapObj)
 
 # read excel data as dataframe
-dataDf = pd.read_excel('shomron.xlsx')
+dataDf = pd.read_excel('power_plants_2.xlsx')
 # iterate through each dataframe row
 for i in range(len(dataDf)):
-    areaStr = dataDf.iloc[i]['ezor']
-    fuelStr = dataDf.iloc[i]['yeshov']
+    areaStr = dataDf.iloc[i]['area']
+    fuelStr = dataDf.iloc[i]['fuel']
     capVal = dataDf.iloc[i]['capacity']
 
 
-    if fuelStr == 'wind':
+    if fuelStr.lower() == 'wind':
         clr = 'red'
-    elif fuelStr == 'wind':
+    elif fuelStr.lower() == 'wind':
         clr = 'red'
     else:
         clr = 'red'
