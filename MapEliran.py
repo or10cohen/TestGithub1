@@ -20,7 +20,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.set_page_config(layout="wide")
+# st.set_page_config(layout="wide")
 
 location = st.sidebar.selectbox(
             'Which DataSet do you want to use?',
