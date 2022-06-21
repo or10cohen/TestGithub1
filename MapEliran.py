@@ -4,6 +4,8 @@ from streamlit_folium import folium_static
 import folium
 import map2
 
+st.title("Or Yosef Cohen")
+st.header("provisional")
 st.set_page_config(page_title="The Ramsey Highlights", layout="wide")
 st.markdown(
     """
