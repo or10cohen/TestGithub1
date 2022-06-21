@@ -6,7 +6,7 @@ mapObj = folium.Map(location=[32.19257001621871, 34.87963762591485],
                      zoom_start=12, tiles='openstreetmap')
 # # create a layer for bubble map using FeatureGroup
 # powerPlantsLayer = folium.FeatureGroup("Power Plants")
-# # add the created layer to the map
+# add the created layer to the map
 # powerPlantsLayer.add_to(mapObj)
 
 # read excel data as dataframe
