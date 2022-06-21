@@ -3,14 +3,14 @@ import folium
 
 # initialize a map with center and zoom
 
-folium.Figure(width=0, height=0)
+f = folium.Figure(width=0, height=0)
 mapObj = folium.Map(width=800, height=600, location=[32.19257001621871, 34.87963762591485],
                      zoom_start=12, tiles='openstreetmap')
 # create a layer for bubble map using FeatureGroup
 powerPlantsLayer = folium.FeatureGroup("Power Plants")
 # add the created layer to the map
 powerPlantsLayer.add_to(mapObj)
-
+f.add_to(mapObj)
 # read excel data as dataframe
 dataDf = pd.read_excel('power_plants_2.xlsx')
 # iterate through each dataframe row
