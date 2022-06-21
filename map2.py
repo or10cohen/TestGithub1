@@ -2,7 +2,7 @@ import pandas as pd
 import folium
 
 # initialize a map with center and zoom
-mapObj = folium.Map(width=600, height=400, location=[32.19257001621871, 34.87963762591485],
+mapObj = folium.Map(width=800, height=600, location=[32.19257001621871, 34.87963762591485],
                      zoom_start=12, tiles='openstreetmap')
 # create a layer for bubble map using FeatureGroup
 powerPlantsLayer = folium.FeatureGroup("Power Plants")
