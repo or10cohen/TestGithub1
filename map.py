@@ -1,34 +1,27 @@
 import pandas as pd
 import folium
 
-# initialize a map with center and zoom
 
-# f = folium.Figure(width=0, height=0)
 mapObj = folium.Map(width=800, height=600, location=[32.19257001621871, 34.87963762591485],
                      zoom_start=8, tiles='openstreetmap')
 # create a layer for bubble map using FeatureGroup
 powerPlantsLayer = folium.FeatureGroup("Power Plants")
 # add the created layer to the map
 powerPlantsLayer.add_to(mapObj)
-
 # read excel data as dataframe
 dataDf = pd.read_excel('power_plants_2.xlsx')
-print(dataDf)
+# print(dataDf)
 # iterate through each dataframe row
 for i in range(len(dataDf)):
     areaStr = dataDf.iloc[i]['area']
     fuelStr = dataDf.iloc[i]['fuel']
     capVal = dataDf.iloc[i]['capacity']
-
-
     if fuelStr.lower() == 'wind':
         clr = 'red'
     elif fuelStr.lower() == 'wind':
         clr = 'red'
     else:
         clr = 'red'
-
-
     # derive the circle color
     clr = "blue" if fuelStr.lower() == 'wind' else "red"
     # derive the circle pop up html content
@@ -46,10 +39,16 @@ for i in range(len(dataDf)):
         fill_opacity=0.1
     ).add_to(powerPlantsLayer)
 
+    loc = [(dataDf.iloc[i+1]['lat'], dataDf.iloc[i]['a']),
+           (dataDf.iloc[i]['lat'], dataDf.iloc[i]['a'])]
+
+    folium.PolyLine(loc,
+                    color='red',
+                    weight=15,
+                    opacity=0.8).add_to(mapObj)
 
 # add layer control over the map
 folium.LayerControl().add_to(mapObj)
-
 # html to be injected for displaying legend
 legendHtml = '''
      <div style="position: fixed; 
@@ -62,9 +61,7 @@ legendHtml = '''
                   style="color:red"></i> &nbsp; Solar<br>
       </div>
      '''
-
 # inject html corresponding to the legend into the map
 mapObj.get_root().html.add_child(folium.Element(legendHtml))
-
 # save the map as html file
 mapObj.save('output.html')
