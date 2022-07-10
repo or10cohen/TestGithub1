@@ -1,7 +1,7 @@
 import numpy as np
 import pandas
 import pandas as pd
-import seaborn as sns
+# import seaborn as sns
 import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset = True)
@@ -32,23 +32,26 @@ class AdaBoost():
         print(Fore.RED + "\nNull values per column:\n", heart_disease.isnull().sum().to_frame('nulls'))
         limit_Null = heart_disease.shape[0] / 3
         nulls = heart_disease.isnull().sum().to_frame()
-        print(Fore.RED + '\nwe have a lot of Null in columns:')
+        print(Fore.RED + '\nthe next columns have a lot of Null(bigger then len column {} / 3):' .format(heart_disease.shape[0]))
         column_with_big_null = []
         for index, row in nulls.iterrows():
             if row[0] > limit_Null:
                 print(index, row[0])
                 column_with_big_null.append(str(index))
-        heart_disease.drop(column_with_big_null, inplace=True, axis=1)
-        print(Fore.RED + '\nlets remove the columns with large null\n', heart_disease.head(5))
-        #---------------------------------------------------------------------------------------------#
-        print(sns.boxplot(x=heart_disease['age']))
-
-
-
-        # print(Fore.RED + '\nheart_disease.head(10) after dummies\n', heart_disease_copy.head(10))
-        # print(Fore.RED + '\ncolumns\n', heart_disease_copy.columns)
-        # print(Fore.RED + '\ndescribe\n', heart_disease_copy.describe())
-
+        if len(column_with_big_null) == 0:
+            print('we dont have columns with a lot of Null')
+        else:
+            heart_disease.drop(column_with_big_null, inplace=True, axis=1)
+        print(Fore.RED + '\nlets remove the all columns with large null(if we have)\n', heart_disease.head(5))
+        #---------------------------replace other Null with median---------------------------------------#
+        print(Fore.RED + "\nreplace other Null with average or other way:")
+        column_fillna_median = ['trestbps', 'chol', 'thalch', 'oldpeak']
+        print(Fore.RED + "for {} we take the median instead of Null.\n" .format(column_fillna_median))
+        for column in column_fillna_median:
+            median = heart_disease[column].median()
+            heart_disease[column] = heart_disease[column].fillna(median)
+        print(Fore.RED + "\nNull values per column:\n", heart_disease.isnull().sum().to_frame('nulls'))
+        # ------------------------------------------------------------------------------------------#
 
 
 if __name__ == '__main__':
