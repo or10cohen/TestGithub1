@@ -92,8 +92,19 @@ class AdaBoost():
         self.df.insert(15, 'num', last_column)
         print(Fore.RED + 'after preprocessing\n', self.df.head(5))
     def correlation(self):
-        sns.heatmap(self.df, annot=True)
+        pearsonCorr = self.df.corr(method='pearson')
+        fig = plt.subplots(figsize=(14, 8))
+        maskP = np.triu(np.ones_like(pearsonCorr, dtype=bool))
+        maskP = maskP[1:, :-1]
+        pCorr = pearsonCorr.iloc[1:, :-1].copy()
+        cmap = sns.diverging_palette(0, 200, 150, 50, as_cmap=True)
+        sns.heatmap(pCorr, vmin=-1,vmax=1, cmap = cmap, annot=True, linewidth=0.3, mask=maskP)
+        plt.title("Pearson Correlation")
         plt.savefig('correlation.png')
+        self.df.drop(['thalch', 'fbs_True', 'restecg_normal', 'restecg_st-t abnormality', 'cp_typical angina'], inplace=True, axis=1)
+        print(Fore.RED + 'after correlation\n', self.df.head(5))
+
+
     def descionTree(self):
         X = self.df.iloc[:, :-1]  # Features
         y = self.df.iloc[:, -1]  # Target variable
@@ -122,9 +133,9 @@ class AdaBoost():
 
 if __name__ == '__main__':
     RunAdaBoost = AdaBoost(heart_disease)
-    # RunAdaBoost.__str__()
+    RunAdaBoost.__str__()
     RunAdaBoost.preProccesing()
-    # RunAdaBoost.correlation()
+    RunAdaBoost.correlation()
     RunAdaBoost.descionTree()
     # RunAdaBoost.plotDescionTree()
 
