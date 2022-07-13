@@ -102,7 +102,7 @@ class AdaBoost():
         plt.title("Pearson Correlation")
         plt.savefig('correlation.png')
         self.df.drop(['thalch', 'fbs_True', 'restecg_normal', 'restecg_st-t abnormality', 'cp_typical angina'], inplace=True, axis=1)
-        print(Fore.RED + 'after correlation\n', self.df.head(5))
+        print(Fore.RED + 'after drop low correlation\n', self.df.head(5))
 
 
     def descionTree(self):
