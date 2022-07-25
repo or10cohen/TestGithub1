@@ -30,8 +30,8 @@ def main():
         st.write('The current number is ', ws)
         FresS = st.number_input('Insert a number', value=ws / (2 * np.pi))
         st.write('The current number is ', FresS)
-        Rs = st.number_input('Insert a number', value=0.1)
-        st.write('The current number is ', Rs)
+        # Rs = st.number_input('Insert a number', value=0.1)
+        # st.write('The current number is ', Rs)
 
         DutyC = st.number_input('Insert a number', value=0.4)
         st.write('The current number is ', DutyC)
