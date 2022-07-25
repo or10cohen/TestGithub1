@@ -47,7 +47,8 @@ def main():
         st.write('Rload = (Vout ** 2) / Pout:', Rload)
         RminLoad = st.number_input('Insert RminLoad', value=570)
         st.write('RminLoad: ', RminLoad)
-
+        Pidle = st.number_input('Insert Pidle', value=0.25)
+        st.write('Pidle: ', Pidle)
 
         with open("Varona_k_range.py") as file:
             btn = st.download_button(
@@ -56,7 +57,7 @@ def main():
             )
 
     with col1:
-        f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B = Varona_k_range.Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC)
+        f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B = Varona_k_range.Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC, Pidle)
         pass
 
     with col2:
