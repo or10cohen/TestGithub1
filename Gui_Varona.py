@@ -17,9 +17,9 @@ def main():
         Cp = st.number_input('Insert Cp', value=139 * (10 ** -9))
         st.write('Cp:', Cp)
         wp = 1 / np.sqrt(Cp * Lp)
-        st.write('wp:', wp)
+        st.write('wp = 1 / np.sqrt(Cp * Lp):', wp)
         FresP = wp / (2 * np.pi)
-        st.write('FresP:', FresP)
+        st.write('FresP = wp / (2 * np.pi):', FresP)
         Rp = st.number_input('Insert Rp', value=0.1)
         st.write('Rp:', Rp)
 
@@ -28,9 +28,9 @@ def main():
         Cs = st.number_input('Insert Cs', value=103 * (10 ** -9))
         st.write('Cs:', Cs)
         ws = 1 / np.sqrt(Cs * Ls)
-        st.write('ws:', ws)
+        st.write('ws = 1 / np.sqrt(Cs * Ls):', ws)
         FresS = ws / (2 * np.pi)
-        st.write('FresS:', FresS)
+        st.write('FresS = ws / (2 * np.pi):', FresS)
         Rs = st.number_input('Insert Rs', value=0.1 + epsilon)
         st.write('Rs:', Rs)
 
@@ -44,7 +44,7 @@ def main():
         k = st.number_input('Insert k', value=0.175 + epsilon)
         st.write('k: ',k)
         Rload = (Vout ** 2) / Pout
-        st.write('Rload:', Rload)
+        st.write('Rload = (Vout ** 2) / Pout:', Rload)
         RminLoad = st.number_input('Insert RminLoad', value=570)
         st.write('RminLoad: ', RminLoad)
 
@@ -56,6 +56,7 @@ def main():
             )
 
     with col1:
+        f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B = Varona_k_range.Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC)
         pass
 
     with col2:
