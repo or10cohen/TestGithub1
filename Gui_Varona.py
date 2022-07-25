@@ -66,15 +66,15 @@ def main():
         f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B = Varona_k_range.Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC, Pidle)
         plot_Varona = Varona_k_range.plot(f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B)
 
-        image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png')
-        st.image(image)
-        image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Varona - Efficency.png')
-        st.image(image)
+        image1 = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png')
+        st.image(image1)
+        image2 = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Varona - Efficency.png')
+        st.image(image2)
     with col2:
-        image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Varona - Tx and Rx RMS current Load.png')
-        st.image(image)
-        image = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Varona - Tx and Rx RMS current Min Load.png')
-        st.image(image)
+        image3 = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Varona - Tx and Rx RMS current Load.png')
+        st.image(image3)
+        image4 = Image.open('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\Varona - Tx and Rx RMS current Min Load.png')
+        st.image(image4)
 
 
 main()
