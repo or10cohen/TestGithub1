@@ -39,14 +39,14 @@ def main():
 
         Vout = st.number_input('Insert Vout', value=0.175)
         st.write('Vout:', Vout)
-        Pout = st.number_input('Insert a number', value=60)
-        st.write('The current number is ', Pout)
-        k = st.number_input('Insert a number', value=0.175 + epsilon)
-        st.write('The current number is ',k)
+        Pout = st.number_input('Insert Pout', value=60)
+        st.write('Pout: ', Pout)
+        k = st.number_input('Insert k', value=0.175 + epsilon)
+        st.write('k: ',k)
         Rload = (Vout ** 2) / Pout
-        st.write('The current number is ', Rload)
-        RminLoad = st.number_input('Insert a number', value=570)
-        st.write('The current number is ', RminLoad)
+        st.write('Rload:', Rload)
+        RminLoad = st.number_input('Insert RminLoad', value=570)
+        st.write('RminLoad: ', RminLoad)
 
 
         with open("Varona_k_range.py") as file:
