@@ -5,6 +5,7 @@ import Varona_k_range
 import CalcVrect
 
 def main():
+    epsilon = 000000.1
     st.title('Varona')
     col1, col2, col3 = st.columns([2,5,2])
     with col1:
@@ -30,7 +31,7 @@ def main():
         st.write('The current number is ', ws)
         FresS = st.number_input('Insert a number', value=ws / (2 * np.pi))
         st.write('The current number is ', FresS)
-        Rs = st.number_input('Insert a number', value=0.1)
+        Rs = st.number_input('Insert a number', value=0.1 + epsilon)
         st.write('The current number is ', Rs)
 
         DutyC = st.number_input('Insert a number', value=0.4)
@@ -40,7 +41,7 @@ def main():
         st.write('The current number is ', Vout)
         Pout = st.number_input('Insert a number', value=60)
         st.write('The current number is ', Pout)
-        k = st.number_input('Insert a number', value=0.175)
+        k = st.number_input('Insert a number', value=0.175 + epsilon)
         st.write('The current number is ',k)
         Rload = st.number_input('Insert a number', value=(Vout ** 2) / Pout)
         st.write('The current number is ', Rload)
