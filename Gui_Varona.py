@@ -7,8 +7,8 @@ import CalcVrect
 def main():
     epsilon = 000000.1
     st.title('Varona')
-    col1, col2, col3 = st.columns([2,5,2])
-    with col1:
+    col1, col2 = st.columns([5, 5])
+    with st.sidebar:
         Vin = st.number_input('Insert Vin', value=48)
         st.write('Vin:', Vin)
 
@@ -48,12 +48,16 @@ def main():
         RminLoad = st.number_input('Insert a number', value=570)
         st.write('The current number is ', RminLoad)
 
-    with col3:
+
         with open("Varona_k_range.py") as file:
             btn = st.download_button(
                 label="Download Python Resources File",
                 data=file,
             )
+
+    with col1:
+        pass
+
     with col2:
         pass
 
