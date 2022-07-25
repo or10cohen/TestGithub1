@@ -7,7 +7,7 @@ import CalcVrect
 # High coupling for Z-gap of 10[mm] and XY misalignment of 12[mm].
 # Low coupling for Z-gap of 38[mm] and no XY misalignment.
 
-def Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC):
+def Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC, Pidle):
     VrectA, VrectB, I1A, I2A, I1B, I2B, I1A1, I2A1, EffA = np.zeros(101), np.zeros(101), np.zeros(101), np.zeros(101)\
         , np.zeros(101), np.zeros(101), np.zeros(101), np.zeros(101), np.zeros(101)
     f = np.arange(0, 101) # f = 0:100
@@ -79,5 +79,5 @@ if __name__ == '__main__':
     # Rrbt=0.01
     # Rbat=0.02
     Pidle = 0.25
-    f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B = Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC)
+    f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B = Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC, Pidle)
     plot_Varona = plot(f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B)
