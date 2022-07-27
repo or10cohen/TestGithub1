@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import Varona_k_range
 import CalcVrect
 from PIL import Image
-from dash import html
-import dash_bootstrap_components as dbc
+# from dash import html
+# import dash_bootstrap_components as dbc
 
 
 
@@ -80,7 +80,12 @@ def main():
     plot_Varona = Varona_k_range.plot(f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B)
 
 
-    Image.open('Varona - Tx and Rx RMS current Load.png')
+    Varona0 = Image.open('Varona - Tx and Rx RMS current Load.png')
+    st.image(Varona0, caption='Sunrise by the mountains')
+    Varona1 = Image.open('Varona - Tx and Rx RMS current Min Load.png')
+    Varona2 = Image.open('Varona - Efficency.png')
+    Varona3 = Image.open('Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png')
+
 
     # carousel = dbc.Carousel(
     #     items=[
