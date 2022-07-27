@@ -79,6 +79,27 @@ def main():
     f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B = Varona_k_range.Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC, Pidle)
     plot_Varona = Varona_k_range.plot(f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B)
 
+    Grpah = st.radio(
+        "Choose graph",
+        ('Tx and Rx RMS current Load', 'Tx and Rx RMS current Min Load', 'arona - Efficency'))
+
+    Varona0 = Image.open('Varona - Tx and Rx RMS current Load.png')
+    # st.image(Varona0, caption='Sunrise by the mountains')
+    Varona1 = Image.open('Varona - Tx and Rx RMS current Min Load.png')
+    Varona2 = Image.open('Varona - Efficency.png')
+    # Varona3 = Image.open('Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png')
+
+
+    if Grpah == 'Tx and Rx RMS current Load':
+        st.image(Varona0, caption='Sunrise by the mountains')
+    elif Grpah == 'Tx and Rx RMS current Min Load':
+        st.image(Varona1, caption='Sunrise by the mountains')
+    elif Grpah == 'arona - Efficency':
+        st.image(Varona2, caption='Sunrise by the mountains')
+    else:
+        st.write("You didn't select comedy.")
+
+
 
     Varona0 = Image.open('Varona - Tx and Rx RMS current Load.png')
     st.image(Varona0, caption='Sunrise by the mountains')
