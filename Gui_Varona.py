@@ -66,6 +66,11 @@ def main():
                 label="Download Varona_k_range Python Resources File",
                 data=file,
             )
+        with open("Gui_Varona.py") as file:
+            btn = st.download_button(
+                label="Download Gui_Varona Python Resources File",
+                data=file,
+            )
 
         Vrect, I1, I2, Vrect2, Eff, Pin, Pout, Prp, Prs = CalcVrect.CalcVrect(Vin, Lp, Ls, Rp, Rs, wp, ws, w, k, RminLoad, DutyC)
     with col1:
