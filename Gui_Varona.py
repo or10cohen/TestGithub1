@@ -32,7 +32,7 @@ def main():
         DutyC = st.number_input('Insert DutyC', value=0.4)
         st.write('DutyC:', DutyC)
 
-        Vout = st.number_input('Insert Vout', value=0.175, format="%.4f")
+        Vout = st.number_input('Insert Vout', value=25.5, format="%.4f")
         st.write('Vout:', Vout)
         Pout = st.number_input('Insert Pout', value=60)
         st.write('Pout: ', Pout)
