@@ -100,14 +100,6 @@ def main():
         st.write("You didn't select comedy.")
 
 
-
-    Varona0 = Image.open('Varona - Tx and Rx RMS current Load.png')
-    st.image(Varona0, caption='Sunrise by the mountains')
-    Varona1 = Image.open('Varona - Tx and Rx RMS current Min Load.png')
-    Varona2 = Image.open('Varona - Efficency.png')
-    # Varona3 = Image.open('Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png')
-
-
     # carousel = dbc.Carousel(
     #     items=[
     #         {"key": "1", "src": "Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png"},
