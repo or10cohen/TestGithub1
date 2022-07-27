@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import Varona_k_range
 import CalcVrect
 from PIL import Image
-# import dash_bootstrap_components as dbc
+import dash_bootstrap_components as dbc
 
 
 
