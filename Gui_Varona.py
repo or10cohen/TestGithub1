@@ -56,11 +56,17 @@ def main():
         st.write('Rload = (Vout ** 2) / Pout:', Rload)
 
 
-        with open("Varona_k_range.py") as file:
+        with open("CalcVrect.py") as file:
             btn = st.download_button(
-                label="Download Python Resources File",
+                label="Download CalcVrect Python Resources File",
                 data=file,
             )
+        with open("Varona_k_range.py") as file:
+            btn = st.download_button(
+                label="Download Varona_k_range Python Resources File",
+                data=file,
+            )
+
         Vrect, I1, I2, Vrect2, Eff, Pin, Pout, Prp, Prs = CalcVrect.CalcVrect(Vin, Lp, Ls, Rp, Rs, wp, ws, w, k, RminLoad, DutyC)
     with col1:
         f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B = Varona_k_range.Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC, Pidle)
