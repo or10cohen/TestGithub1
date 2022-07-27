@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import Varona_k_range
 import CalcVrect
 from PIL import Image
-import streamlit.components.v1 as components
+import dash_bootstrap_components as dbc
+
 
 
 def main():
@@ -76,8 +77,6 @@ def main():
     Vrect, I1, I2, Vrect2, Eff, Pin, Pout, Prp, Prs = CalcVrect.CalcVrect(Vin, Lp, Ls, Rp, Rs, wp, ws, w, k, RminLoad, DutyC)
     f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B = Varona_k_range.Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC, Pidle)
     plot_Varona = Varona_k_range.plot(f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B)
-
-    import dash_bootstrap_components as dbc
 
     carousel = dbc.Carousel(
         items=[
