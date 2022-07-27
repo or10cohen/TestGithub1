@@ -4,11 +4,12 @@ import matplotlib.pyplot as plt
 import Varona_k_range
 import CalcVrect
 from PIL import Image
+import streamlit.components.v1 as components
+
 
 def main():
     epsilon = 0.000001
     st.title('Varona')
-    col1, col2 = st.columns([5, 5])
     with st.sidebar:
         Vin = st.number_input('Insert Vin', value=48)
         st.write('Vin:', Vin)
@@ -72,20 +73,22 @@ def main():
                 data=file,
             )
 
-        Vrect, I1, I2, Vrect2, Eff, Pin, Pout, Prp, Prs = CalcVrect.CalcVrect(Vin, Lp, Ls, Rp, Rs, wp, ws, w, k, RminLoad, DutyC)
-    with col1:
-        f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B = Varona_k_range.Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC, Pidle)
-        plot_Varona = Varona_k_range.plot(f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B)
+    Vrect, I1, I2, Vrect2, Eff, Pin, Pout, Prp, Prs = CalcVrect.CalcVrect(Vin, Lp, Ls, Rp, Rs, wp, ws, w, k, RminLoad, DutyC)
+    f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B = Varona_k_range.Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC, Pidle)
+    plot_Varona = Varona_k_range.plot(f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B)
 
-        image1 = Image.open('Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png')
-        st.image(image1)
-        image2 = Image.open('Varona - Efficency.png')
-        st.image(image2)
-    with col2:
-        image3 = Image.open('Varona - Tx and Rx RMS current Load.png')
-        st.image(image3)
-        image4 = Image.open('Varona - Tx and Rx RMS current Min Load.png')
-        st.image(image4)
+    imageCarouselComponent = components.declare_component("image-carousel-component", path="frontend/public")
+
+    imageUrls = [
+        "Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png",
+        "Varona - Efficency.png",
+        "Varona - Tx and Rx RMS current Load.png",
+        "Varona - Tx and Rx RMS current Min Load.png",
+    ]
+    selectedImageUrl = imageCarouselComponent(imageUrls=imageUrls, height=200)
+
+    if selectedImageUrl is not None:
+        st.image(selectedImageUrl)
 
 
 main()
