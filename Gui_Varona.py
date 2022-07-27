@@ -78,15 +78,15 @@ def main():
     f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B = Varona_k_range.Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC, Pidle)
     plot_Varona = Varona_k_range.plot(f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B)
 
-    # carousel = dbc.Carousel(
-    #     items=[
-    #         {"key": "1", "src": "Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png"},
-    #         {"key": "2", "src": "Varona - Efficency.png"},
-    #         {"key": "3", "src": "Varona - Tx and Rx RMS current Min Load.png"},
-    #         {"key": "3", "src": "Varona - Tx and Rx RMS current Min Load.png"},
-    #     ],
-    #     controls=True,
-    #     indicators=True,
-    # )
+    carousel = dbc.Carousel(
+        items=[
+            {"key": "1", "src": "Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png"},
+            {"key": "2", "src": "Varona - Efficency.png"},
+            {"key": "3", "src": "Varona - Tx and Rx RMS current Min Load.png"},
+            {"key": "3", "src": "Varona - Tx and Rx RMS current Min Load.png"},
+        ],
+        controls=True,
+        indicators=True,
+    )
 
 main()
