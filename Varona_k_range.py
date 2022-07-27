@@ -29,10 +29,10 @@ def Varona(Vin, Lp, Ls, Rp, Rs, wp, ws, k, Rload, RminLoad, DutyC, Pidle):
     return f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B
 
 def plot(f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B):
-    fig1, ax1 = plt.subplots()
-    fig2, ax2= plt.subplots()
-    fig3, ax3= plt.subplots()
-    fig4, ax4 = plt.subplots()
+    fig1, ax1 = plt.subplots(figsize=(10, 8))
+    fig2, ax2= plt.subplots(figsize=(10, 8))
+    fig3, ax3= plt.subplots(figsize=(10, 8))
+    fig4, ax4 = plt.subplots(figsize=(10, 8))
 
     # fig.figsize(15, 15)
     ax1.set_xlim(100, 200)
@@ -51,7 +51,6 @@ def plot(f, VrectA, VrectB, EffA, I1A, I2A, I1A1, I2A1, I1B, I2B):
     fig2.savefig('Varona - Efficency.png')
     fig3.savefig('Varona - Tx and Rx RMS current Load.png')
     fig4.savefig('Varona - Tx and Rx RMS current Min Load.png')
-
 
 
 if __name__ == '__main__':
