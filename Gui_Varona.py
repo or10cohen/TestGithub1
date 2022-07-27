@@ -11,8 +11,9 @@ from PIL import Image
 
 def main():
     epsilon = 0.000001
-    st.title('Varona by Oren Niazov')
+    st.title('Varona - by Oren Niazov')
     with st.sidebar:
+        st.title('Insert values')
         Vin = st.number_input('Insert Vin', value=48)
         st.write('Vin:', Vin)
 
@@ -86,10 +87,10 @@ def main():
     Varona1 = Image.open('Varona - Tx and Rx RMS current Min Load.png')
     Varona2 = Image.open('Varona - Efficency.png')
     Varona3 = Image.open('Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png')
-    st.image(Varona0, caption='Sunrise by the mountains')
-    st.image(Varona1, caption='Sunrise by the mountains')
-    st.image(Varona2, caption='Sunrise by the mountains')
-    st.image(Varona3, caption='Sunrise by the mountains')
+    st.image(Varona0, caption='Tx and Rx RMS current Load')
+    st.image(Varona1, caption='Tx and Rx RMS current Min Load')
+    st.image(Varona2, caption='Efficency')
+    st.image(Varona3, caption='Vrect loaded (200W) vs. Min load - FB DC = 20 present')
 ##-----------------------------------------------------------------------------------------------------------
     # Grpah = st.radio(
     #     "Choose graph",
