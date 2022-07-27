@@ -6,7 +6,7 @@ import CalcVrect
 from PIL import Image
 
 def main():
-    epsilon = 000000.1
+    epsilon = 0.000001
     st.title('Varona')
     col1, col2 = st.columns([5, 5])
     with st.sidebar:
