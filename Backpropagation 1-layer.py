@@ -1,8 +1,6 @@
 # https://www.tutorialspoint.com/sympy/sympy_derivative.htm
-
 import numpy as np
 import sympy as sym
-
 
 LR = 0.1
 i = 1.5
@@ -28,8 +26,6 @@ while (all_CF[-1] > 0.00001) and (dCF_dw.subs(w, w_t0) > 0):
 
 print('weight per iteration', all_w)
 print('Cost Function per w', all_CF)
-
-
 
 
 # w_t1 = w + LR*
