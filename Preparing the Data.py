@@ -45,10 +45,13 @@ class FirsNeuralNetwork:
         model2.add(tf.keras.layers.Dense(1))  # output layer
         self.model1, self.model2 = model1, model2
 
-    def run_model(self, optimizer='rmsprop', loss='mse'):
-        self.model2.compile(optimizer=optimizer, loss=loss)  #optimizer = gradient decsent  , loss = loss function
-        self.model2.fit(x=self.X_train, y=self.y_train, epochs=self.n_epochs) #epoches = steps/iteraion in gradient decsent for all Data!
-
+    def run_model(self, optimizer='rmsprop', loss='mse'):   #loss classification = softmax(נותן לכל נוירון באווטפוט יחס לתשובה הנכונה, הסכום שווה ל1)
+        self.model2.compile(optimizer=optimizer, loss=loss)  #optimizer = gradient decsent  , loss = loss function  ++metrices = 'accuracy'
+        self.model2.fit(x=self.X_train, y=self.y_train, epochs=self.n_epochs) #epoches = steps/iteraion in gradient decsent for all Data! ++batch_size=32
+        ## score = model2.evaluate(x_test, y_test) #++metrices = 'accuracy' on compile
+        ##+fit(callback = earlysStopping - stop when 1. loss function no change or somthing else)
+        ##+fit(callback = ModelCheck point - save the wihght in the process some time)
+        ##+fit(tensorBoard = debbug the neuralNetwork)
     def epochs_graph(self):
         ##---------------------graph epochs--------------------------
         axis_x = [i for i in range(self.n_epochs)]
@@ -73,6 +76,8 @@ class FirsNeuralNetwork:
         print(Fore.MAGENTA + 'predictions on new data without label', self.model2.predict(self.new_gem))
 
     def accuracy(self):
+        #use the metrices you use on model2.compile
+        #score = model2.evolaite()
         pass
 
     def save_and_load_model(self):
