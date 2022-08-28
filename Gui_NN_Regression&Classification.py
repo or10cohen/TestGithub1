@@ -13,7 +13,7 @@ def main():
     epsilon = 0.000001
     st.title('Varona - by Oren Niazov')
     with st.sidebar:
-
+        st.title('choose Datatype&Dataset')
         Datatype = st.selectbox(
             'choose Data type',
             ('Regression', 'Classification'))
@@ -34,14 +34,14 @@ def main():
             print('pay attention: something wrong with the Datatype choose')
 
 
-        st.title('parameters for: split_and_normalize_data def')
+        st.title('parameters for function: split_and_normalize_data')
         test_size = st.number_input('test_size', value=0.3, format="%.10f")
         st.write('test_size:', test_size)
         random_state = st.number_input('random_state:', value=42, format="%.10f")
         st.write('random_state:', random_state)
 
 
-        st.title('parameters for: create_neural_network def')
+        st.title('parameters for function: create_neural_network')
         No_hidden_layers = st.number_input('No_hidden_layer', value=3)
         st.write('No_hidden_layers:', No_hidden_layers)
         No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]:', value='None')
@@ -50,7 +50,7 @@ def main():
         st.write('No_neurons_per_layer:', activation_per_layer)
 
 
-        st.title('parameters for: run_model def')
+        st.title('parameters for function: run_model')
         optimizer = st.selectbox(
             'choose optimizer',
             ('rmsprop', 'rmsprop', 'rmsprop'))
