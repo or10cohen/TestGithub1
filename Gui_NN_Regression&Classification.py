@@ -62,7 +62,7 @@ def main():
 
 
         if Dataset=='fake_regression0':
-            df = pd.read_csv('DATA/fake_reg.csv')
+            df = pd.read_csv('fake_reg.csv')
             X = df[['feature1', 'feature2']].values
             y = df['price'].values
         elif Dataset=='fake_regression1':
