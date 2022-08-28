@@ -35,9 +35,9 @@ def main():
 
 
         st.title('parameters for function: split_and_normalize_data')
-        test_size = st.number_input('test_size', value=0.3, format="%.10f")
+        test_size = st.number_input('test_size', value=0.3, format="%.2f")
         st.write('test_size:', test_size)
-        random_state = st.number_input('random_state:', value=42, format="%.10f")
+        random_state = st.number_input('random_state:', value=42)
         st.write('random_state:', random_state)
 
 
