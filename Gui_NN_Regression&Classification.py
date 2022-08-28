@@ -73,8 +73,8 @@ def main():
             'choose loss function',
             ('mse', 'mse', 'mse'))
         st.write('loss', loss)
-        n_epochs = st.number_input('random_state:', value=250)
-        st.write('n_epochs:', n_epochs)
+        n_epoch = st.number_input('random_state:', value=250)
+        st.write('n_epochs:', n_epoch)
 
 
         if Dataset=='fake_regression0':
@@ -113,7 +113,7 @@ def main():
             )
 
     if Run_Function == 'Run Function':
-        run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y, n_epoch=n_epochs)
+        run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y, n_epochs=n_epoch)
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
         run.create_neural_network()
         run.run_model()
