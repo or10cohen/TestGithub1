@@ -10,8 +10,6 @@ from PIL import Image
 
 
 def main():
-    global Run_Function
-    epsilon = 0.000001
     st.title('Varona - by Oren Niazov')
 
     if st.button('Run Function'):
