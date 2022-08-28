@@ -10,11 +10,12 @@ from PIL import Image
 
 
 def main():
+    global Run_Function
     epsilon = 0.000001
     st.title('Varona - by Oren Niazov')
 
-    if st.button('Run'):
-        st.write('Run Function')
+    if st.button('Run Function'):
+        Run_Function = st.write('Run Function')
     else:
         st.write('Goodbye')
 
@@ -105,12 +106,13 @@ def main():
                 data=file,
             )
 
-    run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y)
-    run.split_and_normalize_data()
-    run.create_neural_network()
-    run.run_model()
-    run.epochs_graph()
-    run.predict()
+    if Run_Function == 'Run':
+        run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y)
+        run.split_and_normalize_data()
+        run.create_neural_network()
+        run.run_model()
+        run.epochs_graph()
+        run.predict()
     # run.save_and_load_model()
 
 ##-----------------------------------------------------------------------------------------------------------
