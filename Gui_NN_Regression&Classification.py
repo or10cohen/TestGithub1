@@ -12,6 +12,13 @@ from PIL import Image
 def main():
     epsilon = 0.000001
     st.title('Varona - by Oren Niazov')
+
+    if st.button('Run'):
+        st.write('Run Function')
+    else:
+        st.write('Goodbye')
+
+
     with st.sidebar:
         st.title('choose Datatype&Dataset')
         Datatype = st.selectbox(
@@ -106,11 +113,6 @@ def main():
     run.predict()
     # run.save_and_load_model()
 
-    if st.button('Run'):
-        main()
-    else:
-        st.write('Goodbye')
-
 ##-----------------------------------------------------------------------------------------------------------
     # Grpah = st.radio(
     #     "Choose graph",
@@ -137,5 +139,6 @@ def main():
     #     indicators=True,
     # )
 ##-----------------------------------------------------------------------------------------------------------
+main()
 
 
