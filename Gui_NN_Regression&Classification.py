@@ -14,7 +14,8 @@ def main():
     st.title('Varona - by Oren Niazov')
 
     if st.button('Run Function'):
-        Run_Function = st.write('Run Function')
+        st.write('Run Function')
+        Run_Function = 'Run Function'
     else:
         st.write('Goodbye')
 
