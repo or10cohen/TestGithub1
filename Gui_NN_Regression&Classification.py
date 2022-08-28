@@ -113,7 +113,7 @@ def main():
             )
 
     if Run_Function == 'Run Function':
-        run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y, epochs=n_epochs)
+        run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y, n_epoch=n_epochs)
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
         run.create_neural_network()
         run.run_model()
