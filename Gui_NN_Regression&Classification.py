@@ -106,7 +106,7 @@ def main():
                 data=file,
             )
 
-    if Run_Function == 'Run':
+    if Run_Function == 'Run Function':
         run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y)
         run.split_and_normalize_data()
         run.create_neural_network()
