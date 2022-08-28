@@ -123,7 +123,8 @@ def main():
     elif Run_Function ==  'Dont Run Function':
         print('press run function')
 
-
+    LossFunctionPerEpoch = Image.open('Graph.png')
+    st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 ##-----------------------------------------------------------------------------------------------------------
     # Grpah = st.radio(
     #     "Choose graph",

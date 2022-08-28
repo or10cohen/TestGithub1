@@ -68,8 +68,8 @@ class FirsRegressionNeuralNetwork:
         plt.xlabel("Epochs")
         plt.ylabel("Loss Function")
         plt.savefig('Graph.png')
-        im = Image.open('Graph.png')
-        im.show()
+        # im = Image.open('Graph.png')
+        # im.show()
 
     def predict(self):
         ##------------------------predictions------------------------
