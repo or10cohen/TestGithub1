@@ -17,13 +17,13 @@ def main():
         st.write('Run Function')
         Run_Function = 'Run Function'
     else:
-        st.write('Goodbye')
-        print('Press run function to start')
+        st.write('Press run function to start')
+        Run_Function = 'Dont Run Function'
 
     with st.sidebar:
         st.title('choose Datatype&Dataset')
         Datatype = st.selectbox(
-            'choose Data type',
+            'choose Datatype',
             ('Regression', 'Classification'))
         st.write('Datatype:', Datatype)
 
@@ -113,9 +113,10 @@ def main():
         run.run_model()
         run.epochs_graph()
         run.predict()
-    else:
+        # run.save_and_load_model()
+    elif Run_Function ==  'Dont Run Function':
         print('press run function')
-    # run.save_and_load_model()
+
 
 ##-----------------------------------------------------------------------------------------------------------
     # Grpah = st.radio(
