@@ -57,7 +57,7 @@ def main():
         if No_neurons_per_layer == 'None':
             No_neurons_per_layer = None
         st.write('No_neurons_per_layer:', No_neurons_per_layer)
-        activation_per_layer = st.text_input('activation_per_layer = [string list (default=string(relu))]: \n '
+        activation_per_layer = st.text_input('activation_per_layer = [string list (default=\'relu\')]: \n '
                                              'example&default 3 layer: [\'relu\',\'relu\', \'relu\']', value='None')
         if activation_per_layer == 'None':
             activation_neurons_per_layer = None
