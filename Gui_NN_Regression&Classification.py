@@ -94,17 +94,17 @@ def main():
 
 
         ##----------------------download files you want to share-----------------------
-        with open("Neural_Network_TF_Classification_Code") as file:
+        with open("Neural_Network_TF_Classification_Code.py") as file:
             btn = st.download_button(
                 label="Download Neural_Network_TF_Classification_Code Python Resources File",
                 data=file,
             )
-        with open("Neural_Network_TF_Regression_Code") as file:
+        with open("Neural_Network_TF_Regression_Code.py") as file:
             btn = st.download_button(
                 label="Download Neural_Network_TF_Regression_Code Python Resources File",
                 data=file,
             )
-        with open("Gui_NN_Regression&Classification") as file:
+        with open("Gui_NN_Regression&Classification.py") as file:
             btn = st.download_button(
                 label="Download Gui_NN_Regression&Classification Python Resources File",
                 data=file,
