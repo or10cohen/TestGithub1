@@ -113,6 +113,8 @@ def main():
         run.run_model()
         run.epochs_graph()
         run.predict()
+    else:
+        print('press run function')
     # run.save_and_load_model()
 
 ##-----------------------------------------------------------------------------------------------------------
