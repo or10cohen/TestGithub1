@@ -102,7 +102,7 @@ def main():
     run.run_model()
     run.epochs_graph()
     run.predict()
-    run.save_and_load_model()
+    # run.save_and_load_model()
 
 ##-----------------------------------------------------------------------------------------------------------
     # Grpah = st.radio(
