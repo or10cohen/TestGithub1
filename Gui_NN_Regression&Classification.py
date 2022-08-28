@@ -44,9 +44,11 @@ def main():
         st.title('parameters for function: create_neural_network')
         No_hidden_layers = st.number_input('No_hidden_layer', value=3)
         st.write('No_hidden_layers:', No_hidden_layers)
-        No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]:', value='None')
+        No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]: \n '
+                                             'example for 3 hidden layer: [4, 4, 4]', value='None')
         st.write('No_neurons_per_layer:', No_neurons_per_layer)
-        activation_per_layer = st.text_input('activation_per_layer = [string list (default=string(relu))]:', value='None')
+        activation_per_layer = st.text_input('activation_per_layer = [string list (default=string(relu))]: \n '
+                                             'example for 3 hidden layer: [\'relu\',\'relu\', \'relu\']', value='None')
         st.write('No_neurons_per_layer:', activation_per_layer)
 
 
