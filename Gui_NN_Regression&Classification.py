@@ -94,19 +94,19 @@ def main():
 
 
         ##----------------------download files you want to share-----------------------
-        with open("CalcVrect.py") as file:
+        with open("Neural_Network_TF_Classification_Code") as file:
             btn = st.download_button(
-                label="Download CalcVrect Python Resources File",
+                label="Download Neural_Network_TF_Classification_Code Python Resources File",
                 data=file,
             )
-        with open("Varona_k_range.py") as file:
+        with open("Neural_Network_TF_Regression_Code") as file:
             btn = st.download_button(
-                label="Download Varona_k_range Python Resources File",
+                label="Download Neural_Network_TF_Regression_Code Python Resources File",
                 data=file,
             )
-        with open("Gui_Varona.py") as file:
+        with open("Gui_NN_Regression&Classification") as file:
             btn = st.download_button(
-                label="Download Gui_Varona Python Resources File",
+                label="Download Gui_NN_Regression&Classification Python Resources File",
                 data=file,
             )
 
