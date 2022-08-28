@@ -10,6 +10,7 @@ from PIL import Image
 
 
 def main():
+    global Run_Function
     st.title('Varona - by Oren Niazov')
 
     if st.button('Run Function'):
@@ -106,7 +107,7 @@ def main():
 
     if Run_Function == 'Run Function':
         run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y)
-        run.split_and_normalize_data()
+        run.split_and_normalize_data(test_size=test_size, random_state=random_state)
         run.create_neural_network()
         run.run_model()
         run.epochs_graph()
