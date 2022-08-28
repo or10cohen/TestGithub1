@@ -9,7 +9,6 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import colorama
 from colorama import Fore, Back, Style
-
 colorama.init(autoreset=True)
 
 df = pd.read_csv('DATA/fake_reg.csv')
@@ -56,10 +55,13 @@ class FirsNeuralNetwork:
         ##---------------------graph epochs--------------------------
         axis_x = [i for i in range(self.n_epochs)]
         axis_y = self.model2.history.history['loss']
+        plt.title("Lose Function Per Epoch")
         plt.plot(axis_x, axis_y)
+        plt.xlabel("Epochs")
+        plt.ylabel("Loss Function")
         plt.savefig('Graph.png')
         im = Image.open('Graph.png')
-        # im.show()
+        im.show()
 
     def predict(self):
         ##------------------------predictions------------------------
