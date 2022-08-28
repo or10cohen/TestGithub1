@@ -74,7 +74,7 @@ class FirsRegressionNeuralNetwork:
     def predict(self):
         ##------------------------predictions------------------------
         test_predict = self.model3.predict(self.X_test)
-        test_predict = pd.Series(test_predict.reshape(300, ))
+        test_predict = pd.Series(test_predict.reshape(len(self.X_test), ))
         pred_df = pd.DataFrame(self.y_test, columns=['Test True Y'])
         pred_df = pd.concat([pred_df, test_predict], axis=1)
         pred_df.columns = ['Test True Y', 'Model predict']
