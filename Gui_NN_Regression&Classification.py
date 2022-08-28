@@ -18,7 +18,7 @@ def main():
         Run_Function = 'Run Function'
     else:
         st.write('Goodbye')
-
+        print('Press run function to start')
 
     with st.sidebar:
         st.title('choose Datatype&Dataset')
