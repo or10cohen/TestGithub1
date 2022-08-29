@@ -66,6 +66,7 @@ class FirsRegressionNeuralNetwork:
         ##---------------------graph epochs--------------------------
         axis_x = [i for i in range(self.n_epochs)]
         axis_y = self.model3.history.history['loss']
+        plt.figure(figsize=(1, 1))
         plt.title("Lose Function Per Epoch")
         plt.plot(axis_x, axis_y)
         plt.xlabel("Epochs")
@@ -77,7 +78,7 @@ class FirsRegressionNeuralNetwork:
         layersList = [{"title": "input", "units": self.X.shape[1]}]
         for i in range(self.No_hidden_layers):
             layersList.append({"title": "hidden\n" + (self.activation_per_layer[i]), "units": self.No_neurons_per_layer[i], "edges_width":2})
-        layersList.append( {"title": "output\n", "units": 1, "edges_color":"red", "color": "darkBlue"},)
+        layersList.append({"title": "output\n", "units": 1, "edges_color":"red", "color": "darkBlue"})
         NNV(layersList).render(save_to_file="NN_graph.png")
         # ###------------------------0-----------------------------------
         # plot_model(
