@@ -36,7 +36,12 @@ def main():
         if activation_per_layer == 'None':
             activation_neurons_per_layer = None
         else:
-            activation_per_layer = list(activation_per_layer)
+            def Convert(string):
+                li = list(string.split(" "))
+                return li
+
+            activation_per_layer = Convert(activation_per_layer)
+
         st.write('No_neurons_per_layer:', activation_per_layer)
 
 
