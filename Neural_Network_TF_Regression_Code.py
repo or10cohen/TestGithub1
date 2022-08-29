@@ -1,19 +1,19 @@
 import pandas as pd
-import numpy as np
-from PIL import Image
-#import seaborn as sns
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import mean_squared_error, mean_absolute_error
 import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
+from keras.utils.vis_utils import plot_model
+from nnv import NNV
+
+
 
 
 class FirsRegressionNeuralNetwork:
-    def __init__(self, X, y, n_epochs=250):
+    def __init__(self, X, y, n_epochs=20):
         self.X = X
         self.y = y
         self.n_epochs = n_epochs
@@ -59,6 +59,7 @@ class FirsRegressionNeuralNetwork:
         ##+fit(callback = earlysStopping - stop when 1. loss function no change or somthing else)
         ##+fit(callback = ModelCheck point - save the wihght in the process some time)
         ##+fit(tensorBoard = debbug the neuralNetwork)
+
     def epochs_graph(self):
         ##---------------------graph epochs--------------------------
         axis_x = [i for i in range(self.n_epochs)]
@@ -70,6 +71,23 @@ class FirsRegressionNeuralNetwork:
         plt.savefig('Graph.png')
         # im = Image.open('Graph.png')
         # im.show()
+        ###------------------------0-----------------------------------
+        plot_model(
+            self.model3,
+            to_file = 'graph_model.png',
+            show_shapes=False,
+            show_dtype=False,
+            show_layer_names=True,
+            rankdir="TB",
+            expand_nested=False,
+            dpi=96,
+            layer_range=None,
+            show_layer_activations=False
+        )
+        ####-------------------------------------------------------------
+
+        dg = tf.keras.DenseGraph(self.model3)
+        dg.render()
 
     def predict(self):
         ##------------------------predictions------------------------
