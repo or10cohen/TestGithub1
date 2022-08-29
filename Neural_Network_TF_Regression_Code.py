@@ -42,7 +42,7 @@ class FirsRegressionNeuralNetwork:
         model2.add(tf.keras.layers.Dense(1))  # output layer
         ###------------creat NN option3 with loop for Gui-----------------------------
         if activation_per_layer is None:
-            activation_per_layer = ['relu' for i in range(No_hidden_layers)]
+            activation_per_layer = ['tanh' for i in range(No_hidden_layers)]
         if No_neurons_per_layer is None:
             No_neurons_per_layer = [4 for i in range(No_hidden_layers)]
         model3 = tf.keras.Sequential()  ## create  neural
