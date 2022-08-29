@@ -32,8 +32,11 @@ def main():
         activation_per_layer = st.text_input('activation_per_layer = [string list (default=\'relu\')]: \n '
                                              'example&default 3 layer: [\'relu\',\'relu\', \'relu\']'
                                              'but you can use: sigmoid, tanh and more', value='None')
+
         if activation_per_layer == 'None':
             activation_neurons_per_layer = None
+        else:
+            activation_per_layer = list(activation_per_layer)
         st.write('No_neurons_per_layer:', activation_per_layer)
 
 
