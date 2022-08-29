@@ -13,7 +13,7 @@ from nnv import NNV
 
 
 class FirsRegressionNeuralNetwork:
-    def __init__(self, X, y, n_epochs=20):
+    def __init__(self, X, y, n_epochs=200):
         self.X = X
         self.y = y
         self.n_epochs = n_epochs
@@ -44,8 +44,9 @@ class FirsRegressionNeuralNetwork:
         if activation_per_layer is None:
             activation_per_layer = ['relu' for i in range(No_hidden_layers)]
         if No_neurons_per_layer is None:
-            No_neurons_per_layer = [1 for i in range(No_hidden_layers)]
+            No_neurons_per_layer = [4 for i in range(No_hidden_layers)]
         model3 = tf.keras.Sequential()  ## create  neural
+        model3.add(tf.keras.Input(shape=(self.X.shape[1],))) # input layer
         for i in range(No_hidden_layers):
             model3.add(tf.keras.layers.Dense(No_neurons_per_layer[i], activation=activation_per_layer[i]))
         model3.add(tf.keras.layers.Dense(1))  # output layer
@@ -72,12 +73,11 @@ class FirsRegressionNeuralNetwork:
         plt.savefig('Graph.png')
         # im = Image.open('Graph.png')
         # im.show()
-        # ###------------------------0-----------------------------------
-
-        layersList = []
+        # ###------------------------0----------------------------------
+        layersList = [{"title": "input", "units": self.X.shape[1]}]
         for i in range(self.No_hidden_layers):
             layersList.append({"title": "hidden\n" + (self.activation_per_layer[i]), "units": self.No_neurons_per_layer[i], "edges_width":2})
-        layersList.append( {"title": "output\n(sigmoid)", "units": 1, "edges_color":"red", "color": "darkBlue"},)
+        layersList.append( {"title": "output\n", "units": 1, "edges_color":"red", "color": "darkBlue"},)
         NNV(layersList).render(save_to_file="NN_graph.png")
         # ###------------------------0-----------------------------------
         # plot_model(

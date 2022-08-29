@@ -53,7 +53,7 @@ def main():
         No_hidden_layers = st.number_input('No_hidden_layer', value=3)
         st.write('No_hidden_layers:', No_hidden_layers)
         No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]: \n '
-                                             'example&default 3 layer: [1, 1, 1]', value='None')
+                                             'example&default 3 layer: [4, 4, 4]', value='None')
         if No_neurons_per_layer == 'None':
             No_neurons_per_layer = None
         st.write('No_neurons_per_layer:', No_neurons_per_layer)
