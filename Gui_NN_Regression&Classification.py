@@ -46,10 +46,7 @@ def main():
         if No_neurons_per_layer == 'None':
             No_neurons_per_layer = None
         else:
-            def Convert(string):
-                li = list(string.split(" "))
-                return li
-            No_neurons_per_layer = Convert(No_neurons_per_layer)
+            [int(i) for i in str(No_neurons_per_layer)]
 
         st.write('No_neurons_per_layer:', No_neurons_per_layer)
 
