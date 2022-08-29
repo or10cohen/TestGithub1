@@ -76,8 +76,8 @@ class FirsRegressionNeuralNetwork:
 
         layersList = []
         for i in range(self.No_hidden_layers):
-            layersList.append({"title": "hidden\n" + (self.activation_per_layer[i]), "units": self.No_neurons_per_layer[i], "color": "darkBlue"})
-        layersList.append( {"title": "output\n(sigmoid)", "units": 1, "color": "darkBlue"},)
+            layersList.append({"title": "hidden\n" + (self.activation_per_layer[i]), "units": self.No_neurons_per_layer[i], "edges_width":2})
+        layersList.append( {"title": "output\n(sigmoid)", "units": 1, "edges_color":"red", "color": "darkBlue"},)
         NNV(layersList).render(save_to_file="NN_graph.png")
         # ###------------------------0-----------------------------------
         # plot_model(
