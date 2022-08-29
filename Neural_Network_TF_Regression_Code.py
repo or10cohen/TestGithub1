@@ -7,7 +7,7 @@ import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 from keras.utils.vis_utils import plot_model
-# from nnv import NNV
+from nnv import NNV
 
 
 
@@ -44,13 +44,14 @@ class FirsRegressionNeuralNetwork:
         if activation_per_layer is None:
             activation_per_layer = ['relu' for i in range(No_hidden_layers)]
         if No_neurons_per_layer is None:
-            No_neurons_per_layer = [4 for i in range(No_hidden_layers)]
+            No_neurons_per_layer = [1 for i in range(No_hidden_layers)]
         model3 = tf.keras.Sequential()  ## create  neural
         for i in range(No_hidden_layers):
             model3.add(tf.keras.layers.Dense(No_neurons_per_layer[i], activation=activation_per_layer[i]))
         model3.add(tf.keras.layers.Dense(1))  # output layer
         #------------------------------------------------------------
-        self.model1, self.model2, self.model3 = model1, model2, model3
+        self.model1, self.model2, self.model3, self.No_hidden_layers, self.No_neurons_per_layer,\
+        self.activation_per_layer = model1, model2, model3, No_hidden_layers, No_neurons_per_layer, activation_per_layer
 
     def run_model(self, optimizer='rmsprop', loss='mse'):   #loss classification = softmax(נותן לכל נוירון באווטפוט יחס לתשובה הנכונה, הסכום שווה ל1)
         self.model3.compile(optimizer=optimizer, loss=loss)  #optimizer = gradient decsent  , loss = loss function  ++metrices = 'accuracy'
@@ -71,6 +72,13 @@ class FirsRegressionNeuralNetwork:
         plt.savefig('Graph.png')
         # im = Image.open('Graph.png')
         # im.show()
+        # ###------------------------0-----------------------------------
+
+        layersList = []
+        for i in range(self.No_hidden_layers):
+            layersList.append({"title": "hidden\n" + (self.activation_per_layer[i]), "units": self.No_neurons_per_layer[i], "color": "darkBlue"})
+        layersList.append( {"title": "output\n(sigmoid)", "units": 1, "color": "darkBlue"},)
+        NNV(layersList).render(save_to_file="NN_graph.png")
         # ###------------------------0-----------------------------------
         # plot_model(
         #     self.model3,
