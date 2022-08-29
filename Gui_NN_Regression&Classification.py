@@ -40,8 +40,19 @@ def main():
                 li = list(string.split(" "))
                 return li
             activation_per_layer = Convert(activation_per_layer)
+        st.write('No_neurons_per_layer:', activation_per_layer)
+
+        if No_neurons_per_layer == 'None':
+            No_neurons_per_layer = None
+        else:
+            def Convert(string):
+                li = list(string.split(" "))
+                return li
+            No_neurons_per_layer = Convert(No_neurons_per_layer)
 
         st.write('No_neurons_per_layer:', activation_per_layer)
+
+
 
 
         st.title('parameters for function: run_model')
