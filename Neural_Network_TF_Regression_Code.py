@@ -71,19 +71,19 @@ class FirsRegressionNeuralNetwork:
         plt.savefig('Graph.png')
         # im = Image.open('Graph.png')
         # im.show()
-        ###------------------------0-----------------------------------
-        plot_model(
-            self.model3,
-            to_file = 'graph_model.png',
-            show_shapes=False,
-            show_dtype=False,
-            show_layer_names=True,
-            rankdir="TB",
-            expand_nested=False,
-            dpi=96,
-            layer_range=None,
-            show_layer_activations=False
-        )
+        # ###------------------------0-----------------------------------
+        # plot_model(
+        #     self.model3,
+        #     to_file = 'graph_model.png',
+        #     show_shapes=False,
+        #     show_dtype=False,
+        #     show_layer_names=True,
+        #     rankdir="TB",
+        #     expand_nested=False,
+        #     dpi=96,
+        #     layer_range=None,
+        #     show_layer_activations=False
+        # )
         ####-------------------------------------------------------------
 
         # dg = tf.keras.DenseGraph(self.model3)
