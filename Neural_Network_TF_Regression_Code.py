@@ -13,7 +13,7 @@ from nnv import NNV
 
 
 class FirsRegressionNeuralNetwork:
-    def __init__(self, X, y, n_epochs=200):
+    def __init__(self, X, y, n_epochs=20):
         self.X = X
         self.y = y
         self.n_epochs = n_epochs
@@ -66,7 +66,7 @@ class FirsRegressionNeuralNetwork:
         ##---------------------graph epochs--------------------------
         axis_x = [i for i in range(self.n_epochs)]
         axis_y = self.model3.history.history['loss']
-        plt.figure(figsize=(1, 1))
+        plt.figure(figsize=(4, 3))
         plt.title("Lose Function Per Epoch")
         plt.plot(axis_x, axis_y)
         plt.xlabel("Epochs")
