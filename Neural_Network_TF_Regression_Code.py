@@ -86,8 +86,8 @@ class FirsRegressionNeuralNetwork:
         )
         ####-------------------------------------------------------------
 
-        dg = tf.keras.DenseGraph(self.model3)
-        dg.render('DenseGraph.png')
+        # dg = tf.keras.DenseGraph(self.model3)
+        # dg.render('DenseGraph.png')
 
     def predict(self):
         ##------------------------predictions------------------------
