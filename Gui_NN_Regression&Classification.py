@@ -123,6 +123,8 @@ def main():
     elif Run_Function == 'Dont Run Function':
         print('press run function')
 
+    NN_graph = Image.open('NN_graph.png')
+    st.image(NN_graph, caption='NN_graph.png')
     LossFunctionPerEpoch = Image.open('Graph.png')
     st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 ##-----------------------------------------------------------------------------------------------------------
