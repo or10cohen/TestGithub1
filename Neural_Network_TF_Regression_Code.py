@@ -7,7 +7,7 @@ import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 from keras.utils.vis_utils import plot_model
-from nnv import NNV
+# from nnv import NNV
 
 
 
