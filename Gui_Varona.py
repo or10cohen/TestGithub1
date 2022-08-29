@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 import Varona_k_range
 import CalcVrect
 from PIL import Image
+from dash import Dash, Input, Output, html, dcc, callback # need version dash 2.0.0 or higher
 # from dash import html
-# import dash_bootstrap_components as dbc
+import dash_bootstrap_components as dbc
 
 
 
@@ -106,15 +107,15 @@ def main():
     #     st.write("You didn't select comedy.")
 
 ##-----------------------------------------------------------------------------------------------------------
-    # carousel = dbc.Carousel(
-    #     items=[
-    #         {"key": "1", "src": "Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png"},
-    #         {"key": "2", "src": "Varona - Efficency.png"},
-    #         {"key": "3", "src": "Varona - Tx and Rx RMS current Min Load.png"},
-    #         {"key": "3", "src": "Varona - Tx and Rx RMS current Min Load.png"},
-    #     ],
-    #     controls=True,
-    #     indicators=True,
-    # )
+    carousel = dbc.Carousel(
+        items=[
+            {"key": "1", "src": "Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png"},
+            {"key": "2", "src": "Varona - Efficency.png"},
+            {"key": "3", "src": "Varona - Tx and Rx RMS current Min Load.png"},
+            {"key": "3", "src": "Varona - Tx and Rx RMS current Min Load.png"},
+        ],
+        controls=True,
+        indicators=True,
+    )
 ##-----------------------------------------------------------------------------------------------------------
 main()
