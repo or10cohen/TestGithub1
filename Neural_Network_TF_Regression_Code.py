@@ -27,8 +27,8 @@ class FirsRegressionNeuralNetwork:
         self.scalar.fit(X_test)  ##????
         self.X_train, self.X_test = self.scalar.transform(X_train), self.scalar.transform(X_test)
 
-    def create_neural_network(self, No_hidden_layers=3, No_neurons_per_layer=None,
-                              activation_per_layer=None):
+    def create_neural_network(self, No_hidden_layers=3, No_neurons_per_layer='None',
+                              activation_per_layer='None'):
         ###------------creat NN option1--------------------------
         model1 = tf.keras.Sequential([tf.keras.layers.Dense(4, activation='relu'),
                                       tf.keras.layers.Dense(3, activation='relu'),
@@ -41,9 +41,9 @@ class FirsRegressionNeuralNetwork:
         model2.add(tf.keras.layers.Dense(4, activation='relu'))
         model2.add(tf.keras.layers.Dense(1))  # output layer
         ###------------creat NN option3 with loop for Gui-----------------------------
-        if activation_per_layer is ('Nothing' or None):
+        if activation_per_layer == 'None':
             activation_per_layer = ['relu' for i in range(No_hidden_layers)]
-        if No_neurons_per_layer is ('Nothing' or None):
+        if No_neurons_per_layer == 'None':
             No_neurons_per_layer = [4 for i in range(No_hidden_layers)]
         model3 = tf.keras.Sequential()  ## create  neural
         model3.add(tf.keras.Input(shape=(self.X.shape[1],))) # input layer

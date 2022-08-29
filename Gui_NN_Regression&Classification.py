@@ -27,18 +27,18 @@ def main():
 
 
         No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]: \n '
-                                             'example&default 3 layer: 444 \n', value='Nothing')
-        if No_neurons_per_layer == 'Nothing':
-            No_neurons_per_layer = None
+                                             'example&default 3 layer: 444 \n', value='None')
+        if No_neurons_per_layer == 'None':
+            No_neurons_per_layer = 'None'
         else:
             No_neurons_per_layer = [int(i) for i in str(No_neurons_per_layer)]
         st.write('No_neurons_per_layer:', No_neurons_per_layer)
 
         activation_per_layer = st.text_input('activation_per_layer = [string list (default=\'relu\')]: \n '
-                                             'example&default 3 layer: relu relu relu'
-                                             'but you can use: sigmoid, tanh and more', value='Nothing')
-        if activation_per_layer == 'Nothing':
-            activation_neurons_per_layer = None
+                                             'example&default 3 layer: relu relu relu\n'
+                                             'but you can use: sigmoid, tanh and more', value='None')
+        if activation_per_layer == 'None':
+            activation_neurons_per_layer = 'None'
         else:
             def Convert(string):
                 li = list(string.split(" "))
