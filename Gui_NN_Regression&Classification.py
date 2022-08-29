@@ -25,12 +25,12 @@ def main():
         No_hidden_layers = st.number_input('No_hidden_layer', value=3)
         st.write('No_hidden_layers:', No_hidden_layers)
         No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]: \n '
-                                             'example&default 3 layer: [4, 4, 4] \n', value='None')
+                                             'example&default 3 layer: 444 \n', value='None')
         if No_neurons_per_layer == 'None':
             No_neurons_per_layer = None
         st.write('No_neurons_per_layer:', No_neurons_per_layer)
         activation_per_layer = st.text_input('activation_per_layer = [string list (default=\'relu\')]: \n '
-                                             'example&default 3 layer: [\'relu\',\'relu\', \'relu\']'
+                                             'example&default 3 layer: relu relu relu'
                                              'but you can use: sigmoid, tanh and more', value='None')
 
         if activation_per_layer == 'None':
