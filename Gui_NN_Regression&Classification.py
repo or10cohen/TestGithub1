@@ -41,7 +41,7 @@ def main():
                 return li
 
             activation_per_layer = Convert(activation_per_layer)
-
+            print(activation_per_layer)
         st.write('No_neurons_per_layer:', activation_per_layer)
 
 
