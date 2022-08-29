@@ -21,6 +21,35 @@ def main():
         Run_Function = 'Dont Run Function'
 
     with st.sidebar:
+        st.title('parameters for function: create_neural_network')
+        No_hidden_layers = st.number_input('No_hidden_layer', value=3)
+        st.write('No_hidden_layers:', No_hidden_layers)
+        No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]: \n '
+                                             'example&default 3 layer: [4, 4, 4] \n', value='None')
+        if No_neurons_per_layer == 'None':
+            No_neurons_per_layer = None
+        st.write('No_neurons_per_layer:', No_neurons_per_layer)
+        activation_per_layer = st.text_input('activation_per_layer = [string list (default=\'relu\')]: \n '
+                                             'example&default 3 layer: [\'relu\',\'relu\', \'relu\']'
+                                             'but you can use: sigmoid, tanh and more', value='None')
+        if activation_per_layer == 'None':
+            activation_neurons_per_layer = None
+        st.write('No_neurons_per_layer:', activation_per_layer)
+
+
+        st.title('parameters for function: run_model')
+        optimizer = st.selectbox(
+            'choose optimizer',
+            ('rmsprop', 'rmsprop', 'rmsprop'))
+        st.write('optimizer', optimizer)
+        loss = st.selectbox(
+            'choose loss function',
+            ('mse', 'mse', 'mse'))
+        st.write('loss', loss)
+        n_epoch = st.number_input('random_state:', value=250)
+        st.write('n_epochs:', n_epoch)
+
+
         st.title('choose Datatype&Dataset')
         Datatype = st.selectbox(
             'choose Datatype',
@@ -47,36 +76,6 @@ def main():
         st.write('test_size:', test_size)
         random_state = st.number_input('random_state:', value=42)
         st.write('random_state:', random_state)
-
-
-        st.title('parameters for function: create_neural_network')
-        No_hidden_layers = st.number_input('No_hidden_layer', value=3)
-        st.write('No_hidden_layers:', No_hidden_layers)
-        No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]: \n '
-                                             'example&default 3 layer: [4, 4, 4] \n', value='None')
-        if No_neurons_per_layer == 'None':
-            No_neurons_per_layer = None
-        st.write('No_neurons_per_layer:', No_neurons_per_layer)
-        activation_per_layer = st.text_input('activation_per_layer = [string list (default=\'relu\')]: \n '
-                                             'example&default 3 layer: [\'relu\',\'relu\', \'relu\']'
-                                             'but you can use: sigmoid, tanh and more', value='None')
-        if activation_per_layer == 'None':
-            activation_neurons_per_layer = None
-        st.write('No_neurons_per_layer:', activation_per_layer)
-
-
-
-        st.title('parameters for function: run_model')
-        optimizer = st.selectbox(
-            'choose optimizer',
-            ('rmsprop', 'rmsprop', 'rmsprop'))
-        st.write('optimizer', optimizer)
-        loss = st.selectbox(
-            'choose loss function',
-            ('mse', 'mse', 'mse'))
-        st.write('loss', loss)
-        n_epoch = st.number_input('random_state:', value=250)
-        st.write('n_epochs:', n_epoch)
 
 
         if Dataset=='fake_regression0':
