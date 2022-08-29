@@ -66,7 +66,7 @@ class FirsRegressionNeuralNetwork:
         ##---------------------graph epochs--------------------------
         axis_x = [i for i in range(self.n_epochs)]
         axis_y = self.model3.history.history['loss']
-        plt.figure(figsize=(4, 3))
+        plt.figure(figsize=(6, 3))
         plt.title("Lose Function Per Epoch")
         plt.plot(axis_x, axis_y)
         plt.xlabel("Epochs")
