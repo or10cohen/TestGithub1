@@ -7,7 +7,7 @@ import Neural_Network_TF_Classification_Code
 from PIL import Image
 # from dash import html
 # import dash_bootstrap_components as dbc
-
+st.set_page_config(layout="wide")
 
 def main():
     global Run_Function
