@@ -30,6 +30,7 @@ def main():
         No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]: \n '
                                              'input example 3 hidden layers : 444 \n', value='None')
         if No_neurons_per_layer != 'None':
+            No_neurons_per_layer = " ".join(No_neurons_per_layer.split())
             No_neurons_per_layer = [int(i) for i in str(No_neurons_per_layer)]
         else:
             pass
