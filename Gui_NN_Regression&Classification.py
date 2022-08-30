@@ -11,14 +11,12 @@ from PIL import Image
 
 def main():
     global Run_Function
-    st.title('Varona - by Oren Niazov')
+    st.title('Neural Network - by Oren Niazov')
 
     if st.button('Run Function'):
         st.write('Running Function')
-        Run_Function = 'Run Function'
     else:
         st.write('Press run function to start')
-        Run_Function = 'Dont Run Function'
 
     with st.sidebar:
         st.title('parameters for function: create_neural_network')
