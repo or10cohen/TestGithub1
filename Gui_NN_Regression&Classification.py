@@ -21,7 +21,7 @@ def main():
         Run_Function = 'Dont Run Function'
 ##---------------------------------------------------sidebar------------------------------------------------------------
     with st.sidebar:
-        st.sidebar.title('Input Parameters')
+        st.sidebar.title('_Input Parameters_')
         st.title('parameters for function: create_neural_network')
         No_hidden_layers = st.number_input('No_hidden_layer', value=3)
         st.write(No_hidden_layers)
