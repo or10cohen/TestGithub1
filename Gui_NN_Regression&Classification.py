@@ -36,8 +36,8 @@ def main():
         st.write('No_neurons_per_layer:', No_neurons_per_layer)
 
         activation_per_layer = st.text_input('activation_per_layer = [string list (default=\'relu\')]: \n '
-                                             'input example 3 hidden layers: relu relu relu\n'
-                                             'but you can use: sigmoid, tanh and more', value='None')
+                                             'input example 3 hidden layers: relu relu relu'
+                                             '\nbut you can use: sigmoid, tanh and more', value='None')
         if activation_per_layer != 'None':
             def Convert(string):
                 li = list(string.split(" "))
