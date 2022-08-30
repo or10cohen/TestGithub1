@@ -155,12 +155,12 @@ def main():
                 data = f.read()
                 f.close()
 
-            with open("'Neural_Network_TF_Regression_Code.txt", mode="w") as f:
+            with open("Neural_Network_TF_Regression_Code.txt", mode="w") as f:
                 f.write(data)
                 f.close()
 
-        write_python_file("'Neural_Network_TF_Regression_Code.py")
-        st.code('Neural_Network_TF_Regression_Code.txt', language="python")
+        write_python_file("Neural_Network_TF_Regression_Code.py")
+        st.code(open('Neural_Network_TF_Regression_Code.txt', 'r'), language="python")
 
 
 ##-----------------------------------------------------------------------------------------------------------
