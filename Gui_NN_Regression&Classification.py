@@ -15,11 +15,12 @@ def main():
 
     if st.button('Run Function'):
         st.write('Running Function')
+        Run_Function = 'Run Function'
     else:
         st.write('Press run function to start')
+        Run_Function = 'Dont Run Function'
 
     with st.sidebar:
-        st.sidebar.header("Input Parameters")
         st.title('parameters for function: create_neural_network')
         No_hidden_layers = st.number_input('No_hidden_layer', value=3)
         st.write('No_hidden_layers:', No_hidden_layers)
