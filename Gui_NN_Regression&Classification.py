@@ -24,7 +24,7 @@ def main():
         st.sidebar.title('Input Parameters')
         st.title('parameters for function: create_neural_network')
         No_hidden_layers = st.number_input('No_hidden_layer', value=3)
-        st.write('No_hidden_layers:', No_hidden_layers)
+        st.write(No_hidden_layers)
 
 
         No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]: \n '
