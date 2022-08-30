@@ -129,38 +129,37 @@ def main():
                 data=file,
             )
 
-    col1, col2 = st.columns(2)
 
-    with col1:
-        if Run_Function == 'Run Function':
-            run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y, n_epochs=n_epoch)
-            run.split_and_normalize_data(test_size=test_size, random_state=random_state)
-            run.create_neural_network(No_hidden_layers=No_hidden_layers, No_neurons_per_layer=No_neurons_per_layer,
-                                      activation_per_layer=activation_per_layer)
-            run.run_model()
-            run.epochs_graph()
-            run.predict()
-            # run.save_and_load_model()
-        elif Run_Function == 'Dont Run Function':
-            print('press run function')
+    if Run_Function == 'Run Function':
+        run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y, n_epochs=n_epoch)
+        run.split_and_normalize_data(test_size=test_size, random_state=random_state)
+        run.create_neural_network(No_hidden_layers=No_hidden_layers, No_neurons_per_layer=No_neurons_per_layer,
+                                  activation_per_layer=activation_per_layer)
+        run.run_model()
+        run.epochs_graph()
+        run.predict()
+        # run.save_and_load_model()
+    elif Run_Function == 'Dont Run Function':
+        print('press run function')
 
-        NN_graph = Image.open('NN_graph.png')
-        st.image(NN_graph, caption='NN_graph.png')
-        LossFunctionPerEpoch = Image.open('Graph.png')
-        st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
+    NN_graph = Image.open('NN_graph.png')
+    st.image(NN_graph, caption='NN_graph.png')
+    LossFunctionPerEpoch = Image.open('Graph.png')
+    st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 
-    with col2:
-        def write_python_file(filename):
-            with open(filename) as f:
-                data = f.read()
-                f.close()
 
-            with open("Neural_Network_TF_Regression_Code.txt", mode="w") as f:
-                f.write(data)
-                f.close()
-            return data
+    def write_python_file(filename):
+        with open(filename) as f:
+            data = f.read()
+            f.close()
 
-        data = write_python_file("Neural_Network_TF_Regression_Code.py")
+        with open("Neural_Network_TF_Regression_Code.txt", mode="w") as f:
+            f.write(data)
+            f.close()
+        return data
+
+    data = write_python_file("Neural_Network_TF_Regression_Code.py")
+    with st.expander("See explanation"):
         st.code(data, language="python")
 
 
