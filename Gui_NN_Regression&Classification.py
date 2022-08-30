@@ -143,8 +143,8 @@ def main():
     LossFunctionPerEpoch = Image.open('Graph.png')
     st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 
-    with st.expander("See py code file"):
-        st.code(open("Neural_Network_TF_Regression_Code.py").read(), language="python")
+    # with st.expander("See py code file"):
+    #     st.code(open("Neural_Network_TF_Regression_Code.py").read(), language="python")
 
 
 ##-----------------------------------------------------------------------------------------------------------
