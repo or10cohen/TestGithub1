@@ -150,7 +150,17 @@ def main():
         st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 
     with col2:
-        st.code(open('Neural_Network_TF_Regression_Code.py', 'r'), language="python")
+        def write_python_file(filename):
+            with open(filename) as f:
+                data = f.read()
+                f.close()
+
+            with open("'Neural_Network_TF_Regression_Code.txt", mode="w") as f:
+                f.write(data)
+                f.close()
+
+        write_python_file("'Neural_Network_TF_Regression_Code.py")
+        st.code(open('Neural_Network_TF_Regression_Code.txt', 'r'), language="python")
 
 
 ##-----------------------------------------------------------------------------------------------------------
@@ -180,5 +190,6 @@ def main():
     # )
 ##-----------------------------------------------------------------------------------------------------------
 main()
+
 
 
