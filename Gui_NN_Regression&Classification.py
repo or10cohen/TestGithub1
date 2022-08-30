@@ -11,7 +11,7 @@ from PIL import Image
 
 def main():
     global Run_Function
-    st.title('Neural Network - by Oren Niazov')
+    st.title('\033[4m' + 'Neural Network - by Oren Niazov' + '\033[0m')
 
     if st.button('Run Function'):
         st.write('Running Function')
