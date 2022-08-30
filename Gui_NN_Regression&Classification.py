@@ -129,7 +129,7 @@ def main():
                 data=file,
             )
 
-    col1, col2 = st.columns(3)
+    col1, col2 = st.columns(2)
 
     with col1:
         if Run_Function == 'Run Function':
@@ -150,7 +150,7 @@ def main():
         st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 
     with col2:
-        st.code(open('Neural_Network_TF_Regression_Code.py'), language="python")
+        st.code(open('Neural_Network_TF_Regression_Code.py', 'r'), language="python")
 
 
 ##-----------------------------------------------------------------------------------------------------------
