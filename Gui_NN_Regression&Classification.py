@@ -28,12 +28,12 @@ def main():
 
 
         No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]: \n '
-                                             'example&default 3 layer: 444 \n', value='None')
-        if No_neurons_per_layer == 'None':
-            No_neurons_per_layer = 'None'
-        else:
+                                             'input example 3 hidden layers : 444 \n', value='None')
+        if No_neurons_per_layer != 'None':
             No_neurons_per_layer = [int(i) for i in str(No_neurons_per_layer)]
-        st.write('No_neurons_per_layer:', No_neurons_per_layer)
+            st.write('No_neurons_per_layer:', No_neurons_per_layer)
+        else:
+            pass
 
         activation_per_layer = st.text_input('activation_per_layer = [string list (default=\'relu\')]: \n '
                                              'example&default 3 layer: relu relu relu\n'
