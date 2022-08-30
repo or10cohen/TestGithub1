@@ -160,7 +160,7 @@ def main():
                 f.close()
 
         write_python_file("'Neural_Network_TF_Regression_Code.py")
-        st.code(open('Neural_Network_TF_Regression_Code.txt', 'r'), language="python")
+        st.code('Neural_Network_TF_Regression_Code.txt', language="python")
 
 
 ##-----------------------------------------------------------------------------------------------------------
