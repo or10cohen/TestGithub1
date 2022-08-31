@@ -9,9 +9,10 @@ from PIL import Image
 # import dash_bootstrap_components as dbc
 st.set_page_config(layout="wide")
 
+
 def main():
     global Run_Function
-    st.title('**Neural Network - by Oren Niazov**')
+    st.title('**Neural Network - by Oren Niazov & Or Yosef Cohen**')
 
     if st.button('Run Function'):
         st.write('Running Function')
@@ -25,7 +26,6 @@ def main():
         st.title('parameters for function: create_neural_network')
         No_hidden_layers = st.number_input('No_hidden_layer', value=3)
         st.write(No_hidden_layers)
-
 
         No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]: \n '
                                              'input example 3 hidden layers : 4 4 4 \n', value='None')
@@ -46,6 +46,27 @@ def main():
         else:
             pass
         st.write('No_neurons_per_layer:', activation_per_layer)
+
+        df = pd.read_csv('DATA/fake_reg.csv')
+        X = df[['feature1', 'feature2']].values
+        y = df['price'].values
+
+        label_kind = st.selectbox(
+            'which label your Data use?',
+            ('classification', 'multi classification', 'regression'))
+        st.write('label_kind', label_kind)
+
+        if label_kind == 'classification':
+            No_output_neurons = 1
+        elif label_kind == 'multi classification':
+            No_output_neurons = len(np.unique(y))
+        elif label_kind == 'regression':
+            No_output_neurons = 1
+        else:
+            print('Or')
+
+        st.write(No_output_neurons)
+
 
         st.title('parameters for function: run_model')
         batch_size = st.number_input('batch_size:', value=32)
@@ -132,7 +153,7 @@ def main():
         run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y, n_epochs=n_epoch)
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
         run.create_neural_network(No_hidden_layers=No_hidden_layers, No_neurons_per_layer=No_neurons_per_layer,
-                                  activation_per_layer=activation_per_layer)
+                                  activation_per_layer=activation_per_layer, No_output_neurons=No_output_neurons)
         run.run_model(optimizer=optimizer, loss=loss, batch_size=32)
         run.epochs_graph()
         predict_test, check_new_data = run.predict()
