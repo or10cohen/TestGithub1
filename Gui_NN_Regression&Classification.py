@@ -50,6 +50,9 @@ def main():
 
 
         st.title('parameters for function: run_model')
+        batch_size = st.number_input('batch_size:', value=32)
+        st.write('batch_size:', batch_size)
+
         optimizer = st.selectbox(
             'choose optimizer',
             ('SGD','rmsprop', 'adam', 'adamax', 'Nadam'))
@@ -57,7 +60,7 @@ def main():
         loss = st.selectbox(
             'choose loss function',
             ('mse', 'mse', 'mse'))
-        st.write('loss', loss)
+        st.write('loss ', loss)
         n_epoch = st.number_input('random_state:', value=250)
         st.write('n_epochs:', n_epoch)
 
@@ -130,7 +133,7 @@ def main():
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
         run.create_neural_network(No_hidden_layers=No_hidden_layers, No_neurons_per_layer=No_neurons_per_layer,
                                   activation_per_layer=activation_per_layer)
-        run.run_model()
+        run.run_model(optimizer=optimizer, loss=loss, batch_size=32)
         run.epochs_graph()
         predict_test, check_new_data = run.predict()
         # run.save_and_load_model()
