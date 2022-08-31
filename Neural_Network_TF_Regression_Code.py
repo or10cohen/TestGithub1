@@ -80,7 +80,7 @@ class FirsRegressionNeuralNetwork:
             print(self.activation_per_layer[i])
             layersList.append({"title": "hidden\n" + str((self.activation_per_layer[i])), "units": self.No_neurons_per_layer[i], "edges_width":1})
         layersList.append({"title": "output\n", "units": 1, "edges_color":"red", "color": "darkBlue"}) #output layer
-        NNV(layersList, max_num_nodes_visible=8, node_radius=10, spacing_layer=60, font_size=24).render(save_to_file="NN_graph.png")
+        NNV(layersList, max_num_nodes_visible=8, node_radius=10, spacing_layer=60, font_size=8).render(save_to_file="NN_graph.png")
         print(self.activation_per_layer)
         print(layersList)
         # ###------------------------0-----------------------------------
