@@ -65,7 +65,7 @@ def main():
         else:
             print('Or')
 
-        st.write(No_output_neurons)
+        st.write('Number of output neurons:' No_output_neurons)
 
 
         st.title('parameters for function: run_model')
