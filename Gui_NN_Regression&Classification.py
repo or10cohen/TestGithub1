@@ -47,7 +47,7 @@ def main():
             pass
         st.write('No_neurons_per_layer:', activation_per_layer)
 
-        df = pd.read_csv('DATA/fake_reg.csv')
+        df = pd.read_csv('fake_reg.csv')
         X = df[['feature1', 'feature2']].values
         y = df['price'].values
 
