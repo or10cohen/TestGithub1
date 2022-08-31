@@ -46,7 +46,7 @@ class FirsRegressionNeuralNetwork:
         if No_neurons_per_layer == 'None':
             No_neurons_per_layer = [4 for i in range(No_hidden_layers)]
         model3 = tf.keras.Sequential()  ## create  neural
-        model3.add(tf.keras.Input(shape=(self.X.shape[1],))) # input layer
+        model3.add(tf.keras.layers(activation='relu', shape=(self.X.shape[1],))) # input layer
         for i in range(No_hidden_layers):
             model3.add(tf.keras.layers.Dense(No_neurons_per_layer[i], activation=activation_per_layer[i]))
         model3.add(tf.keras.layers.Dense(1))  # output layer
