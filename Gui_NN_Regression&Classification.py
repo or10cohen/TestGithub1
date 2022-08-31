@@ -47,8 +47,6 @@ def main():
             pass
         st.write('No_neurons_per_layer:', activation_per_layer)
 
-
-
         st.title('parameters for function: run_model')
         batch_size = st.number_input('batch_size:', value=32)
         st.write('batch_size:', batch_size)
@@ -63,6 +61,7 @@ def main():
         st.write('loss ', loss)
         n_epoch = st.number_input('random_state:', value=250)
         st.write('n_epochs:', n_epoch)
+        st.write("Check out this to choose Loss Function [link](https://machinelearningmastery.com/how-to-choose-loss-functions-when-training-deep-learning-neural-networks/)")
 
 
         st.title('choose Datatype&Dataset')
