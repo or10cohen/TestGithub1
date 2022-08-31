@@ -138,11 +138,18 @@ def main():
     elif Run_Function == 'Dont Run Function':
         print('press run function')
 
-    NN_graph = Image.open('NN_graph.png')
-    st.image(NN_graph, caption='NN_graph.png')
-    LossFunctionPerEpoch = Image.open('Graph.png')
-    st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
-    st.dataframe(data=predict_test, width=None, height=None)
+    col1, col2= st.columns(2)
+
+    with col1:
+        NN_graph = Image.open('NN_graph.png')
+        st.image(NN_graph, caption='NN_graph.png')
+        LossFunctionPerEpoch = Image.open('Graph.png')
+        st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
+
+    with col2:
+        st.dataframe(data=predict_test, width=None, height=None)
+
+
 
     # with st.expander("See py code file"):
     #     st.code(open("Neural_Network_TF_Regression_Code.py").read(), language="python")
