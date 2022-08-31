@@ -125,7 +125,7 @@ def main():
                 data=file,
             )
 
-    col1, col2 = st.columns(2)
+
     if Run_Function == 'Run Function':
         run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y, n_epochs=n_epoch)
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
@@ -136,21 +136,21 @@ def main():
         predict_test, check_new_data = run.predict()
         # run.save_and_load_model()
 
-        with col1:
-            st.header("Loss Function Per Epoch")
-            LossFunctionPerEpoch = Image.open('Graph.png')
-            st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 
-        with col2:
-            tab1, tab2 = st.tabs(["Predict Table", "NN graph"])
-            with tab1:
-                st.header("Predict Table")
-                st.dataframe(data=predict_test, width=None, height=None)
+        st.header("Loss Function Per Epoch")
+        LossFunctionPerEpoch = Image.open('Graph.png')
+        st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 
-            with tab2:
-                st.header("NN graph")
-                NN_graph = Image.open('NN_graph.png')
-                st.image(NN_graph, caption='NN_graph.png')
+
+        tab1, tab2 = st.tabs(["Predict Table", "NN graph"])
+        with tab1:
+            st.header("Predict Table")
+            st.dataframe(data=predict_test, width=None, height=None)
+
+        with tab2:
+            st.header("NN graph")
+            NN_graph = Image.open('NN_graph.png')
+            st.image(NN_graph, caption='NN_graph.png')
 
 
     elif Run_Function == 'Dont Run Function':
