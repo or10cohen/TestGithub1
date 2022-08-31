@@ -106,14 +106,15 @@ class FirsRegressionNeuralNetwork:
         test_predict = self.model3.predict(self.X_test)
         test_predict = pd.Series(test_predict.reshape(len(self.X_test), ))
         pred_df = pd.DataFrame(self.y_test, columns=['Test True Y'])
-        pred_df = pd.concat([pred_df, test_predict], axis=1)
+        self.pred_df = pd.concat([pred_df, test_predict], axis=1)
         pred_df.columns = ['Test True Y', 'Model predict']
-        print(pred_df)
+        print(self.pred_df)
         ###------------------------predictions on new data without label------------------------
         self.new_gem = [[998, 1000]]
         self.new_gem = self.scalar.transform(self.new_gem)  # scale by the X_train
         print(self.new_gem)
         print(Fore.MAGENTA + 'predictions on new data without label', self.model3.predict(self.new_gem))
+        return self.pred_df, self.new_gem
 
     def accuracy(self):
         #use the metrices you use on model3.compile
