@@ -142,11 +142,16 @@ def main():
             st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 
         with col2:
-            st.header("predict_test Table")
-            st.dataframe(data=predict_test, width=None, height=None)
-            st.header("NN_graph")
-            NN_graph = Image.open('NN_graph.png')
-            st.image(NN_graph, caption='NN_graph.png')
+            tab1, tab2 = st.tabs(["Predict Table", "NN graph"])
+            with tab1:
+                st.header("Predict Table")
+                st.dataframe(data=predict_test, width=None, height=None)
+
+            with tab2:
+                st.header("NN graph")
+                NN_graph = Image.open('NN_graph.png')
+                st.image(NN_graph, caption='NN_graph.png')
+
 
     elif Run_Function == 'Dont Run Function':
         print('press run function')
