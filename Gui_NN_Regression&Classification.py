@@ -57,11 +57,11 @@ def main():
         st.write('label_kind', label_kind)
 
         if label_kind == 'classification':
-            No_output_neurons = 1
+            No_output_neurons = int(1)
         elif label_kind == 'multi classification':
-            No_output_neurons = len(np.unique(y))
+            No_output_neurons = int(len(np.unique(y)))
         elif label_kind == 'regression':
-            No_output_neurons = 1
+            No_output_neurons = int(1)
         else:
             print('Or')
 
@@ -153,7 +153,7 @@ def main():
         run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y, n_epochs=n_epoch)
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
         run.create_neural_network(No_hidden_layers=No_hidden_layers, No_neurons_per_layer=No_neurons_per_layer,
-                                  activation_per_layer=activation_per_layer)
+                                  activation_per_layer=activation_per_layer, No_output_neurons=No_output_neurons)
         run.run_model(optimizer=optimizer, loss=loss, batch_size=32)
         run.epochs_graph()
         predict_test, check_new_data = run.predict()
