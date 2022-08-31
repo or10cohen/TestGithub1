@@ -125,7 +125,7 @@ def main():
                 data=file,
             )
 
-
+    col1, col2 = st.columns(2)
     if Run_Function == 'Run Function':
         run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y, n_epochs=n_epoch)
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
@@ -135,23 +135,21 @@ def main():
         run.epochs_graph()
         predict_test, check_new_data = run.predict()
         # run.save_and_load_model()
-    elif Run_Function == 'Dont Run Function':
-        print('press run function')
 
-    col1, col2= st.columns(2)
+        with col1:
+            NN_graph = Image.open('NN_graph.png')
+            st.image(NN_graph, caption='NN_graph.png')
+            LossFunctionPerEpoch = Image.open('Graph.png')
+            st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 
-    with col1:
-        NN_graph = Image.open('NN_graph.png')
-        st.image(NN_graph, caption='NN_graph.png')
-        LossFunctionPerEpoch = Image.open('Graph.png')
-        st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
-
-    with col2:
-        if Run_Function == 'Run Function':
+        with col2:
             st.header("predict_test Table")
             st.dataframe(data=predict_test, width=None, height=None)
-        elif Run_Function == 'Dont Run Function':
-            pass
+
+    elif Run_Function == 'Dont Run Function':
+        print('press run function')
+    else:
+        print('Error with running button')
 
 
     # with st.expander("See py code file"):
