@@ -28,7 +28,7 @@ class FirsRegressionNeuralNetwork:
         self.X_train, self.X_test = self.scalar.transform(X_train), self.scalar.transform(X_test)
 
     def create_neural_network(self, No_hidden_layers=3, No_neurons_per_layer='None',
-                              activation_per_layer='None'):
+                              activation_per_layer='None', No_output_neurons=1):
         ###------------creat NN option1--------------------------
         model1 = tf.keras.Sequential([tf.keras.layers.Dense(4, activation='relu'),
                                       tf.keras.layers.Dense(3, activation='relu'),
@@ -49,7 +49,7 @@ class FirsRegressionNeuralNetwork:
         model3.add(tf.keras.Input(shape=(self.X.shape[1],))) # input layer
         for i in range(No_hidden_layers):
             model3.add(tf.keras.layers.Dense(No_neurons_per_layer[i], activation=activation_per_layer[i]))
-        model3.add(tf.keras.layers.Dense(1))  # output layer
+        model3.add(tf.keras.layers.Dense(No_output_neurons))  # output layer
         #------------------------------------------------------------
         self.model1, self.model2, self.model3, self.No_hidden_layers, self.No_neurons_per_layer,\
         self.activation_per_layer = model1, model2, model3, No_hidden_layers, No_neurons_per_layer, activation_per_layer
