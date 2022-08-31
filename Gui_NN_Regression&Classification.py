@@ -147,9 +147,11 @@ def main():
         st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 
     with col2:
-        st.header("predict_test Table")
-        st.dataframe(data=predict_test, width=None, height=None)
-
+        if Run_Function == 'Run Function':
+            st.header("predict_test Table")
+            st.dataframe(data=predict_test, width=None, height=None)
+        elif Run_Function == 'Dont Run Function':
+            pass
 
 
     # with st.expander("See py code file"):
