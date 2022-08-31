@@ -59,9 +59,10 @@ def main():
             'choose loss function',
             ('mse', 'mse', 'mse'))
         st.write('loss ', loss)
+        st.write("Check out this link to choose Loss Function [link](https://machinelearningmastery.com/how-to-choose-loss-functions-when-training-deep-learning-neural-networks/)")
+
         n_epoch = st.number_input('random_state:', value=250)
         st.write('n_epochs:', n_epoch)
-        st.write("Check out this to choose Loss Function [link](https://machinelearningmastery.com/how-to-choose-loss-functions-when-training-deep-learning-neural-networks/)")
 
 
         st.title('choose Datatype&Dataset')
