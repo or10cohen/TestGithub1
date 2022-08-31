@@ -135,12 +135,6 @@ def main():
         predict_test, check_new_data = run.predict()
         # run.save_and_load_model()
 
-
-        st.header("Loss Function Per Epoch")
-        LossFunctionPerEpoch = Image.open('Graph.png')
-        st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
-
-
         tab1, tab2, tab3, tab4 = st.tabs([ "NN graph", "Loss Function Per Epoch", "Predict Table", "Python Code"])
         with tab1:
             st.header("NN graph")
