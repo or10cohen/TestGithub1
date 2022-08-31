@@ -141,7 +141,7 @@ def main():
         st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 
 
-        tab1, tab2, tab3 = st.tabs([ "NN graph", "Loss Function Per Epoch", "Predict Table"])
+        tab1, tab2, tab3, tab4 = st.tabs([ "NN graph", "Loss Function Per Epoch", "Predict Table", "Python Code"])
         with tab1:
             st.header("NN graph")
             NN_graph = Image.open('NN_graph.png')
@@ -155,6 +155,9 @@ def main():
         with tab3:
             st.header("Predict Table")
             st.dataframe(data=predict_test, width=None, height=None)
+        with tab4:
+            st.header("Python Code")
+            st.code(open("Neural_Network_TF_Regression_Code.py").read(), language="python")
 
     elif Run_Function == 'Dont Run Function':
         print('press run function')
