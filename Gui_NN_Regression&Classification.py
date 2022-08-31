@@ -133,7 +133,7 @@ def main():
                                   activation_per_layer=activation_per_layer)
         run.run_model()
         run.epochs_graph()
-        run.predict()
+        predict_test, check_new_data = run.predict()
         # run.save_and_load_model()
     elif Run_Function == 'Dont Run Function':
         print('press run function')
@@ -142,6 +142,7 @@ def main():
     st.image(NN_graph, caption='NN_graph.png')
     LossFunctionPerEpoch = Image.open('Graph.png')
     st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
+    st.dataframe(data=predict_test, width=None, height=None)
 
     # with st.expander("See py code file"):
     #     st.code(open("Neural_Network_TF_Regression_Code.py").read(), language="python")
