@@ -137,14 +137,16 @@ def main():
         # run.save_and_load_model()
 
         with col1:
-            NN_graph = Image.open('NN_graph.png')
-            st.image(NN_graph, caption='NN_graph.png')
+            st.header("Loss Function Per Epoch")
             LossFunctionPerEpoch = Image.open('Graph.png')
             st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 
         with col2:
             st.header("predict_test Table")
             st.dataframe(data=predict_test, width=None, height=None)
+            st.header("NN_graph")
+            NN_graph = Image.open('NN_graph.png')
+            st.image(NN_graph, caption='NN_graph.png')
 
     elif Run_Function == 'Dont Run Function':
         print('press run function')
