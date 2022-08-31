@@ -147,6 +147,7 @@ def main():
         st.image(LossFunctionPerEpoch, caption='Loss Function Per Epoch')
 
     with col2:
+        st.header("predict_test Table")
         st.dataframe(data=predict_test, width=None, height=None)
 
 
