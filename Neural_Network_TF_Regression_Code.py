@@ -54,9 +54,9 @@ class FirsRegressionNeuralNetwork:
         self.model1, self.model2, self.model3, self.No_hidden_layers, self.No_neurons_per_layer,\
         self.activation_per_layer = model1, model2, model3, No_hidden_layers, No_neurons_per_layer, activation_per_layer
 
-    def run_model(self, optimizer='rmsprop', loss='mse'):   #loss classification = softmax(נותן לכל נוירון באווטפוט יחס לתשובה הנכונה, הסכום שווה ל1)
+    def run_model(self, optimizer='rmsprop', loss='mse', batch_size=32):   #loss classification = softmax(נותן לכל נוירון באווטפוט יחס לתשובה הנכונה, הסכום שווה ל1)
         self.model3.compile(optimizer=optimizer, loss=loss)  #optimizer = gradient decsent  , loss = loss function  ++metrices = 'accuracy'
-        self.model3.fit(x=self.X_train, y=self.y_train, epochs=self.n_epochs) #epoches = steps/iteraion in gradient decsent for all Data! ++batch_size=32
+        self.model3.fit(x=self.X_train, y=self.y_train, epochs=self.n_epochs, batch_size=batch_size) #epoches = steps/iteraion in gradient decsent for all Data! ++batch_size=32
         ## score = model2.evaluate(x_test, y_test) #++metrices = 'accuracy' on compile
         ##+fit(callback = earlysStopping - stop when 1. loss function no change or somthing else)
         ##+fit(callback = ModelCheck point - save the wihght in the process some time)
