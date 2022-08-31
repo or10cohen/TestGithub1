@@ -107,7 +107,7 @@ class FirsRegressionNeuralNetwork:
         test_predict = pd.Series(test_predict.reshape(len(self.X_test), ))
         pred_df = pd.DataFrame(self.y_test, columns=['Test True Y'])
         self.pred_df = pd.concat([pred_df, test_predict], axis=1)
-        pred_df.columns = ['Test True Y', 'Model predict']
+        self.pred_df.columns = ['Test True Y', 'Model predict']
         print(self.pred_df)
         ###------------------------predictions on new data without label------------------------
         self.new_gem = [[998, 1000]]
