@@ -155,6 +155,7 @@ def main():
         with tab3:
             st.header("Predict Table")
             st.dataframe(data=predict_test, width=None, height=None)
+
         with tab4:
             st.header("Python Code")
             st.code(open("Neural_Network_TF_Regression_Code.py").read(), language="python")
