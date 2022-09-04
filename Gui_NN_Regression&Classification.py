@@ -101,7 +101,7 @@ def main():
         label_kind = st.selectbox(
             'which label your Data use?',
             ('classification', 'multi classification', 'regression'))
-        st.write('label_kind', label_kind)
+        #st.write('label_kind', label_kind)
 
         if label_kind == 'classification':
             No_output_neurons = int(1)
