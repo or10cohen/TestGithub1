@@ -29,8 +29,8 @@ def main():
         No_hidden_layers = st.number_input('No. of hidden layers', value=3)
         st.write(No_hidden_layers)
 
-        No_neurons_per_layer = st.text_input('No. of neurons per layer \n '
-                                             'input example 3 hidden layers : 4 4 4 \n', value='None')
+        No_neurons_per_layer = st.text_input('No. of neurons per layer \n \
+                                             input example 3 hidden layers : 4 4 4 \n', value='None')
         if No_neurons_per_layer != 'None':
             No_neurons_per_layer = [int(i) for i in str(No_neurons_per_layer.replace(" ",""))]
         else:
