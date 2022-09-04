@@ -38,7 +38,7 @@ def main():
             #print('Error in \'input No. of neurons per layer\'')
         st.write(No_neurons_per_layer)
         activation_per_layer = st.text_input('activation per layer \n -- ', value='None')
-        st.write('example 3 hidden layers: relu relu relu' , 'but you can use: sigmoid, tanh and more'.)
+        st.write('example 3 hidden layers: relu relu relu but you can use: sigmoid, tanh and more')
         if activation_per_layer != 'None':
             def Convert(string):
                 li = list(string.split(" "))
