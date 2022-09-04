@@ -21,7 +21,7 @@ def main():
 ##----------------------------------Neural Network - by Oren Niazov-----------------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
     global Run_Function, Dataset
-st.title('**Neural Network - by Oren Niazov & Or Yosef Cohen**')
+    st.title('**Neural Network - by Oren Niazov & Or Yosef Cohen**')
 
     if st.button('Run Function'):
         st.write('Running Function')
