@@ -64,11 +64,12 @@ def main():
     #
         loss = st.selectbox(
             'choose loss function',
-            (losses.MeanSquaredError(), 'mse', 'mse'))
+            ('mse', 'mse', 'mse'))
         #st.write('loss', loss)
         n_epoch = st.number_input('No of epoch:', value=100)
-       # st.write('n_epochs:', n_epoch)
+        #st.write('n_epochs:', n_epoch)
         batch_size = st.number_input('batch_size:', value=32)
+        # st.write('batch_size:', batch_size)
 ##----------------------------------------------------------------------------------------------------------------------
 ##--------------------------------------------------- choose Datatype&Dataset-------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
