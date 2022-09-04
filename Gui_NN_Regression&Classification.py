@@ -17,11 +17,11 @@ st.set_page_config(layout="wide")
 
 def main():
 ##----------------------------------------------------------------------------------------------------------------------
-##----------------------------------Neural Network - by Oren Niazov-----------------------------------------------------
 ##----------------------------------------------main page---------------------------------------------------------------
+##----------------------------------Neural Network - by Oren Niazov-----------------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
-    global Run_Function
-    st.title('**Neural Network - by Oren Niazo & Or Yosef Cohen**')
+    global Run_Function, Dataset
+st.title('**Neural Network - by Oren Niazov & Or Yosef Cohen**')
 
     if st.button('Run Function'):
         st.write('Running Function')
@@ -29,6 +29,45 @@ def main():
     else:
         st.write('Press run function to start')
         Run_Function = 'Dont Run Function'
+##----------------------------------------------------------------------------------------------------------------------
+##--------------------------------------------------- choose Datatype&Dataset-------------------------------------------
+##----------------------------------------------------------------------------------------------------------------------
+        st.title('choose Datatype&Dataset')
+        Datatype = st.selectbox(
+            'choose Datatype',
+            ('Regression', 'Classification'))
+
+        if Datatype=='Regression':
+            Dataset = st.selectbox(
+                'choose Dataset',
+                ('fake_regression0', 'fake_regression1', 'fake_regression2'))
+
+        elif Datatype=='Classification':
+            Dataset = st.selectbox(
+                'choose Dataset',
+                ('fake_classification0', 'classification1', 'fake_classification2'))
+            st.write('Dataset:', Dataset)
+        else:
+            print('pay attention: something wrong with the Datatype choose')
+
+
+        if Dataset=='fake_regression0':
+            df = pd.read_csv('fake_reg.csv')
+            X = df[['feature1', 'feature2']].values
+            y = df['price'].values
+        elif Dataset=='fake_regression1':
+            Dataset = None
+        elif Dataset=='fake_regression2':
+            Dataset = None
+        elif Dataset=='fake_classification0':
+            Dataset = None
+        elif Dataset == 'fake_classification1':
+            Dataset = None
+        elif Dataset == 'fake_classification2':
+            Dataset = None
+        else:
+            print('pay attention: something wrong with the Dataset choose')
+
 ##----------------------------------------------------------------------------------------------------------------------
 ##----------------------------------------------sidebar-----------------------------------------------------------------
 ##----------------------------------------create_neural_network---------------------------------------------------------
@@ -57,7 +96,22 @@ def main():
         else:
             pass
             # print('Error in \'activation per layer\'')
-        st.write(activation_per_layer)
+        #st.write(activation_per_layer)
+
+        label_kind = st.selectbox(
+            'which label your Data use?',
+            ('classification', 'multi classification', 'regression'))
+        st.write('label_kind', label_kind)
+
+        if label_kind == 'classification':
+            No_output_neurons = int(1)
+        elif label_kind == 'multi classification':
+            No_output_neurons = int(len(np.unique(y)))
+        elif label_kind == 'regression':
+            No_output_neurons = int(1)
+        else:
+            print('Or')
+        st.write('Number of output neurons:', No_output_neurons)
 ##----------------------------------------------------------------------------------------------------------------------
 ##--------------------------------------------------- run_model---------------------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
@@ -74,30 +128,10 @@ def main():
         #st.write('n_epochs:', n_epoch)
         batch_size = st.number_input('batch_size:', value=32)
         # st.write('batch_size:', batch_size)
+
 ##----------------------------------------------------------------------------------------------------------------------
-##--------------------------------------------------- choose Datatype&Dataset-------------------------------------------
+##--------------------------------------------------- run_model---------------------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
-        st.title('choose Datatype&Dataset')
-        Datatype = st.selectbox(
-            'choose Datatype',
-            ('Regression', 'Classification'))
-        st.write('Datatype:', Datatype)
-
-        if Datatype=='Regression':
-            Dataset = st.selectbox(
-                'choose Dataset',
-                ('fake_regression0', 'fake_regression1', 'fake_regression2'))
-            st.write('Dataset:', Dataset)
-
-        elif Datatype=='Classification':
-            Dataset = st.selectbox(
-                'choose Dataset',
-                ('fake_classification0', 'classification1', 'fake_classification2'))
-            st.write('Dataset:', Dataset)
-        else:
-            print('pay attention: something wrong with the Datatype choose')
-
-
         st.title('parameters for function: split_and_normalize_data')
         test_size = st.number_input('test_size', value=0.3, format="%.2f")
         st.write('test_size:', test_size)
@@ -105,22 +139,7 @@ def main():
         st.write('random_state:', random_state)
 
 
-        if Dataset=='fake_regression0':
-            df = pd.read_csv('fake_reg.csv')
-            X = df[['feature1', 'feature2']].values
-            y = df['price'].values
-        elif Dataset=='fake_regression1':
-            Dataset = None
-        elif Dataset=='fake_regression2':
-            Dataset = None
-        elif Dataset=='fake_classification0':
-            Dataset = None
-        elif Dataset == 'fake_classification1':
-            Dataset = None
-        elif Dataset == 'fake_classification2':
-            Dataset = None
-        else:
-            print('pay attention: something wrong with the Dataset choose')
+
 
 
         ##----------------------download files you want to share-----------------------
@@ -144,7 +163,7 @@ def main():
         run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y)
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
         run.create_neural_network(No_hidden_layers=No_hidden_layers, No_neurons_per_layer=No_neurons_per_layer,
-                                  activation_per_layer=activation_per_layer)
+                                  activation_per_layer=activation_per_layer, No_output_neurons=No_output_neurons)
         run.run_model(optimizer=optimizer, loss=loss, batch_size=batch_size, n_epochs=n_epoch)
         run.epochs_graph()
         predict_test, check_new_data = run.predict()
