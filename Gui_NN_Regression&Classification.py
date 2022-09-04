@@ -7,6 +7,9 @@ import Neural_Network_TF_Classification_Code
 from PIL import Image
 # from dash import html
 # import dash_bootstrap_components as dbc
+import colorama
+from colorama import Fore, Back, Style
+colorama.init(autoreset=True)
 st.set_page_config(layout="wide")
 
 def main():
@@ -30,14 +33,14 @@ def main():
         st.write(No_hidden_layers)
 
         No_neurons_per_layer = st.text_input('No. of neurons per layer', value='None')
-        st.write('example 3 hidden layers : 4 4 4')
+        st.write(Fore.MAGENTA +'example 3 hidden layers : 4 4 4')
         if No_neurons_per_layer != 'None':
             No_neurons_per_layer = [int(i) for i in str(No_neurons_per_layer.replace(" ",""))]
         else:
             pass
             #print('Error in \'input No. of neurons per layer\'')
         st.write(No_neurons_per_layer)
-        activation_per_layer = st.text_input('activation per layer \n -- ', value='None')
+        activation_per_layer = st.text_input('activation per layer \n', value='None')
         st.write('example 3 hidden layers: relu relu relu but you can use: sigmoid, tanh and more')
         if activation_per_layer != 'None':
             def Convert(string):
