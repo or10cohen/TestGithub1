@@ -11,6 +11,9 @@ import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 st.set_page_config(layout="wide")
+from tensorflow.keras import losses
+
+
 
 def main():
     global Run_Function
@@ -30,7 +33,7 @@ def main():
         st.sidebar.title('_Input Parameters_')
         st.title('parameters for function: create_neural_network')
         No_hidden_layers = st.number_input('No. of hidden layers', value=3)
-        st.write(No_hidden_layers)
+        #st.write(No_hidden_layers)
 
         No_neurons_per_layer = st.text_input('No. of neurons per layer', value='None')
         st.write('example 3 hidden layers : 4 4 4')
@@ -49,6 +52,7 @@ def main():
             activation_per_layer = Convert(" ".join(activation_per_layer.split()))
         else:
             pass
+            # print('Error in \'activation per layer\'')
         st.write(activation_per_layer)
 ##----------------------------------------------------------------------------------------------------------------------
 ##--------------------------------------------------- run_model---------------------------------------------------------
@@ -57,15 +61,17 @@ def main():
         optimizer = st.selectbox(
             'choose optimizer',
             ('SGD','rmsprop', 'adam', 'adamax', 'Nadam'))
-        st.write('optimizer', optimizer)
+    #
         loss = st.selectbox(
             'choose loss function',
-            ('mse', 'mse', 'mse'))
-        st.write('loss', loss)
-        n_epoch = st.number_input('random_state:', value=100)
-        st.write('n_epochs:', n_epoch)
-
-
+            (losses.MeanSquaredError(), 'mse', 'mse'))
+        #st.write('loss', loss)
+        n_epoch = st.number_input('No of epoch:', value=100)
+       # st.write('n_epochs:', n_epoch)
+        batch_size = st.number_input('batch_size:', value=32)
+##----------------------------------------------------------------------------------------------------------------------
+##--------------------------------------------------- choose Datatype&Dataset-------------------------------------------
+##----------------------------------------------------------------------------------------------------------------------
         st.title('choose Datatype&Dataset')
         Datatype = st.selectbox(
             'choose Datatype',
@@ -134,7 +140,7 @@ def main():
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
         run.create_neural_network(No_hidden_layers=No_hidden_layers, No_neurons_per_layer=No_neurons_per_layer,
                                   activation_per_layer=activation_per_layer)
-        run.run_model()
+        run.run_model(optimizer=optimizer, loss=loss, batch_size=batch_size)
         run.epochs_graph()
         predict_test, check_new_data = run.predict()
         # run.save_and_load_model()
