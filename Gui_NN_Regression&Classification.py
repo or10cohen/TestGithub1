@@ -33,7 +33,7 @@ def main():
         st.write(No_hidden_layers)
 
         No_neurons_per_layer = st.text_input('No. of neurons per layer', value='None')
-        st.write(Fore.MAGENTA +'example 3 hidden layers : 4 4 4')
+        st.write('example 3 hidden layers : 4 4 4')
         if No_neurons_per_layer != 'None':
             No_neurons_per_layer = [int(i) for i in str(No_neurons_per_layer.replace(" ",""))]
         else:
