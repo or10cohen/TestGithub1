@@ -60,6 +60,7 @@ class FirsRegressionNeuralNetwork:
         ##+fit(callback = earlysStopping - stop when 1. loss function no change or somthing else)
         ##+fit(callback = ModelCheck point - save the wihght in the process some time)
         ##+fit(tensorBoard = debbug the neuralNetwork)
+        self.n_epochs = n_epochs
 
     def epochs_graph(self):
         ##---------------------graph epochs--------------------------
