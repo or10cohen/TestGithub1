@@ -19,25 +19,27 @@ def main():
     else:
         st.write('Press run function to start')
         Run_Function = 'Dont Run Function'
-##---------------------------------------------------sidebar------------------------------------------------------------
+##----------------------------------------------------------------------------------------------------------------------
+##----------------------------------------------sidebar-----------------------------------------------------------------
+##----------------------------------------create_neural_network---------------------------------------------------------
+##----------------------------------------------------------------------------------------------------------------------
     with st.sidebar:
         st.sidebar.title('_Input Parameters_')
         st.title('parameters for function: create_neural_network')
-        No_hidden_layers = st.number_input('No_hidden_layer', value=3)
+        No_hidden_layers = st.number_input('No. of hidden layers', value=3)
         st.write(No_hidden_layers)
 
-
-        No_neurons_per_layer = st.text_input('No_neurons_per_layers = [int list (default=4)]: \n '
+        No_neurons_per_layer = st.text_input('No. of neurons per layer \n '
                                              'input example 3 hidden layers : 4 4 4 \n', value='None')
         if No_neurons_per_layer != 'None':
             No_neurons_per_layer = [int(i) for i in str(No_neurons_per_layer.replace(" ",""))]
         else:
-            pass
-        st.write('No_neurons_per_layer:', No_neurons_per_layer)
+            print('Error in \'input No. of neurons per layer\'')
+        st.write(No_neurons_per_layer)
 
-        activation_per_layer = st.text_input('activation_per_layer = [string list (default=\'relu\')]: \n '
-                                             'input example 3 hidden layers: relu relu relu'
-                                             '\nbut you can use: sigmoid, tanh and more', value='None')
+        activation_per_layer = st.text_input('activation per layer \n'
+                                             'example 3 hidden layers: relu relu relu \n'
+                                             'but you can use: sigmoid, tanh and more', value='None')
         if activation_per_layer != 'None':
             def Convert(string):
                 li = list(string.split(" "))
@@ -46,9 +48,9 @@ def main():
         else:
             pass
         st.write('No_neurons_per_layer:', activation_per_layer)
-
-
-
+##----------------------------------------------------------------------------------------------------------------------
+##--------------------------------------------------- run_model---------------------------------------------------------
+##----------------------------------------------------------------------------------------------------------------------
         st.title('parameters for function: run_model')
         optimizer = st.selectbox(
             'choose optimizer',
@@ -58,7 +60,7 @@ def main():
             'choose loss function',
             ('mse', 'mse', 'mse'))
         st.write('loss', loss)
-        n_epoch = st.number_input('random_state:', value=250)
+        n_epoch = st.number_input('random_state:', value=100)
         st.write('n_epochs:', n_epoch)
 
 
