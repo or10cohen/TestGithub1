@@ -11,7 +11,7 @@ import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 st.set_page_config(layout="wide")
-from tensorflow.keras import losses
+#from tensorflow.keras import losses
 
 
 
@@ -137,11 +137,11 @@ def main():
             )
 
     if Run_Function == 'Run Function':
-        run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y, n_epochs=n_epoch)
+        run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y)
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
         run.create_neural_network(No_hidden_layers=No_hidden_layers, No_neurons_per_layer=No_neurons_per_layer,
                                   activation_per_layer=activation_per_layer)
-        run.run_model(optimizer=optimizer, loss=loss, batch_size=batch_size)
+        run.run_model(optimizer=optimizer, loss=loss, batch_size=batch_size, n_epochs=n_epoch)
         run.epochs_graph()
         predict_test, check_new_data = run.predict()
         # run.save_and_load_model()
