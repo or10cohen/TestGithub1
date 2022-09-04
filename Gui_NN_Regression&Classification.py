@@ -34,7 +34,8 @@ def main():
         if No_neurons_per_layer != 'None':
             No_neurons_per_layer = [int(i) for i in str(No_neurons_per_layer.replace(" ",""))]
         else:
-            print('Error in \'input No. of neurons per layer\'')
+            pass
+            #print('Error in \'input No. of neurons per layer\'')
         st.write(No_neurons_per_layer)
 
         activation_per_layer = st.text_input('activation per layer \n'
