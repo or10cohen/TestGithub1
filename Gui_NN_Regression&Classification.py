@@ -33,6 +33,7 @@ def main():
 ##--------------------------------------------------- choose Datatype&Dataset-------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
     with st.sidebar:
+        st.sidebar.title('_Input Parameters_')
         st.title('choose Datatype&Dataset')
         Datatype = st.selectbox(
             'choose Datatype',
@@ -73,7 +74,6 @@ def main():
 ##----------------------------------------------sidebar-----------------------------------------------------------------
 ##----------------------------------------create_neural_network---------------------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
-        st.sidebar.title('_Input Parameters_')
         st.title('parameters for function: create_neural_network')
         No_hidden_layers = st.number_input('No. of hidden layers', value=3)
         #st.write(No_hidden_layers)
@@ -96,7 +96,7 @@ def main():
         else:
             pass
             # print('Error in \'activation per layer\'')
-        #st.write(activation_per_layer)
+        st.write(activation_per_layer)
 
         label_kind = st.selectbox(
             'which label your Data use?',
