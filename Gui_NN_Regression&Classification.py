@@ -196,36 +196,6 @@ def main():
     else:
         print('Error with running button')
 
-
-    # with st.expander("See py code file"):
-    #     st.code(open("Neural_Network_TF_Regression_Code.py").read(), language="python")
-
-
-##-----------------------------------------------------------------------------------------------------------
-    # Grpah = st.radio(
-    #     "Choose graph",
-    #     ('Tx and Rx RMS current Load', 'Tx and Rx RMS current Min Load', 'arona - Efficency'))
-    #
-    # if Grpah == 'Tx and Rx RMS current Load':
-    #     st.image(Varona0, caption='Sunrise by the mountains')
-    # elif Grpah == 'Tx and Rx RMS current Min Load':
-    #     st.image(Varona1, caption='Sunrise by the mountains')
-    # elif Grpah == 'arona - Efficency':
-    #     st.image(Varona2, caption='Sunrise by the mountains')
-    # else:
-    #     st.write("You didn't select comedy.")
-
-##-----------------------------------------------------------------------------------------------------------
-    # carousel = dbc.Carousel(
-    #     items=[
-    #         {"key": "1", "src": "Varona - Vrect loaded (200W) vs. Min load - FB DC = 20 present.png"},
-    #         {"key": "2", "src": "Varona - Efficency.png"},
-    #         {"key": "3", "src": "Varona - Tx and Rx RMS current Min Load.png"},
-    #         {"key": "3", "src": "Varona - Tx and Rx RMS current Min Load.png"},
-    #     ],
-    #     controls=True,
-    #     indicators=True,
-    # )
 ##-----------------------------------------------------------------------------------------------------------
 main()
 
