@@ -100,7 +100,7 @@ def main():
 
         label_kind = st.selectbox(
             'which label your Data use?',
-            ('classification', 'multi classification', 'regression'))
+            ('regression', 'classification', 'multi classification'))
         #st.write('label_kind', label_kind)
 
         if label_kind == 'classification':
@@ -118,7 +118,7 @@ def main():
         st.title('parameters for function: run_model')
         optimizer = st.selectbox(
             'choose optimizer',
-            ('SGD','rmsprop', 'adam', 'adamax', 'Nadam'))
+            ('rmsprop','SGD', 'adam', 'adamax', 'Nadam'))
     #
         loss = st.selectbox(
             'choose loss function',
@@ -130,19 +130,16 @@ def main():
         # st.write('batch_size:', batch_size)
 
 ##----------------------------------------------------------------------------------------------------------------------
-##--------------------------------------------------- run_model---------------------------------------------------------
+##------------------------------------------- split_and_normalize_data--------------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
         st.title('parameters for function: split_and_normalize_data')
         test_size = st.number_input('test_size', value=0.3, format="%.2f")
         st.write('test_size:', test_size)
         random_state = st.number_input('random_state:', value=42)
         st.write('random_state:', random_state)
-
-
-
-
-
-        ##----------------------download files you want to share-----------------------
+##----------------------------------------------------------------------------------------------------------------------
+##-----------------------------------------download files you want to share---------------------------------------------
+##----------------------------------------------------------------------------------------------------------------------
         with open("Neural_Network_TF_Classification_Code.py") as file:
             btn = st.download_button(
                 label="Download Neural_Network_TF_Classification_Code Python Resources File",
