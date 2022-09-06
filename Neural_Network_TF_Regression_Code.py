@@ -92,7 +92,7 @@ class FirsRegressionNeuralNetwork:
 
     def save_and_load_model(self, model_name="Name_Model"):
         ###-----------------------save and load your model----------------------------------------
-        addr = 'C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\' + model_name
+        addr = model_name
         print(addr, type(addr))
         self.model.save(addr)
         loaded_model = tf.keras.models.load_model(addr)
