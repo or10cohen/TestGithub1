@@ -166,7 +166,6 @@ def main():
         run.run_model(optimizer=optimizer, loss=loss, batch_size=batch_size, n_epochs=n_epoch)
         run.epochs_graph()
         predict_test, check_new_data = run.predict()
-        run.save_and_load_model()
         # run.save_and_load_model()
 
 ##-------------------------------------------main page------------------------------------------------------------------
