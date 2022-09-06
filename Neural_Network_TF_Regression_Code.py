@@ -90,10 +90,10 @@ class FirsRegressionNeuralNetwork:
         #score = model3.evolaite()
         pass
 
-    def save_and_load_model(self):
+    def save_and_load_model(self, model_name="Name_Model"):
         ###-----------------------save and load your model----------------------------------------
-        self.model.save('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\')
-        loaded_model = tf.keras.models.load_model('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\')
+        self.model.save('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\' + model_name)
+        loaded_model = tf.keras.models.load_model('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\' + model_name)
         loaded_model.predict(self.new_gem)
         #print(Fore.MAGENTA + 'new model predictions on new data without label', loaded_model.predict(self.new_gem))
         if loaded_model.predict(self.new_gem) == self.model.predict(self.new_gem):
