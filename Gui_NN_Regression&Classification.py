@@ -9,7 +9,6 @@ from PIL import Image
 # import dash_bootstrap_components as dbc
 import colorama
 from colorama import Fore, Back, Style
-import tensorflow as tf
 colorama.init(autoreset=True)
 st.set_page_config(layout="wide")
 #from tensorflow.keras import losses
@@ -121,7 +120,7 @@ def main():
     #
         loss = st.selectbox(
             'choose loss function',
-            (tf.keras.losses.CategoricalCrossentropy(), 'mse', 'mse'))
+            ('mse', 'mse', 'mse'))
         #st.write('loss', loss)
         n_epoch = st.number_input('No of epoch:', value=100)
         #st.write('n_epochs:', n_epoch)
