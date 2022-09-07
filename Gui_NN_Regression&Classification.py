@@ -120,8 +120,8 @@ def main():
 
         loss = st.selectbox(
             'choose loss function',
-            'MeanSquaredError[reg]', 'MeanAbsoluteError[reg]', 'MeanAbsolutePercentageError[reg]','MeanSquaredLogarithmicError[reg]',
-            ('BinaryCrossentropy[class]', 'CategoricalCrossentropy[class]', 'SparseCategoricalCrossentropy[class]', 'Poisson[class]'))
+            ('MeanSquaredError[reg]', 'MeanAbsoluteError[reg]', 'MeanAbsolutePercentageError[reg]','MeanSquaredLogarithmicError[reg]',
+            'BinaryCrossentropy[class]', 'CategoricalCrossentropy[class]', 'SparseCategoricalCrossentropy[class]', 'Poisson[class]'))
 
         if loss == 'BinaryCrossentropy[class]':
             loss = losses.BinaryCrossentropy()
