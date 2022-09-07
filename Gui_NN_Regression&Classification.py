@@ -11,7 +11,8 @@ import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 st.set_page_config(layout="wide")
-#from tensorflow.keras import losses
+from tensorflow.keras import losses
+import tensorflow as tf
 
 
 def main():
@@ -117,10 +118,12 @@ def main():
         optimizer = st.selectbox(
             'choose optimizer',
             ('rmsprop','SGD', 'adam', 'adamax', 'Nadam'))
-    #
+
         loss = st.selectbox(
             'choose loss function',
             ('mse', 'mse', 'mse'))
+
+
         #st.write('loss', loss)
         n_epoch = st.number_input('No of epoch:', value=100)
         #st.write('n_epochs:', n_epoch)
@@ -163,7 +166,7 @@ def main():
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
         run.create_neural_network(No_hidden_layers=No_hidden_layers, No_neurons_per_layer=No_neurons_per_layer,
                                   activation_per_layer=activation_per_layer, No_output_neurons=No_output_neurons)
-        run.run_model(optimizer=optimizer, loss=loss, batch_size=batch_size, n_epochs=n_epoch)
+        run.run_model(optimizer=optimizer, loss=tf.keras.losses.CategoricalCrossentropy(), batch_size=batch_size, n_epochs=n_epoch)
         run.epochs_graph()
         predict_test, check_new_data = run.predict()
         # run.save_and_load_model()
@@ -195,6 +198,7 @@ def main():
         print('press run function')
     else:
         print('Error with running button')
+
 
 ##-----------------------------------------------------------------------------------------------------------
 main()
