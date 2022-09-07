@@ -121,23 +121,23 @@ def main():
         loss = st.selectbox(
             'choose loss function',
             'MeanSquaredError[reg]', 'MeanAbsoluteError[reg]', 'MeanAbsolutePercentageError[reg]','MeanSquaredLogarithmicError[reg]',
-            ('BinaryCrossentropy[class]', 'CategoricalCrossentropy[class]', 'SparseCategoricalCrossentropy', 'Poisson'))
+            ('BinaryCrossentropy[class]', 'CategoricalCrossentropy[class]', 'SparseCategoricalCrossentropy[class]', 'Poisson[class]'))
 
-        if loss == 'BinaryCrossentropy':
+        if loss == 'BinaryCrossentropy[class]':
             loss = losses.BinaryCrossentropy()
-        elif loss == 'CategoricalCrossentropy':
+        elif loss == 'CategoricalCrossentropy[class]':
             loss = losses.CategoricalCrossentropy()
-        elif loss == 'SparseCategoricalCrossentropy':
+        elif loss == 'SparseCategoricalCrossentropy[class]':
             loss = losses.SparseCategoricalCrossentropy()
-        elif loss == 'Poisson':
+        elif loss == 'Poisson[class]':
             loss = losses.Poisson()
-        elif loss == 'MeanSquaredError':
+        elif loss == 'MeanSquaredError[reg]':
             loss = losses.MeanSquaredError()
-        elif loss == 'MeanAbsoluteError':
+        elif loss == 'MeanAbsoluteError[reg]':
             loss = losses.MeanAbsoluteError()
-        elif loss == 'MeanAbsolutePercentageError':
+        elif loss == 'MeanAbsolutePercentageError[reg]':
             loss = losses.MeanAbsolutePercentageError()
-        elif loss == 'MeanSquaredLogarithmicError':
+        elif loss == 'MeanSquaredLogarithmicError[reg]':
             loss = losses.MeanSquaredLogarithmicError()
 
 
