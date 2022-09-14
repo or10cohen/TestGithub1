@@ -9,6 +9,7 @@ from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 from keras.utils.vis_utils import plot_model
 from nnv import NNV
+from PIL import Image
 
 ###https://keras.io/examples/
 
@@ -53,15 +54,20 @@ class CNN:
         x = tf.keras.layers.Dense(len(np.unique(cnn.y_train)), activation='softmax')(x)
         self.model = tf.keras.models.Model(i, x)
 
-    def run_model(self, optimizer='adam', loss='sparse_categorical_crossentropy', batch_size=32, n_epochs=10):
+    def run_model(self, optimizer='adam', loss='sparse_categorical_crossentropy', batch_size=32, n_epochs=2):
         self.model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
-        self.model.fit(x=self.X_train, y=self.y_train, validation_data=(self.X_test, self.y_test), epochs=n_epochs, batch_size=batch_size)
-
-        pass
+        self.modelFit = self.model.fit(x=self.X_train, y=self.y_train, validation_data=(self.X_test, self.y_test), epochs=n_epochs, batch_size=batch_size)
 
     def epochs_graph(self):
-       pass
-
+        plt.title("Lose Function Per Epoch")
+        plt.plot(self.modelFit.history['loss'], label='loss')
+        plt.plot(self.modelFit.history['val_loss'], label='val_loss')
+        plt.xlabel("Epochs")
+        plt.ylabel("Loss Function")
+        plt.savefig('Loss Function CNN.png')
+        im = Image.open('Loss Function CNN.png')
+        im.show()
+    #
     def predict(self):
         pass
 
@@ -82,3 +88,4 @@ if __name__ == '__main__':
     cnn.split_and_normalize_data(data)
     cnn.create_neural_network()
     cnn.run_model()
+    cnn.epochs_graph()
