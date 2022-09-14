@@ -53,7 +53,7 @@ class CNN:
         x = tf.keras.layers.Dense(len(np.unique(cnn.y_train)), activation='softmax')(x)
         self.model = tf.keras.models.Model(i, x)
 
-    def run_model(self, optimizer='adam', loss='sparse_categorical_crossentropy', batch_size=32, n_epochs=50):
+    def run_model(self, optimizer='adam', loss='sparse_categorical_crossentropy', batch_size=32, n_epochs=10):
         self.model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
         self.model.fit(x=self.X_train, y=self.y_train, validation_data=(self.X_test, self.y_test), epochs=n_epochs, batch_size=batch_size)
 
