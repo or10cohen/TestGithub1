@@ -112,3 +112,4 @@ if __name__ == '__main__':
     run.epochs_graph()
     run.predict()
     run.save_and_load_model()
+    tf.keras.losses.CategoricalCrossentropy()

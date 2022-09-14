@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import Neural_Network_TF_Regression_Code
-import Neural_Network_TF_Classification_Code
+import Convolution_Neural_Network_TF
 from PIL import Image
 # from dash import html
 # import dash_bootstrap_components as dbc
@@ -158,7 +158,7 @@ def main():
 ##---------------------------------------------------sidebar------------------------------------------------------------
 ##-----------------------------------------download files you want to share---------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
-        with open("Neural_Network_TF_Classification_Code.py") as file:
+        with open("Convolution_Neural_Network_TF.py") as file:
             btn = st.download_button(
                 label="Download Neural_Network_TF_Classification_Code Python Resources File",
                 data=file,
