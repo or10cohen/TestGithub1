@@ -158,17 +158,13 @@ def main():
 ##---------------------------------------------------sidebar------------------------------------------------------------
 ##-----------------------------------------download files you want to share---------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
-        with open("Convolution_Neural_Network_TF.py") as file:
+        with open("Neural_Network_TF_Regression_Classification_Code.py") as file:
             btn = st.download_button(
-                label="Download Neural_Network_TF_Classification_Code Python Resources File",
+                label="Download Neural_Network_TF_Regression_Classification_Code Python Resources File",
                 data=file,
             )
-        with open("Neural_Network_TF_Regression_Code.py") as file:
-            btn = st.download_button(
-                label="Download Neural_Network_TF_Regression_Code Python Resources File",
-                data=file,
-            )
-        with open("Gui_NN_Regression&Classification.py") as file:
+
+        with open("Gui_NN_Regression_Classification.py") as file:
             btn = st.download_button(
                 label="Download Gui_NN_Regression&Classification Python Resources File",
                 data=file,
@@ -179,7 +175,7 @@ def main():
 ##----------------------------------Neural Network - Run Function-------------------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
     if Run_Function == 'Run Function':
-        run = Neural_Network_TF_Regression&Classification_Code.FirsRegressionNeuralNetwork(X, y)
+        run = Neural_Network_TF_Regression_Classification_Code.FirsRegressionNeuralNetwork(X, y)
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
         run.create_neural_network(No_hidden_layers=No_hidden_layers, No_neurons_per_layer=No_neurons_per_layer,
                                   activation_per_layer=activation_per_layer, No_output_neurons=No_output_neurons)
