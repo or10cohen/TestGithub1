@@ -2,7 +2,7 @@ import numpy as np
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import Neural_Network_TF_Regression_Code
+import Neural_Network_TF_Regression&Classification_Code
 import Convolution_Neural_Network_TF
 from PIL import Image
 # from dash import html
@@ -179,7 +179,7 @@ def main():
 ##----------------------------------Neural Network - Run Function-------------------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
     if Run_Function == 'Run Function':
-        run = Neural_Network_TF_Regression_Code.FirsRegressionNeuralNetwork(X, y)
+        run = Neural_Network_TF_Regression&Classification_Code.FirsRegressionNeuralNetwork(X, y)
         run.split_and_normalize_data(test_size=test_size, random_state=random_state)
         run.create_neural_network(No_hidden_layers=No_hidden_layers, No_neurons_per_layer=No_neurons_per_layer,
                                   activation_per_layer=activation_per_layer, No_output_neurons=No_output_neurons)
