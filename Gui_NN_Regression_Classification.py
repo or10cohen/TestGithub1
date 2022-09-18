@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import Neural_Network_TF_Regression_Classification_Code
-import Convolution_Neural_Network_TF
+#import Convolution_Neural_Network_TF
 from PIL import Image
 # from dash import html
 # import dash_bootstrap_components as dbc
