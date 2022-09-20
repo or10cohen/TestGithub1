@@ -123,8 +123,8 @@ def main():
 ##-------------------------------------------main page------------------------------------------------------------------
 ##----------------------------------------tabs and Graphs---------------------------------------------------------------
 ##----------------------------------------------------------------------------------------------------------------------
-        tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([ "loss function per epoch graph", "accuracy per epoch graph",
-                                           "confusion_matrix", "Misclassified Sample", "visualize_training_data"])
+        tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["loss function per epoch graph", "accuracy per epoch graph",
+                                           "confusion_matrix", "Misclassified Sample", "visualize_training_data", "Python Code"])
         with tab1:
             st.header("Loss Function Per Epoch")
             NN_graph = Image.open('Loss_Function_CNN.png')
