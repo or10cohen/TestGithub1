@@ -157,7 +157,7 @@ class CNN:
         title = 'True label:' + str(self.labels[self.y_test[i]]) + 'Predicted:' +  str(self.labels[self.y_test[i]])
         plt.figure()
         plt.title(title)
-        plt.imsave('misclassified_index.png', self.X_test[i].reshape(data[0][0].shape[1:]))
+        plt.imsave('misclassified_index.png', self.X_test[i].reshape(self.data_size))
         im = Image.open('misclassified_index.png')
         im.show()
 
