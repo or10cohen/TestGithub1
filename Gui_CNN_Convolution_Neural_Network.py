@@ -19,7 +19,7 @@ def main():
 ##----------------------------------Convolution Neural Network - by Oren Niazov & Or Yosef Cohen------------------------
 ##----------------------------------------------------------------------------------------------------------------------
     global Run_Function, Dataset
-    st.title('**Convolotion Neural Network - by Oren Niazov & Or Yosef Cohen**')
+    st.title('**CNN - by Oren Niazov & Or Yosef Cohen**')
 
     if st.button('Run Function'):
         st.write('Running Function')
