@@ -55,7 +55,7 @@ def main():
         st.title('parameters for function: run_model')
         optimizer = st.selectbox(
             'choose optimizer',
-            ('rmsprop','SGD', 'adam', 'adamax', 'Nadam'))
+            ('adam', 'rmsprop','SGD', 'adamax', 'Nadam'))
 
         loss = st.selectbox(
             'choose loss function',
