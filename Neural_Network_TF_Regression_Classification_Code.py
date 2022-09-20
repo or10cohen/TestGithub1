@@ -8,7 +8,7 @@ from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 from keras.utils.vis_utils import plot_model
 from nnv import NNV
-
+from keras_sequential_ascii import keras2ascii
 ###https://keras.io/examples/
 
 
@@ -38,6 +38,7 @@ class FirsRegressionNeuralNetwork:
         for i in range(No_hidden_layers):
             model.add(tf.keras.layers.Dense(No_neurons_per_layer[i], activation=activation_per_layer[i]))
         model.add(tf.keras.layers.Dense(No_output_neurons))  # output layer
+        print(keras2ascii(model))
         #------------------------------------------------------------
         self.model, self.No_hidden_layers, self.No_neurons_per_layer, self.activation_per_layer = \
         model, No_hidden_layers, No_neurons_per_layer, activation_per_layer

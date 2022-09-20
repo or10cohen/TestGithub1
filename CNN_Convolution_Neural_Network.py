@@ -14,9 +14,11 @@ from scipy import ndimage, misc
 import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
+
 ###https://keras.io/examples/
 ####https://www.kaggle.com/getting-started/253300
 ###https://transcranial.github.io/keras-js/#/
+### dropout explain: https://github.com/christianversloot/machine-learning-articles/blob/main/how-to-use-dropout-with-keras.md
 
 class CNN:
     def __init__(self):
@@ -41,8 +43,7 @@ class CNN:
             self.data_type = 'CIFAR10'
         else:
             print('data are not fit to Mnist(28, 28) or CIFAR(32, 32, 3)')
-        print('X_train.shape:\n', self.X_train.shape, '\ny_train.shape:\n', self.y_train.shape, '\nX_test.shape:\n', self.X_test.shape, '\ny_test.shape:\n', self.y_test.shape)
-
+        #print('X_train.shape:\n', self.X_train.shape, '\ny_train.shape:\n', self.y_train.shape, '\nX_test.shape:\n', self.X_test.shape, '\ny_test.shape:\n', self.y_test.shape)
 
     def create_neural_network(self):
         print('self.X_train[0].shape:', self.X_train[0].shape)
@@ -59,7 +60,6 @@ class CNN:
         x = Dense(len(np.unique(self.y_train)), activation='softmax')(x)
         self.model = Model(i, x)
 
-
     def run_model(self, optimizer='adam', loss='sparse_categorical_crossentropy', batch_size=32, n_epochs=1):
         self.model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
         self.modelFit = self.model.fit(x=self.X_train, y=self.y_train, validation_data=(self.X_test, self.y_test), epochs=n_epochs, batch_size=batch_size)
@@ -72,8 +72,8 @@ class CNN:
         plt.xlabel("Epochs")
         plt.ylabel("Loss Function")
         plt.legend()
-        plt.savefig('Loss Function CNN.png')
-        im = Image.open('Loss Function CNN.png')
+        plt.savefig('Loss_Function_CNN.png')
+        im = Image.open('Loss_Function_CNN.png')
         im.show()
 
     def accuracy(self):
@@ -84,8 +84,8 @@ class CNN:
         plt.xlabel("Epochs")
         plt.ylabel("Loss Function")
         plt.legend()
-        plt.savefig('accuracy CNN.png')
-        im = Image.open('accuracy CNN.png')
+        plt.savefig('accuracy_CNN.png')
+        im = Image.open('accuracy_CNN.png')
         im.show()
 
     def predict_test_data(self):
@@ -147,8 +147,8 @@ class CNN:
         plt.ylim(len(self.labels) - 0.5, -0.5)
         plt.ylabel('True self.labels')
         plt.xlabel('Predicted self.labels')
-        plt.savefig('Confusion matrix.png', dpi=500, bbox_inches='tight')
-        im = Image.open('Confusion matrix.png')
+        plt.savefig('Confusion_matrix.png', dpi=500, bbox_inches='tight')
+        im = Image.open('Confusion_matrix.png')
         im.show()
 
     def misclassified(self):
@@ -161,7 +161,7 @@ class CNN:
         im = Image.open('misclassified_index.png')
         im.show()
 
-    def visualize_data_training(self):
+    def visualize_training_data(self):
         fig = plt.figure()
         for i in range(9):
             ran_idx = random.randint(0, len(self.X_train))
@@ -175,8 +175,6 @@ class CNN:
         im = Image.open('visualize_data_training.png')
         im.show()
 
-
-
     def import_new_data(self, new_data_path):
         pass
 
@@ -185,8 +183,22 @@ class CNN:
         #print('self.model.predict(self.import_new_data())', self.model.predict())
 
     def save_and_load_model(self):
-        self.model.save('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\save_CNN')
+        self.model.save('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\save_CNN.h5')
         #loaded_model = tf.keras.models.load_model('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\')
+
+    def visualize_model(self):
+        # import netron as nt
+        # from ann_visualizer.visualize import ann_viz
+        # plt.figure()
+        # ann_viz(self.model, view=True, title='CNN_model_ visualize')
+        # plt.savefig('CNN_model_ visualize', dpi=500, bbox_inches='tight')
+        # im = Image.open('CNN_model_ visualize')
+        # im.show()
+        #-----------------------------------------#---------------------------------------
+        # nt.start('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\save_CNN.h5', 8081)
+        # nt.stop()
+        pass
+
 
 
 if __name__ == '__main__':
@@ -203,9 +215,10 @@ if __name__ == '__main__':
     cnn.predict_test_data()
     cnn.confusion_matrix1()
     cnn.misclassified()
-    # cnn.import_new_data('dress.JPG')
-    # cnn.predict_new_data()
-    cnn.visualize_data_training()
-
+    cnn.import_new_data('dress.JPG')
+    cnn.predict_new_data()
+    cnn.visualize_training_data()
+    cnn.save_and_load_model()
+    cnn.visualize_model()
 
     # model_graph = plot_model(cnn.model, 'my_CNN_graph_model.png', show_shapes=True)
