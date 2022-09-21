@@ -157,7 +157,7 @@ class CNN:
         title = 'True label:' + str(self.labels[self.y_test[i]]) + 'Predicted:' +  str(self.labels[self.y_test[i]])
         plt.figure()
         plt.title(title)
-        plt.imshow(self.X_test[i].reshape(self.data_size), interpolation='nearest', cmap=cmap)
+        plt.imshow(self.X_test[i].reshape(self.data_size))
         plt.savefig('misclassified_index.png')
         im = Image.open('misclassified_index.png')
         im.show()
@@ -199,7 +199,6 @@ class CNN:
         # nt.start('C:\\Users\\or_cohen\\PycharmProjects\\TestGithub1\\save_CNN.h5', 8081)
         # nt.stop()
         pass
-
 
 
 if __name__ == '__main__':
