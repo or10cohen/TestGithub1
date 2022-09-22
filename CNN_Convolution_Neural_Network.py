@@ -63,11 +63,10 @@ class CNN:
 
     def run_model(self, optimizer='adam', loss='sparse_categorical_crossentropy', batch_size=32, n_epochs=1):
         self.model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
-        self.modelFit = self.model.fit(x=self.X_train, y=self.y_train, validation_data=(self.X_test, self.y_test), epochs=n_epochs, batch_size=batch_size)
-        # log_dir = 'logs/fit/' + datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
-        # tensorboard_callback=tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
-        # self.modelFit = self.model.fit(x=self.X_train, y=self.y_train, validation_data=(self.X_test, self.y_test),
-        #                                epochs=n_epochs, batch_size=batch_size, callbacks=[tensorboard_callback])
+        log_dir = 'logs/fit/' + datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
+        tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+        self.modelFit = self.model.fit(x=self.X_train, y=self.y_train, validation_data=(self.X_test, self.y_test),
+                                       epochs=n_epochs, batch_size=batch_size, callbacks=[tensorboard_callback])
 
     def loss_function(self):
         plt.figure()
