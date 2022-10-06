@@ -3,7 +3,7 @@ import random
 import pandas as pd
 import matplotlib.pyplot as plt
 import tensorflow as tf
-from tensorflow.keras.layers import Conv2D, add, Input, Dense, Flatten
+from tensorflow.keras.layers import Conv2D, add, Input, Dense, Flatten, Dropout, BatchNormalization, MaxPooling2D
 from tensorflow.keras.models import Model
 from nnv import NNV
 from PIL import Image
@@ -48,16 +48,27 @@ class CNN:
 
     def create_neural_network(self):
         print('self.X_train[0].shape:', self.X_train[0].shape)
-        i = Input(shape=self.X_train[0].shape) #self.X_train[0].shape = (28, 28, 1) or (32, 32, 3)
-        x = Conv2D(32, (3, 3), strides=2, padding='same', activation='relu')(i) #padding=same/valid/full
-        x = Conv2D(64, (3, 3), strides=2, padding='same', activation='relu')(x) # 64 No of filters
-        x = Conv2D(128, (3, 3), strides=2, padding='same', activation='relu')(x)
+        i = Input(shape=self.X_train[0].shape)  # self.X_train[0].shape = (28, 28, 1) or (32, 32, 3)
+        x = Conv2D(32, (3, 3), padding='same', activation='relu')(i)  # strides=2, padding=same/valid/full
+        x = BatchNormalization()(x)
+        x = Conv2D(32, (3, 3), padding='same', activation='relu')(x)  # strides=2, padding=same/valid/full
+        x = BatchNormalization()(x)
+        x = MaxPooling2D((2, 2))(x)
+        x = Conv2D(64, (3, 3), padding='same', activation='relu')(x)  # 64 No of filters
+        x = BatchNormalization()(x)
+        x = Conv2D(64, (3, 3), padding='same', activation='relu')(x)  # 64 No of filters
+        x = BatchNormalization()(x)
+        x = MaxPooling2D((2, 2))(x)
+        x = Conv2D(128, (3, 3), padding='same', activation='relu')(x)
+        x = BatchNormalization()(x)
+        x = Conv2D(128, (3, 3), padding='same', activation='relu')(x)
+        x = BatchNormalization()(x)
+        x = MaxPooling2D((2, 2))(x)
         x = Flatten()(x)
-        ######--------------------here convolotion stop and start NN---------------------------------------------------
-        #x = tf.keras.layers.Dropout(0.2)(x)
-        x = Dense(1024, activation='relu')(x) #Mnist 512
-        print('len(np.unique(self.y_train)):', len(np.unique(self.y_train)))
-        #x = tf.keras.layers.Dropout(0.2)(x)
+        ######--------------------here convolotion stop and NN start---------------------------------------------------
+        x = Dropout(0.2)(x)
+        x = Dense(1024, activation='relu')(x)  # Mnist 512
+        x = Dropout(0.2)(x)
         x = Dense(len(np.unique(self.y_train)), activation='softmax')(x)
         self.model = Model(i, x)
 
@@ -70,7 +81,7 @@ class CNN:
 
     def loss_function(self):
         plt.figure()
-        plt.title("Lose Function Per Epoch")
+        plt.title("Loss Function Per Epoch")
         plt.plot(self.modelFit.history['loss'], label='loss')
         plt.plot(self.modelFit.history['val_loss'], label='val_loss')
         plt.xlabel("Epochs")
@@ -209,11 +220,11 @@ if __name__ == '__main__':
     MNIST_data = tf.keras.datasets.fashion_mnist.load_data()  # N*28*28 (grayscale)
     CIFAR10_data = tf.keras.datasets.cifar10.load_data()  # N*32*32*3 (color image)
 
-    data = CIFAR10_data
+    data = MNIST_data
     cnn = CNN()
     cnn.split_and_normalize_data(data)
     cnn.create_neural_network()
-    cnn.run_model()
+    cnn.run_model(n_epochs=5)
     cnn.loss_function()
     cnn.accuracy()
     cnn.predict_test_data()
