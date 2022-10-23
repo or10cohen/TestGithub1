@@ -169,7 +169,7 @@ class CNN:
     def misclassified(self):
         misclassified_index = np.where(self.p_test != self.y_test)[0]
         i = np.random.choice(misclassified_index)
-        title = 'True label:' + str(self.labels[self.y_test[i]]) + 'Predicted:' +  str(self.labels[self.y_test[i]])
+        title = 'True label:' + str(self.labels[self.y_test[i]]) + 'Predicted:' +  str(self.labels[self.p_test[i]])
         plt.figure()
         plt.title(title)
         plt.imshow(self.X_test[i].reshape(self.data_size))
