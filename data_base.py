@@ -6,6 +6,8 @@ from datetime import datetime
 import os
 import ast
 import colorama
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import shutil
 from colorama import Fore, Back, Style
@@ -22,23 +24,22 @@ def create_readme_file(SN, ip):
         f.write('No. of graphs:  ' + str(len(list_graphs) - 1))
         f.writelines(['\n' + x for x in list_graphs])
 
-def check_last_update_vs_time_create(file_path):
+def check_last_update_vs_time_create(file_path, IP):
     time_create = datetime.fromtimestamp(os.path.getctime(file_path)).strftime('%Y-%m-%d %H:%M:%S')
-    with open('last_update.txt', 'r') as f:
+    with open(str(IP) + '/' + 'last_update_station: ' + str(IP) + '.txt', 'r') as f:
         last_update = f.read()
     # print(f'time_create > now    -   {time_create} > {last_update}:     {time_create > last_update}')
     # print(f'time_create < now    -   {time_create} < {last_update}:     {time_create < last_update}')
     return time_create < last_update
 
-def last_update_date():
-    with open('last_update.txt', 'w') as f:
+def last_update_date(IP):
+    with open(str(IP) + '/' + 'last_update_station: ' + str(IP) + '.txt', 'w') as f:
         f.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 def count_file_with_same_name(IP, SN):
     files_list = os.listdir(IP)
     count = [str(SN) in file for file in files_list].count(True)
     return count
-
 
 def search_str(file_path, find_next_data):
 
@@ -102,7 +103,6 @@ def search_str(file_path, find_next_data):
     len_lines = len(lines)
     return  data, len_lines, founded_data
 
-
 def create_graph(data, host, SN):
     # generate each graph present in data
     graph_data_titles = []
@@ -137,7 +137,6 @@ def create_graph(data, host, SN):
         # plt.pause(0.1)
         plt.close()
     return graph_data_titles
-
 
 def connect_with_sftp(host, username, password, target_folder, local_folder):
     #------------------------------Paramiko - Open and connect transport-----------------------------------------------#
@@ -189,8 +188,8 @@ def connect_with_sftp(host, username, password, target_folder, local_folder):
                 os.remove(host + '/' + str(count) + file)
 
 if __name__ == '__main__':
-    IPs = ['10.41.42.4', '10.41.42.10', '10.41.42.13', '10.41.42.28']
-    # IPs = ['10.41.42.13']
+    # IPs = ['10.41.42.4', '10.41.42.10', '10.41.42.13', '10.41.42.28']
+    IPs = ['10.41.42.28']
     for ip in IPs:
         host, username, password = ip, "harmonic", "harmonic"
         target_folder = "/home/harmonic/debug_logs/"
@@ -200,6 +199,7 @@ if __name__ == '__main__':
         time.sleep(0.00000001)
         connect_with_sftp(host, username, password, target_folder, host + '/')
         list_new_LOGs = [os.path.splitext(filename)[0] for filename in os.listdir(ip)]
+        # if 'last_update_station: ' + str(ip) + '.txt' in list_new_LOGs: list_new_LOGs.remove('last_update_station: ' + str(ip) + '.txt')
         list_new_LOGs.sort()
         # print('list_new_LOGs:       ',list_new_LOGs)
         for LOG in list_new_LOGs:
@@ -221,3 +221,5 @@ if __name__ == '__main__':
             shutil.move(os.path.join(host, str(LOG) + '.txt'), os.path.join(host + '/' + str(LOG), str(LOG) + '.txt'))
             create_readme_file(LOG, host)
         time.sleep(0.0000001)
+        # check_last_update_vs_time_create('file_path_we_want_to_check',ip)
+        # last_update_date(ip)
