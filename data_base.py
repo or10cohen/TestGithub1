@@ -189,7 +189,7 @@ def connect_with_sftp(host, username, password, target_folder, local_folder):
 
 if __name__ == '__main__':
     # IPs = ['10.41.42.4', '10.41.42.10', '10.41.42.13', '10.41.42.28']
-    IPs = ['10.41.42.28']
+    IPs = ['10.40.16.16']
     for ip in IPs:
         host, username, password = ip, "harmonic", "harmonic"
         target_folder = "/home/harmonic/debug_logs/"
@@ -197,7 +197,7 @@ if __name__ == '__main__':
         time.sleep(0.00000001)
         # create_directory_if_not_exists(host + '/' + 'half_LOGS')
         time.sleep(0.00000001)
-        connect_with_sftp(host, username, password, target_folder, host + '/')
+        # connect_with_sftp(host, username, password, target_folder, host + '/')
         list_new_LOGs = [os.path.splitext(filename)[0] for filename in os.listdir(ip)]
         # if 'last_update_station: ' + str(ip) + '.txt' in list_new_LOGs: list_new_LOGs.remove('last_update_station: ' + str(ip) + '.txt')
         list_new_LOGs.sort()
