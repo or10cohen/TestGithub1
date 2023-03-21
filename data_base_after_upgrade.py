@@ -168,3 +168,4 @@ if __name__ == '__main__':
     make_graphs = make_graps_from_log()
     host, username, password = '10.41.42.13', "harmonic", "harmonic"
     stdin, stdout, stderr = make_graphs.zip_logs(host, username=username, password=password)
+    print('1')
