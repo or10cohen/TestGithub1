@@ -10,6 +10,8 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import shutil
+from zipfile import ZipFile
+from pathlib import Path
 from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 
@@ -105,7 +107,7 @@ class make_graps_from_log():
                 founded_data['Error'] = True
                 print(Fore.LIGHTGREEN_EX + f'Error with search_str() function')
         len_lines = len(lines)
-        return  data, len_lines, founded_data
+        return data, len_lines, founded_data
 
     def create_graph(self, data, host, SN):
         # generate each graph present in data
@@ -134,7 +136,7 @@ class make_graps_from_log():
                             if any(curve["curve_name"] != "" for curve in subplot["curves"]):
                                 axs[i, j].legend()
                             axs[i, j].grid()
-            create_directory_if_not_exists(host + '/' + str(SN))
+            make_graps_from_log.create_directory_if_not_exists(host + '/' + str(SN))
             time.sleep(0.0000001)
             # print(str(SN[:12]))
             plt.savefig(host + '/' + str(SN) + '/' + graph["graph_title"] + ' SN - ' + SN[:12] + ".png")
@@ -148,24 +150,57 @@ class make_graps_from_log():
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         client.connect(host, username=username, password=password)
         stdin, stdout, stderr = client.exec_command("zip -r debug_logs debug_logs")
+        stdout.read().decode()
         print(stdout.read().decode())
         client.close()
+        print(Fore.LIGHTGREEN_EX + f'ziping log files in host IP: {host}')
         return stdin, stdout, stderr
 
-    def transfer_zip_file(self,target_folder, local_folder):
+    def transfer_zip_file(self, host, username, password, target_folder, local_folder):
         transport = paramiko.Transport((host, 22))
         transport.connect(username=username, password=password)
         sftp = paramiko.SFTPClient.from_transport(transport)
         # -------------------------------------transfer zip file from remote to host--------------------------------------------
-        filepath = target_folder +  'debug_logs'
-        localpath = local_folder + str(count) + file
+        filepath = target_folder + 'debug_logs.zip'
+        localpath = local_folder + '/' + host + '_logs_file.zip'
         sftp.get(filepath, localpath)
-
         transport.close()
+        print(Fore.LIGHTGREEN_EX + f'transferring zip file to local host: {host}')
+
+    def extract_zip_file(self, local_folder):
+        print(Fore.LIGHTGREEN_EX + f'starting to extract files from zip in folder: {host}')
+        self.path = local_folder + '/' + local_folder + '_logs_file.zip'
+        shutil.unpack_archive(self.path, local_folder)
+
+
+    def delete_zip_file(self, local_folder):
+        try:
+            os.remove(local_folder + '/' + local_folder + '_logs_file.zip')
+        except:
+            print(f"{local_folder}/{local_folder}_logs_file.zip already REMOVED")
+        print(Fore.LIGHTGREEN_EX + f'deleted zip file in folder: {host}')
+
+    def list_files(self, local_folder):
+        folders = os.listdir(local_folder + '/' + 'debug_logs')
+        for log_folder in folders:
+            path_list = os.listdir(local_folder + '/' + 'debug_logs' + '/' + log_folder)
+            for path in path_list:
+                data, Log_len, founded_data = make_graps_from_log.search_str(self, local_folder + '/' + 'debug_logs' + '/' + log_folder + '/' + path, 'end of Test UpStream Measurements')
+                data2, Log_len2, founded_data2 = make_graps_from_log.search_str(self, local_folder + '/' + 'debug_logs' + '/' + log_folder + '/' + path, 'serial number is: ')
+                print('founded_data:        ', founded_data)
+                print('founded_data2:        ', founded_data2)
+                print('Log_len:        ', Log_len)
+                print('Log_len2:        ', Log_len2)
 
 
 if __name__ == '__main__':
     make_graphs = make_graps_from_log()
     host, username, password = '10.41.42.13', "harmonic", "harmonic"
-    stdin, stdout, stderr = make_graphs.zip_logs(host, username=username, password=password)
-    print('1')
+    target_folder = "/home/harmonic/"
+    make_graphs.create_directory_if_not_exists(host)
+    local_folder = host
+    stdin, stdout, stderr = make_graphs.zip_logs(host, username, password)
+    make_graphs.transfer_zip_file(host, username, password, target_folder, host)
+    make_graphs.extract_zip_file(local_folder)
+    make_graphs.delete_zip_file(local_folder)
+    # make_graphs.list_files(local_folder)
