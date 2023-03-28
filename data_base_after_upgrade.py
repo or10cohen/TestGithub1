@@ -20,9 +20,13 @@ class make_graps_from_log():
         pass
 
     def create_directory_if_not_exists(self, directory):
+
         if not os.path.exists(directory):
-            os.makedirs(directory)
-            print(Fore.LIGHTBLUE_EX + f'new folder are made: {directory}')
+            try:
+                os.makedirs(directory)
+                print(Fore.LIGHTBLUE_EX + f'new folder are made: {directory}')
+            except:
+                print(Fore.RED + f'Error to create folder: {directory}')
 
     def create_readme_file(self, SN, ip):
         list_graphs = os.listdir(ip + '/' + SN)
@@ -72,7 +76,7 @@ class make_graps_from_log():
             return data
 
         founded_data = {'SN': False, 'end_test': False, 'full_band': False, 'flatness_and_tilt': False,
-                        'US': False, 'Error': False}
+                        'US': False, 'Error': False, 'len_lines': None, 'data_US': None, 'data_SN': None}
         location_data_lines, location_data_inside_lines, data = [], [], []
         time.sleep(0.00000001)
         with open(file_path, 'r', encoding='UTF8') as file:
@@ -107,7 +111,8 @@ class make_graps_from_log():
                 founded_data['Error'] = True
                 print(Fore.LIGHTGREEN_EX + f'Error with search_str() function')
         len_lines = len(lines)
-        return data, len_lines, founded_data
+        founded_data['len_lines'] = len_lines
+        return data, founded_data
 
     def create_graph(self, data, host, SN):
         # generate each graph present in data
@@ -136,7 +141,6 @@ class make_graps_from_log():
                             if any(curve["curve_name"] != "" for curve in subplot["curves"]):
                                 axs[i, j].legend()
                             axs[i, j].grid()
-            make_graps_from_log.create_directory_if_not_exists(host + '/' + str(SN))
             time.sleep(0.0000001)
             # print(str(SN[:12]))
             plt.savefig(host + '/' + str(SN) + '/' + graph["graph_title"] + ' SN - ' + SN[:12] + ".png")
@@ -172,35 +176,115 @@ class make_graps_from_log():
         self.path = local_folder + '/' + local_folder + '_logs_file.zip'
         shutil.unpack_archive(self.path, local_folder)
 
-
     def delete_zip_file(self, local_folder):
         try:
             os.remove(local_folder + '/' + local_folder + '_logs_file.zip')
+            print(Fore.LIGHTGREEN_EX + f'deleted zip file in folder: {host}')
         except:
             print(f"{local_folder}/{local_folder}_logs_file.zip already REMOVED")
-        print(Fore.LIGHTGREEN_EX + f'deleted zip file in folder: {host}')
 
     def list_files(self, local_folder):
+        self.all_path_list = []
         folders = os.listdir(local_folder + '/' + 'debug_logs')
         for log_folder in folders:
             path_list = os.listdir(local_folder + '/' + 'debug_logs' + '/' + log_folder)
             for path in path_list:
-                data, Log_len, founded_data = make_graps_from_log.search_str(self, local_folder + '/' + 'debug_logs' + '/' + log_folder + '/' + path, 'end of Test UpStream Measurements')
-                data2, Log_len2, founded_data2 = make_graps_from_log.search_str(self, local_folder + '/' + 'debug_logs' + '/' + log_folder + '/' + path, 'serial number is: ')
-                print('founded_data:        ', founded_data)
-                print('founded_data2:        ', founded_data2)
-                print('Log_len:        ', Log_len)
-                print('Log_len2:        ', Log_len2)
+                if '.log' in path:
+                    self.all_path_list.append(local_folder + '/' + 'debug_logs' + '/' + log_folder + '/' + os.path.relpath(path))
+                else:
+                    path_in_path_list = os.listdir(local_folder + '/' + 'debug_logs' + '/' + log_folder + '/' + path)
+                    for path_in_path in path_in_path_list:
+                        self.all_path_list.append(local_folder + '/' + 'debug_logs' + '/' + log_folder + '/' + path + '/' + os.path.relpath(path_in_path))
+        # print(self.all_path_list)
 
+        return self.all_path_list
+
+    def check_log(self):
+        self.all_path_dict = dict.fromkeys(self.all_path_list, "search US")
+        for path in self.all_path_list:
+            self.data_US, self.founded_data = make_graps_from_log.search_str(self, path, 'end of Test UpStream Measurements')
+            self.data_SN, self.founded_data2 = make_graps_from_log.search_str(self, path, 'serial number is: ')
+            self.all_path_dict[path] = self.founded_data
+            self.all_path_dict[path]['data_SN'] = self.data_SN
+            self.all_path_dict[path]['data_US'] = self.data_US
+            if self.founded_data2['SN'] == True:
+                self.all_path_dict[path]['SN'] = True
+
+    def graph_from_good_log(self, host):
+        False_data, removed_empty_data, logs_are_good, total_logs = 0, 0, 0, len(self.all_path_dict)
+        for key, value in self.all_path_dict.items():
+            print(key)
+            print(value)
+            if value['SN'] == True and value['end_test'] == True and int(value['len_lines']) > 20000:
+                if value["data_SN"] == []:
+                    os.remove(key)
+                    # print(Fore.GREEN + f'removed empty data:   {value["data_SN"]}  )
+                    removed_empty_data += 1
+                else:
+                    logs_are_good += 1
+                    # print(Fore.GREEN + f'full data:       {self.data2}')
+                    SN = value["data_SN"][0][-12:]
+                    SN_exists = host + '/' + SN + '.txt'
+                    if not os.path.isfile(SN_exists):
+                        new_file = os.path.join(host, SN + '.txt')
+                        os.rename(key, new_file)
+                        # print(Fore.GREEN + str(self.data))
+                    else:
+                        count2 = make_graphs.count_file_with_same_name(host, SN)
+                        # print(Fore.LIGHTCYAN_EX + 'count2', count2)
+                        new_file = os.path.join(host, SN + ' - ' + (str(count2 + 1)) + '.txt')
+                        os.rename(key, new_file)
+                        # print(Fore.LIGHTRED_EX + 'data:     ' + str(data2))
+            else:
+                False_data += 1
+                print(Fore.RED + 'SN/end_test/len_lines are False')
+                os.remove(key)
+        print(Fore.LIGHTRED_EX + f'total logs:  {total_logs}')
+        print(Fore.LIGHTRED_EX + f'False SN/end_test/len_lines:  {False_data}')
+        print(Fore.LIGHTRED_EX + f'removed_empty_data:  {removed_empty_data}')
+        print(Fore.LIGHTRED_EX + f'logs_are_good:  {logs_are_good}')
+
+    def delete_folder(self, local_folder):
+        try:
+            shutil.rmtree(local_folder + '/' + 'debug_logs')
+            print(Fore.LIGHTGREEN_EX + f'deleted folder debug_logs at : {host}')
+        except:
+            print(Fore.LIGHTGREEN_EX + f"{local_folder}/'debug_logs' already REMOVED")
 
 if __name__ == '__main__':
-    make_graphs = make_graps_from_log()
-    host, username, password = '10.41.42.13', "harmonic", "harmonic"
-    target_folder = "/home/harmonic/"
-    make_graphs.create_directory_if_not_exists(host)
-    local_folder = host
-    stdin, stdout, stderr = make_graphs.zip_logs(host, username, password)
-    make_graphs.transfer_zip_file(host, username, password, target_folder, host)
-    make_graphs.extract_zip_file(local_folder)
-    make_graphs.delete_zip_file(local_folder)
-    # make_graphs.list_files(local_folder)
+    IPs = ['10.41.42.4', '10.41.42.10', '10.41.42.13', '10.41.42.34']
+    for IP in IPs:
+        make_graphs = make_graps_from_log()
+        host, username, password = IP, "harmonic", "harmonic"
+        target_folder = "/home/harmonic/"
+        make_graphs.create_directory_if_not_exists(host)
+        local_folder = host
+        stdin, stdout, stderr = make_graphs.zip_logs(host, username, password)
+        make_graphs.transfer_zip_file(host, username, password, target_folder, host)
+        make_graphs.extract_zip_file(local_folder)
+        make_graphs.delete_zip_file(local_folder)
+        make_graphs.list_files(local_folder)
+        make_graphs.check_log()
+        make_graphs.graph_from_good_log(host)
+        make_graphs.delete_folder(host)
+        list_new_LOGs = [os.path.splitext(filename)[0] for filename in os.listdir(host)]
+        for LOG in list_new_LOGs:
+            make_graphs.create_directory_if_not_exists(host + '/' + str(LOG))
+            # print('LOG:     ', LOG)
+            find_next_data = {'DS1_DS2_Band': "[{'graph_title': 'DS1 Full bandwidth signal",
+                              'DS1_Tilt_0': "{'graph_title': 'DS1 Flatness and Tilt 0",
+                              'DS1_Tilt_7': "{'graph_title': 'DS1 Flatness and Tilt 7",
+                              'DS1_Tilt_13': "{'graph_title': 'DS1 Flatness and Tilt 13",
+                              'DS2_Tilt_0': "{'graph_title': 'DS2 Flatness and Tilt 0",
+                              'DS2_Tilt_7': "{'graph_title': 'DS2 Flatness and Tilt 7",
+                              'DS2_Tilt_13': "{'graph_title': 'DS2 Flatness and Tilt 13",
+                              'US_All': "{'graph_title': 'US"}
+            for keys, value in find_next_data.items():
+                # print('keys:        ', keys)
+                # print('value:        ', value)
+                datas, founded_data = make_graphs.search_str(host + '/' + LOG + '.txt', value)
+                for data in datas:
+                    make_graphs.create_graph([data], host, LOG)
+            shutil.move(os.path.join(host, str(LOG) + '.txt'), os.path.join(host + '/' + str(LOG), str(LOG) + '.txt'))
+            make_graphs.create_readme_file(LOG, host)
+        time.sleep(0.0000001)
