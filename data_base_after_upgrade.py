@@ -1,4 +1,5 @@
 import logging
+import numpy as np
 import time
 import linecache
 import paramiko
@@ -34,17 +35,28 @@ class make_graps_from_log():
             f.write('No. of graphs:  ' + str(len(list_graphs) - 1))
             f.writelines(['\n' + x for x in list_graphs])
 
-    def check_last_update_vs_time_create(self, file_path, IP):
-        time_create = datetime.fromtimestamp(os.path.getctime(file_path)).strftime('%Y-%m-%d %H:%M:%S')
-        with open(str(IP) + '/' + 'last_update_station: ' + str(IP) + '.txt', 'r') as f:
+    def check_last_update(self):
+        with open('last_update.txt', 'r') as f:
             last_update = f.read()
-        # print(f'time_create > now    -   {time_create} > {last_update}:     {time_create > last_update}')
-        # print(f'time_create < now    -   {time_create} < {last_update}:     {time_create < last_update}')
-        return time_create < last_update
+        print(Fore.LIGHTGREEN_EX + f'last update: {last_update}')
 
     def last_update_date(self, IP):
-        with open(str(IP) + '/' + 'last_update_station: ' + str(IP) + '.txt', 'w') as f:
+        with open('last_update.txt', 'w') as f:
             f.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+    def filter_logs_are_already_exist(self):
+        print('len all logs before filters logs_are_already_exist', self.all_path_list)
+        print('all logs before filters logs_are_already_exist', len(self.all_path_list))
+        path_count = []
+        [path_count.append(path.count('/')) for path in self.all_path_list]
+        print(path_count)
+        where_4_in_path_count = np.where(np.array(path_count)==4)
+        print(where_4_in_path_count)
+        where_4_in_path_count = where_4_in_path_count[0].tolist()
+        print(where_4_in_path_count)
+
+        # print('all logs after filters logs_are_already_exist', self.all_path_list)
+        # print('len all logs after filters logs_are_already_exist', len(self.all_path_list))
 
     def count_file_with_same_name(self, IP, SN):
         files_list = os.listdir(IP)
@@ -253,8 +265,9 @@ class make_graps_from_log():
 
 if __name__ == '__main__':
     IPs = ['10.41.42.4', '10.41.42.10', '10.41.42.13', '10.41.42.34']
+    make_graphs = make_graps_from_log()
+    make_graphs.check_last_update()
     for IP in IPs:
-        make_graphs = make_graps_from_log()
         host, username, password = IP, "harmonic", "harmonic"
         target_folder = "/home/harmonic/"
         make_graphs.create_directory_if_not_exists(host)
@@ -264,27 +277,25 @@ if __name__ == '__main__':
         make_graphs.extract_zip_file(local_folder)
         make_graphs.delete_zip_file(local_folder)
         make_graphs.list_files(local_folder)
-        make_graphs.check_log()
-        make_graphs.graph_from_good_log(host)
-        make_graphs.delete_folder(host)
-        list_new_LOGs = [os.path.splitext(filename)[0] for filename in os.listdir(host)]
-        for LOG in list_new_LOGs:
-            make_graphs.create_directory_if_not_exists(host + '/' + str(LOG))
-            # print('LOG:     ', LOG)
-            find_next_data = {'DS1_DS2_Band': "[{'graph_title': 'DS1 Full bandwidth signal",
-                              'DS1_Tilt_0': "{'graph_title': 'DS1 Flatness and Tilt 0",
-                              'DS1_Tilt_7': "{'graph_title': 'DS1 Flatness and Tilt 7",
-                              'DS1_Tilt_13': "{'graph_title': 'DS1 Flatness and Tilt 13",
-                              'DS2_Tilt_0': "{'graph_title': 'DS2 Flatness and Tilt 0",
-                              'DS2_Tilt_7': "{'graph_title': 'DS2 Flatness and Tilt 7",
-                              'DS2_Tilt_13': "{'graph_title': 'DS2 Flatness and Tilt 13",
-                              'US_All': "{'graph_title': 'US"}
-            for keys, value in find_next_data.items():
-                # print('keys:        ', keys)
-                # print('value:        ', value)
-                datas, founded_data = make_graphs.search_str(host + '/' + LOG + '.txt', value)
-                for data in datas:
-                    make_graphs.create_graph([data], host, LOG)
-            shutil.move(os.path.join(host, str(LOG) + '.txt'), os.path.join(host + '/' + str(LOG), str(LOG) + '.txt'))
-            make_graphs.create_readme_file(LOG, host)
-        time.sleep(0.0000001)
+        make_graphs.filter_logs_are_already_exist()
+        # make_graphs.check_log()
+        # make_graphs.graph_from_good_log(host)
+        # make_graphs.delete_folder(host)
+        # list_new_LOGs = [os.path.splitext(filename)[0] for filename in os.listdir(host)]
+        # for LOG in list_new_LOGs:
+        #     make_graphs.create_directory_if_not_exists(host + '/' + str(LOG))
+        #     find_next_data = {'DS1_DS2_Band': "[{'graph_title': 'DS1 Full bandwidth signal",
+        #                       'DS1_Tilt_0': "{'graph_title': 'DS1 Flatness and Tilt 0",
+        #                       'DS1_Tilt_7': "{'graph_title': 'DS1 Flatness and Tilt 7",
+        #                       'DS1_Tilt_13': "{'graph_title': 'DS1 Flatness and Tilt 13",
+        #                       'DS2_Tilt_0': "{'graph_title': 'DS2 Flatness and Tilt 0",
+        #                       'DS2_Tilt_7': "{'graph_title': 'DS2 Flatness and Tilt 7",
+        #                       'DS2_Tilt_13': "{'graph_title': 'DS2 Flatness and Tilt 13",
+        #                       'US_All': "{'graph_title': 'US"}
+        #     for keys, value in find_next_data.items():
+        #         datas, founded_data = make_graphs.search_str(host + '/' + LOG + '.txt', value)
+        #         for data in datas:
+        #             make_graphs.create_graph([data], host, LOG)
+        #     shutil.move(os.path.join(host, str(LOG) + '.txt'), os.path.join(host + '/' + str(LOG), str(LOG) + '.txt'))
+        #     make_graphs.create_readme_file(LOG, host)
+        # time.sleep(0.0000001)
