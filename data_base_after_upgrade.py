@@ -207,7 +207,7 @@ class make_graps_from_log():
                     path_in_path_list = os.listdir(local_folder + '/' + 'debug_logs' + '/' + log_folder + '/' + path)
                     for path_in_path in path_in_path_list:
                         self.all_path_list.append(local_folder + '/' + 'debug_logs' + '/' + log_folder + '/' + path + '/' + os.path.relpath(path_in_path))
-        # print(self.all_path_list)
+        print(self.all_path_list)
 
         return self.all_path_list
 
@@ -264,7 +264,8 @@ class make_graps_from_log():
             print(Fore.LIGHTGREEN_EX + f"{local_folder}/'debug_logs' already REMOVED")
 
 if __name__ == '__main__':
-    IPs = ['10.41.42.4', '10.41.42.10', '10.41.42.13', '10.41.42.34']
+    #IPs = ['10.41.42.4', '10.41.42.10', '10.41.42.13', '10.41.42.34']
+    IPs = ['10.41.42.10']
     make_graphs = make_graps_from_log()
     make_graphs.check_last_update()
     for IP in IPs:
@@ -278,24 +279,24 @@ if __name__ == '__main__':
         make_graphs.delete_zip_file(local_folder)
         make_graphs.list_files(local_folder)
         make_graphs.filter_logs_are_already_exist()
-        # make_graphs.check_log()
-        # make_graphs.graph_from_good_log(host)
-        # make_graphs.delete_folder(host)
-        # list_new_LOGs = [os.path.splitext(filename)[0] for filename in os.listdir(host)]
-        # for LOG in list_new_LOGs:
-        #     make_graphs.create_directory_if_not_exists(host + '/' + str(LOG))
-        #     find_next_data = {'DS1_DS2_Band': "[{'graph_title': 'DS1 Full bandwidth signal",
-        #                       'DS1_Tilt_0': "{'graph_title': 'DS1 Flatness and Tilt 0",
-        #                       'DS1_Tilt_7': "{'graph_title': 'DS1 Flatness and Tilt 7",
-        #                       'DS1_Tilt_13': "{'graph_title': 'DS1 Flatness and Tilt 13",
-        #                       'DS2_Tilt_0': "{'graph_title': 'DS2 Flatness and Tilt 0",
-        #                       'DS2_Tilt_7': "{'graph_title': 'DS2 Flatness and Tilt 7",
-        #                       'DS2_Tilt_13': "{'graph_title': 'DS2 Flatness and Tilt 13",
-        #                       'US_All': "{'graph_title': 'US"}
-        #     for keys, value in find_next_data.items():
-        #         datas, founded_data = make_graphs.search_str(host + '/' + LOG + '.txt', value)
-        #         for data in datas:
-        #             make_graphs.create_graph([data], host, LOG)
-        #     shutil.move(os.path.join(host, str(LOG) + '.txt'), os.path.join(host + '/' + str(LOG), str(LOG) + '.txt'))
-        #     make_graphs.create_readme_file(LOG, host)
-        # time.sleep(0.0000001)
+        make_graphs.check_log()
+        make_graphs.graph_from_good_log(host)
+        make_graphs.delete_folder(host)
+        list_new_LOGs = [os.path.splitext(filename)[0] for filename in os.listdir(host)]
+        for LOG in list_new_LOGs:
+            make_graphs.create_directory_if_not_exists(host + '/' + str(LOG))
+            find_next_data = {'DS1_DS2_Band': "[{'graph_title': 'DS1 Full bandwidth signal",
+                              'DS1_Tilt_0': "{'graph_title': 'DS1 Flatness and Tilt 0",
+                              'DS1_Tilt_7': "{'graph_title': 'DS1 Flatness and Tilt 7",
+                              'DS1_Tilt_13': "{'graph_title': 'DS1 Flatness and Tilt 13",
+                              'DS2_Tilt_0': "{'graph_title': 'DS2 Flatness and Tilt 0",
+                              'DS2_Tilt_7': "{'graph_title': 'DS2 Flatness and Tilt 7",
+                              'DS2_Tilt_13': "{'graph_title': 'DS2 Flatness and Tilt 13",
+                              'US_All': "{'graph_title': 'US"}
+            for keys, value in find_next_data.items():
+                datas, founded_data = make_graphs.search_str(host + '/' + LOG + '.txt', value)
+                for data in datas:
+                    make_graphs.create_graph([data], host, LOG)
+            shutil.move(os.path.join(host, str(LOG) + '.txt'), os.path.join(host + '/' + str(LOG), str(LOG) + '.txt'))
+            make_graphs.create_readme_file(LOG, host)
+        time.sleep(0.0000001)
